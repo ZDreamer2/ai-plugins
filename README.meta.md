@@ -4,9 +4,9 @@ Specification for creating and editing [marketplace README](README.md). Defines 
 
 ## README.md goals and principles
 
-- Orients maintainers working with the standalone two-plugin extraction, without implying deployment or consumer migration.
+- Orients maintainers working with the standalone two-plugin marketplace, distinguishing GitLab publication from unconfigured GitHub delivery and consumer migration.
 - Keeps executable local verification reproducible without the original checkout, shared SDK or downloaded Python dependencies.
-- Distinguishes extraction provenance and planned publication from enabled services; licensing remains an owner decision.
+- Owns local verification and GitLab publication operations, including the shared-runner trust boundary, credential renewal and artifact verification. Extraction provenance and unimplemented delivery stages stay distinct; licensing remains an owner decision.
 
 ## AiDocFormat
 

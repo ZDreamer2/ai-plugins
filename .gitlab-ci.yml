@@ -1,0 +1,64 @@
+stages:
+  - build
+  - publish
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - when: never
+
+default:
+  tags:
+    - bc-plugins-publication
+
+variables:
+  GIT_DEPTH: "0"
+  MARKETPLACE_PYTHON: python3
+  PYTHONDONTWRITEBYTECODE: "1"
+
+build-distributions:
+  stage: build
+  script:
+    - |
+      "$MARKETPLACE_PYTHON" -B -S -c 'import sys; print("Marketplace Python:", sys.version.split()[0]); sys.exit(0 if sys.version_info >= (3, 10) else 1)'
+      test "$(git rev-parse HEAD)" = "$CI_COMMIT_SHA"
+      rm -rf "$CI_PROJECT_DIR/@build"
+      "$MARKETPLACE_PYTHON" -B -S ai-marketplace/scripts/build.py --dir "$CI_PROJECT_DIR"
+      "$MARKETPLACE_PYTHON" -B -S ai-marketplace/scripts/validate_pi.py --dir "$CI_PROJECT_DIR" --tree "$CI_PROJECT_DIR/@build/pi"
+      printf '%s\n' "$CI_COMMIT_SHA" > "$CI_PROJECT_DIR/@build/source-revision"
+      printf '%s\n' "$CI_COMMIT_SHA" > "$CI_PROJECT_DIR/@build/builder-revision"
+      printf '%s\n' python > "$CI_PROJECT_DIR/@build/builder-kind"
+  artifacts:
+    paths:
+      - "@build/"
+    expire_in: 1 day
+
+.publish-template:
+  stage: publish
+  needs:
+    - job: build-distributions
+      artifacts: true
+  resource_group: zd-plugins-publication
+  script:
+    - bash .gitlab/publish.sh
+
+publish-claude:
+  extends: .publish-template
+  variables:
+    AGENT_TREE: claude
+    TARGET_REMOTE: "https://oauth2:${CLAUDE_BUILD_REPO_TOKEN}@g.bt.su/bico/generated/zd-plugins-claude.git"
+    PUBLICATION_TOKEN: "$CLAUDE_BUILD_REPO_TOKEN"
+
+publish-codex:
+  extends: .publish-template
+  variables:
+    AGENT_TREE: codex
+    TARGET_REMOTE: "https://oauth2:${CODEX_BUILD_REPO_TOKEN}@g.bt.su/bico/generated/zd-plugins-codex.git"
+    PUBLICATION_TOKEN: "$CODEX_BUILD_REPO_TOKEN"
+
+publish-pi:
+  extends: .publish-template
+  variables:
+    AGENT_TREE: pi
+    TARGET_REMOTE: "https://oauth2:${PI_BUILD_REPO_TOKEN}@g.bt.su/bico/generated/zd-plugins-pi.git"
+    PUBLICATION_TOKEN: "$PI_BUILD_REPO_TOKEN"

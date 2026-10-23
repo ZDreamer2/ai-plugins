@@ -40,7 +40,8 @@ def source_entries(
         for path in folder.iterdir():
             relative = path.relative_to(source).as_posix()
             resolved = path.resolve()
-            if relative == "@common":
+            if relative in {"@common", ".gitlab-ci.yml", ".gitlab", ".github"}:
+                # Marketplace CI owns publication, not the rendered distributions.
                 continue
             if exclude_output and (resolved == output or output in resolved.parents):
                 # A file alias outside the logical output still exposes a source

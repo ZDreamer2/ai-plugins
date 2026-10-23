@@ -12,6 +12,7 @@ import tempfile
 import unittest
 
 from marketplace.build import build
+from marketplace.validation import validate_pi_distribution
 
 
 NOW = datetime(2026, 10, 1, 9, 12, 34, tzinfo=timezone.utc)
@@ -83,6 +84,26 @@ class BuildTests(unittest.TestCase):
         self.write(root + "/ai-plugin.yml", manifest or (
             "name: main\nversion: 1.2.3\ndescription: Main plugin.\n"
         ))
+
+    def test_root_ci_is_source_only_but_plugin_resources_are_retained(self) -> None:
+        self.plugin()
+        self.write(".gitlab-ci.yml", "source configuration\n")
+        self.write(".gitlab/private.md", "${AGENT_SKILL(unpublished)}\n")
+        self.write(".github/workflows/build.yml", "source configuration\n")
+        self.write("main/.gitlab/resource.txt", "plugin-owned resource\n")
+        output = self.base / "output"
+        build(self.source, output, now=NOW)
+        for host in HOSTS:
+            for name in (".gitlab-ci.yml", ".gitlab", ".github"):
+                self.assertFalse((output / host / name).exists())
+            self.assertEqual(
+                (output / host / "main/.gitlab/resource.txt").read_text(),
+                "plugin-owned resource\n",
+            )
+        self.assertEqual(validate_pi_distribution(self.source, output / "pi", output), 1)
+        (output / "pi/.gitlab-ci.yml").write_text("leaked CI\n")
+        with self.assertRaisesRegex(ValueError, "must not be published"):
+            validate_pi_distribution(self.source, output / "pi", output)
 
     def seed_output(self, output: Path | None = None) -> Path:
         output = output or self.source / "@build"
