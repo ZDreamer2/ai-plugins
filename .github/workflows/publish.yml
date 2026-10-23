@@ -1,0 +1,61 @@
+name: Build and publish marketplace
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zd-plugins-publication
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'ZDreamer2/ai-plugins' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      MARKETPLACE_PYTHON: python3
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Build and independently validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B -S -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)'
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 -B -S ai-marketplace/scripts/build.py --dir "$GITHUB_WORKSPACE"
+          python3 -B -S ai-marketplace/scripts/validate_pi.py --dir "$GITHUB_WORKSPACE" --tree "$GITHUB_WORKSPACE/@build/pi"
+          printf '%s\n' "$GITHUB_SHA" > @build/source-revision
+          printf '%s\n' "$GITHUB_SHA" > @build/builder-revision
+          printf '%s\n' python > @build/builder-kind
+          # Preserve executable modes inside the uploaded artifact.
+          tar -cf marketplace.tar -C @build .
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: marketplace-${{ github.sha }}
+          path: marketplace.tar
+          retention-days: 7
+          if-no-files-found: error
+      - name: Publish Claude
+        run: bash .github/publish.sh
+        env:
+          AGENT_TREE: claude
+          SSH_PRIVATE_KEY_B64: ${{ secrets.CLAUDE_DEPLOY_KEY_B64 }}
+      - name: Publish Codex
+        run: bash .github/publish.sh
+        env:
+          AGENT_TREE: codex
+          SSH_PRIVATE_KEY_B64: ${{ secrets.CODEX_DEPLOY_KEY_B64 }}
+      - name: Publish Pi
+        run: bash .github/publish.sh
+        env:
+          AGENT_TREE: pi
+          SSH_PRIVATE_KEY_B64: ${{ secrets.PI_DEPLOY_KEY_B64 }}

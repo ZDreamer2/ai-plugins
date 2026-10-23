@@ -1,6 +1,7 @@
 stages:
   - build
   - publish
+  - sync
 
 workflow:
   rules:
@@ -41,6 +42,12 @@ build-distributions:
   resource_group: zd-plugins-publication
   script:
     - bash .gitlab/publish.sh
+
+sync-github-source:
+  stage: sync
+  resource_group: zd-plugins-github-source
+  script:
+    - SSH_PRIVATE_KEY_B64="$GITHUB_SOURCE_DEPLOY_KEY_B64" bash .gitlab/sync-github.sh
 
 publish-claude:
   extends: .publish-template

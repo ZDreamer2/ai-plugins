@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publish the same-pipeline tree to one private GitLab distribution repository.
+# Publish the same-run tree; GitLab calls directly, GitHub adapts its environment.
 set -euo pipefail
 
 : "${CI_PROJECT_DIR:?CI_PROJECT_DIR is required}"
@@ -31,7 +31,7 @@ for name in .gitlab-ci.yml .gitlab .github; do
   }
 done
 
-# GitLab holds the shared resource-group lock for this entire job.
+# The caller holds its platform's publication lock for this entire invocation.
 require_current_source() {
   local source_head
   source_head=$(git -C "$CI_PROJECT_DIR" ls-remote --exit-code origin "refs/heads/$CI_DEFAULT_BRANCH" | cut -f1)

@@ -49,6 +49,24 @@ The one-day pipeline artifact contains host trees, construct reports and source/
 
 `.gitlab/tests` exercises the actual build/publish scripts using disposable local bare remotes, without network credentials. Verify live publication against the exact source pipeline SHA and compare its artifacts with all three destination trees; a successful local test is not evidence of deployment.
 
-GitHub source synchronization to `ZDreamer2/ai-plugins`, GitHub distribution builds, installed-host acceptance and consumer migration are not configured. GitHub distribution names remain undecided.
+## GitHub delivery
 
-No project license has been selected. The vendored parser retains its [PyYAML provenance](ai-marketplace/scripts/marketplace/_vendor/PyYAML.provenance.md) and `PyYAML.LICENSE`. Local builds and tests do not establish installed-host acceptance or publication readiness.
+GitLab remains the source of truth. After successful private publication, `sync-github-source` pushes only `master` to public `https://github.com/ZDreamer2/ai-plugins`, without force or unrelated branches/tags. A protected, masked source-project variable `GITHUB_SOURCE_DEPLOY_KEY_B64` contains the base64-encoded private half of that repository's write-enabled SSH deploy key. Source synchronization rejects obsolete pipeline revisions.
+
+GitHub's `.github/workflows/publish.yml` builds all three trees from the synchronized commit on Ubuntu, independently validates Pi and publishes sequentially to:
+
+- Claude: `https://github.com/ZDreamer2/ai-plugins-claude`
+- Codex: `https://github.com/ZDreamer2/ai-plugins-codex`
+- Pi: `https://github.com/ZDreamer2/ai-plugins-pi`
+
+The source repository holds `CLAUDE_DEPLOY_KEY_B64`, `CODEX_DEPLOY_KEY_B64` and `PI_DEPLOY_KEY_B64` Actions secrets. Each is a different base64-encoded private key with write access only to its matching distribution repository. The built-in `GITHUB_TOKEN` has read-only contents access and is not used to publish. Credentials enter only publication steps; pull requests do not run this workflow. Anyone able to change trusted source/workflows can exercise these deployment credentials.
+
+Both platforms pin GitHub's Ed25519 host key in `.github/github_known_hosts`, obtained from GitHub's authenticated HTTPS meta API and checked against its published fingerprint `SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU`. Unknown/changed host keys fail closed. Deploy keys do not expire automatically: rotate by registering a new write key in its destination, replacing the corresponding CI variable/secret and verifying delivery before deleting the old key. Keep private key material outside source and remove temporary local copies after configuration. Rotate the host-key pin only after verifying GitHub's official replacement.
+
+GitHub serializes runs and adapts its environment to `.gitlab/publish.sh`, retaining the same provenance, freshness, mode-preserving replacement, Pi preflight and no-op safeguards. Each Actions artifact contains `marketplace.tar`, preserving hidden files and executable modes inside the tar; extract it outside source and compare its host trees with the exact run's published commits. A successful source push alone does not establish downstream publication. Source workflow changes belong in GitLab, not independent GitHub commits.
+
+Installed-host acceptance and consumer migration have not been performed. Local builds and publication do not establish installed-host acceptance.
+
+## License
+
+Project code is available under the BSD Zero Clause license (`LICENSE`, SPDX `0BSD`). The vendored parser retains its separate [PyYAML provenance](ai-marketplace/scripts/marketplace/_vendor/PyYAML.provenance.md) and `PyYAML.LICENSE`; its license obligations still apply.
