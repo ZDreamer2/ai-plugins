@@ -1,0 +1,5 @@
+name: ai-doc
+version: AUTO_VERSION
+description: "AiDoc: создание, улучшение и поддержка документации для AI-агентов"
+author:
+  name: ZDreamer

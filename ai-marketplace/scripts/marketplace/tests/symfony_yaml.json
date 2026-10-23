@@ -1,0 +1,2444 @@
+[
+  {
+    "source": "",
+    "expected": {
+      "type": "null",
+      "value": null
+    }
+  },
+  {
+    "source": "# comment\n",
+    "expected": {
+      "type": "null",
+      "value": null
+    }
+  },
+  {
+    "source": "null",
+    "expected": {
+      "type": "null",
+      "value": null
+    }
+  },
+  {
+    "source": "~",
+    "expected": {
+      "type": "null",
+      "value": null
+    }
+  },
+  {
+    "source": "TRUE",
+    "expected": {
+      "type": "bool",
+      "value": true
+    }
+  },
+  {
+    "source": "False",
+    "expected": {
+      "type": "bool",
+      "value": false
+    }
+  },
+  {
+    "source": "yes",
+    "expected": {
+      "type": "string",
+      "value": "yes"
+    }
+  },
+  {
+    "source": "on",
+    "expected": {
+      "type": "string",
+      "value": "on"
+    }
+  },
+  {
+    "source": "OFF",
+    "expected": {
+      "type": "string",
+      "value": "OFF"
+    }
+  },
+  {
+    "source": "0123",
+    "expected": {
+      "type": "string",
+      "value": "0123"
+    }
+  },
+  {
+    "source": "-0",
+    "expected": {
+      "type": "string",
+      "value": "-0"
+    }
+  },
+  {
+    "source": "+123",
+    "expected": {
+      "type": "float",
+      "value": 123.0
+    }
+  },
+  {
+    "source": "123",
+    "expected": {
+      "type": "int",
+      "value": 123
+    }
+  },
+  {
+    "source": "-123",
+    "expected": {
+      "type": "int",
+      "value": -123
+    }
+  },
+  {
+    "source": "1_234",
+    "expected": {
+      "type": "int",
+      "value": 1234
+    }
+  },
+  {
+    "source": "9223372036854775808",
+    "expected": {
+      "type": "string",
+      "value": "9223372036854775808"
+    }
+  },
+  {
+    "source": "0o17",
+    "expected": {
+      "type": "int",
+      "value": 15
+    }
+  },
+  {
+    "source": "-0o17",
+    "expected": {
+      "type": "int",
+      "value": -15
+    }
+  },
+  {
+    "source": "0xF_F",
+    "expected": {
+      "type": "int",
+      "value": 255
+    }
+  },
+  {
+    "source": "0XFF",
+    "expected": {
+      "type": "float",
+      "value": 0.0
+    }
+  },
+  {
+    "source": "1.5",
+    "expected": {
+      "type": "float",
+      "value": 1.5
+    }
+  },
+  {
+    "source": "1_234.5_6",
+    "expected": {
+      "type": "float",
+      "value": 1234.56
+    }
+  },
+  {
+    "source": "1e3",
+    "expected": {
+      "type": "float",
+      "value": 1000.0
+    }
+  },
+  {
+    "source": "1:20",
+    "expected": {
+      "type": "string",
+      "value": "1:20"
+    }
+  },
+  {
+    "source": ".inf",
+    "expected": {
+      "type": "float",
+      "value": "+inf"
+    }
+  },
+  {
+    "source": "-.Inf",
+    "expected": {
+      "type": "float",
+      "value": "-inf"
+    }
+  },
+  {
+    "source": ".nan",
+    "expected": {
+      "type": "float",
+      "value": "+inf"
+    }
+  },
+  {
+    "source": "+.inf",
+    "expected": {
+      "type": "string",
+      "value": "+.inf"
+    }
+  },
+  {
+    "source": "2026-09-30",
+    "expected": {
+      "type": "int",
+      "value": 1790726400
+    }
+  },
+  {
+    "source": "2026-09-30T01:02:03.123Z",
+    "expected": {
+      "type": "float",
+      "value": 1790730123.123
+    }
+  },
+  {
+    "source": "2026-09-30 01:02:03+03:00",
+    "expected": {
+      "type": "int",
+      "value": 1790719323
+    }
+  },
+  {
+    "source": "2026-02-30",
+    "expected": {
+      "type": "int",
+      "value": 1772409600
+    }
+  },
+  {
+    "source": "'true'",
+    "expected": {
+      "type": "string",
+      "value": "true"
+    }
+  },
+  {
+    "source": "\"0123\"",
+    "expected": {
+      "type": "string",
+      "value": "0123"
+    }
+  },
+  {
+    "source": "\"line\\nquote\\\"\"",
+    "expected": {
+      "type": "string",
+      "value": "line\nquote\""
+    }
+  },
+  {
+    "source": "'it''s literal'",
+    "expected": {
+      "type": "string",
+      "value": "it's literal"
+    }
+  },
+  {
+    "source": "!!str true",
+    "expected": {
+      "type": "string",
+      "value": "true"
+    }
+  },
+  {
+    "source": "!!str \"true\"",
+    "expected": {
+      "type": "string",
+      "value": "true"
+    }
+  },
+  {
+    "source": "!!float 1.5",
+    "expected": {
+      "type": "float",
+      "value": 1.5
+    }
+  },
+  {
+    "source": "!!float \"1.5\"",
+    "expected": {
+      "type": "float",
+      "value": 0.0
+    }
+  },
+  {
+    "source": "!!float .inf",
+    "expected": {
+      "type": "float",
+      "value": 0.0
+    }
+  },
+  {
+    "source": "!!binary SGVsbG8=",
+    "expected": {
+      "type": "string",
+      "value": "Hello"
+    }
+  },
+  {
+    "source": "!!binary /w==",
+    "expected": {
+      "type": "bytes",
+      "value": "/w=="
+    }
+  },
+  {
+    "source": "!php/object 'O:8:\"stdClass\":0:{}'",
+    "expected": {
+      "type": "null",
+      "value": null
+    }
+  },
+  {
+    "source": "!php/const PHP_VERSION",
+    "expected": {
+      "type": "null",
+      "value": null
+    }
+  },
+  {
+    "source": "!php/enum Example::VALUE",
+    "expected": {
+      "type": "null",
+      "value": null
+    }
+  },
+  {
+    "source": "! true",
+    "expected": {
+      "type": "bool",
+      "value": true
+    }
+  },
+  {
+    "source": "base: &base {x: 1, y: 2}\nitem:\n  <<: *base\n  x: 3\n",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "base"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "x"
+                },
+                {
+                  "type": "int",
+                  "value": 1
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "y"
+                },
+                {
+                  "type": "int",
+                  "value": 2
+                }
+              ]
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "item"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "x"
+                },
+                {
+                  "type": "int",
+                  "value": 3
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "y"
+                },
+                {
+                  "type": "int",
+                  "value": 2
+                }
+              ]
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "a: &a {x: 1, y: 2}\nb: &b {x: 9, z: 3}\nc: {<<: [*a, *b]}",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "a"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "x"
+                },
+                {
+                  "type": "int",
+                  "value": 1
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "y"
+                },
+                {
+                  "type": "int",
+                  "value": 2
+                }
+              ]
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "b"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "x"
+                },
+                {
+                  "type": "int",
+                  "value": 9
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "z"
+                },
+                {
+                  "type": "int",
+                  "value": 3
+                }
+              ]
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "c"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "x"
+                },
+                {
+                  "type": "int",
+                  "value": 1
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "y"
+                },
+                {
+                  "type": "int",
+                  "value": 2
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "z"
+                },
+                {
+                  "type": "int",
+                  "value": 3
+                }
+              ]
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "a: null\na: 2",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "a"
+          },
+          {
+            "type": "int",
+            "value": 2
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "<<: {a: 1}\na: 2\na: 3",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "a"
+          },
+          {
+            "type": "int",
+            "value": 3
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "x: |\n  first\n  second\n",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "x"
+          },
+          {
+            "type": "string",
+            "value": "first\nsecond\n"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "x: >-\n  first\n  second\n",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "x"
+          },
+          {
+            "type": "string",
+            "value": "first second"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "- [one, two]\n- {x: false, y: null}\n",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "list",
+          "value": [
+            {
+              "type": "string",
+              "value": "one"
+            },
+            {
+              "type": "string",
+              "value": "two"
+            }
+          ]
+        },
+        {
+          "type": "dict",
+          "value": [
+            [
+              {
+                "type": "string",
+                "value": "x"
+              },
+              {
+                "type": "bool",
+                "value": false
+              }
+            ],
+            [
+              {
+                "type": "string",
+                "value": "y"
+              },
+              {
+                "type": "null",
+                "value": null
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "source": "0o17: x",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "int",
+            "value": 15
+          },
+          {
+            "type": "string",
+            "value": "x"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "{0o17: x}",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "0o17"
+          },
+          {
+            "type": "string",
+            "value": "x"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "\"123\": x",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "int",
+            "value": 123
+          },
+          {
+            "type": "string",
+            "value": "x"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "a: &old one\nb: &old two\nc: *old",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "a"
+          },
+          {
+            "type": "string",
+            "value": "one"
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "b"
+          },
+          {
+            "type": "string",
+            "value": "two"
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "c"
+          },
+          {
+            "type": "string",
+            "value": "two"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "a: 1\na: 2",
+    "error": true
+  },
+  {
+    "source": "{a: 1, a: 2}",
+    "error": true
+  },
+  {
+    "source": "true: x",
+    "error": true
+  },
+  {
+    "source": "{null: x}",
+    "error": true
+  },
+  {
+    "source": "1.5: x",
+    "error": true
+  },
+  {
+    "source": "!custom value",
+    "error": true
+  },
+  {
+    "source": "!!int 1",
+    "error": true
+  },
+  {
+    "source": "!!bool true",
+    "error": true
+  },
+  {
+    "source": "!!null null",
+    "error": true
+  },
+  {
+    "source": "!!map {a: 1}",
+    "error": true
+  },
+  {
+    "source": "!!python/object/apply:os.system [\"echo unsafe\"]",
+    "error": true
+  },
+  {
+    "source": "!php/object [1]",
+    "error": true
+  },
+  {
+    "source": "!!str",
+    "error": true
+  },
+  {
+    "source": "!!binary invalid",
+    "error": true
+  },
+  {
+    "source": "!!binary SGVsbG8",
+    "error": true
+  },
+  {
+    "source": "a: *missing",
+    "error": true
+  },
+  {
+    "source": "a: &a [*a]",
+    "error": true
+  },
+  {
+    "source": "<<: 1",
+    "error": true
+  },
+  {
+    "source": "<<: [1, 2]",
+    "error": true
+  },
+  {
+    "source": "a: [1, 2",
+    "error": true
+  },
+  {
+    "source": "a:\n b: x\n  c: y",
+    "error": true
+  },
+  {
+    "source": "a: \"bad\\q\"",
+    "error": true
+  },
+  {
+    "source": "---\na: 1\n---\nb: 2",
+    "error": true
+  },
+  {
+    "source": "@bad",
+    "error": true
+  },
+  {
+    "source": "2026-09-30T99:99:99",
+    "error": true
+  },
+  {
+    "source": "2026-09-30T24:01:00",
+    "expected": {
+      "type": "int",
+      "value": 1790812860
+    }
+  },
+  {
+    "source": "2026-09-30T23:60:00",
+    "error": true
+  },
+  {
+    "source": "2026-09-30T23:59:60",
+    "expected": {
+      "type": "int",
+      "value": 1790812800
+    }
+  },
+  {
+    "source": "2026-09-30T12:12:12+99:00",
+    "error": true
+  },
+  {
+    "source": "2026-09-30T12:12:12+03:99",
+    "error": true
+  },
+  {
+    "source": "2026-09-30T12:12:12+24:00",
+    "expected": {
+      "type": "int",
+      "value": 1790683932
+    }
+  },
+  {
+    "source": "2026-00-00",
+    "expected": {
+      "type": "int",
+      "value": 1764460800
+    }
+  },
+  {
+    "source": "2026-09-00",
+    "expected": {
+      "type": "int",
+      "value": 1788134400
+    }
+  },
+  {
+    "source": "2026-09-99",
+    "error": true
+  },
+  {
+    "source": "0000-01-01",
+    "expected": {
+      "type": "int",
+      "value": -62167219200
+    }
+  },
+  {
+    "source": "x: !!str |\n  true\n",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "x"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "!str",
+              "value": "true\n"
+            }
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "x: !!float >\n  1.2\n",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "x"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "!float",
+              "value": "1.2\n"
+            }
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "x: !php/object |\n  serialized data\n",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "x"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "php/object",
+              "value": "serialized data\n"
+            }
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "x: !custom |\n  hi\n",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "x"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "custom",
+              "value": "hi\n"
+            }
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "x: !!int |\n  1\n",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "x"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "!int",
+              "value": "1\n"
+            }
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "x: !!binary |\n  SGVs\n  bG8=\n",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "x"
+          },
+          {
+            "type": "string",
+            "value": "Hello"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "x: ! |\n  true\n",
+    "error": true
+  },
+  {
+    "source": "!!str |\n  true\n",
+    "error": true
+  },
+  {
+    "source": "- !!str |-\n  true\n  false\n",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "string",
+          "value": "|- true false"
+        }
+      ]
+    }
+  },
+  {
+    "source": "- !!float |\n  1.2\n",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "float",
+          "value": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "source": "- !php/object |\n  data\n",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "null",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "source": "- !custom |\n  data\n",
+    "error": true
+  },
+  {
+    "source": "- ! |\n  true\n",
+    "error": true
+  },
+  {
+    "source": "- !!binary |\n  SGVsbG8=\n",
+    "error": true
+  },
+  {
+    "source": "<<: &x {a: 1}\ny: *x",
+    "error": true
+  },
+  {
+    "source": "<<: &x {a: 1}",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "<<"
+          },
+          {
+            "type": "null",
+            "value": null
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "<<: &x\n  a: 1\ny: *x",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "a"
+          },
+          {
+            "type": "int",
+            "value": 1
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "y"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "a"
+                },
+                {
+                  "type": "int",
+                  "value": 1
+                }
+              ]
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "<<: &x\n  a: 1\na: 2",
+    "error": true
+  },
+  {
+    "source": "{<<: &x {a: 1}, y: *x}",
+    "error": true
+  },
+  {
+    "source": "'<<': {a: 1}",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "a"
+          },
+          {
+            "type": "int",
+            "value": 1
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "nested: {text: !!str true, number: !!float 1.5, binary: !!binary SGVsbG8=, object: !php/object noop}",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "nested"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "text"
+                },
+                {
+                  "type": "string",
+                  "value": "true"
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "number"
+                },
+                {
+                  "type": "float",
+                  "value": 1.5
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "binary"
+                },
+                {
+                  "type": "string",
+                  "value": "Hello"
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "object"
+                },
+                {
+                  "type": "null",
+                  "value": null
+                }
+              ]
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "nested: {bad: !!int 1}",
+    "error": true
+  },
+  {
+    "source": "a: &a {x: 1}\nb: {<<: *a, x: 2, x: 3}",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "a"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "x"
+                },
+                {
+                  "type": "int",
+                  "value": 1
+                }
+              ]
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "b"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "x"
+                },
+                {
+                  "type": "int",
+                  "value": 3
+                }
+              ]
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "[,,a,,]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "string",
+          "value": "a"
+        },
+        {
+          "type": "null",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "source": "[,]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "null",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "source": "[,,]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "null",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "source": "[a,]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "string",
+          "value": "a"
+        }
+      ]
+    }
+  },
+  {
+    "source": "[a,,]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "string",
+          "value": "a"
+        },
+        {
+          "type": "null",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "source": "[a,,b]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "string",
+          "value": "a"
+        },
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "string",
+          "value": "b"
+        }
+      ]
+    }
+  },
+  {
+    "source": "[,,,]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "null",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "source": "[\"a,,b\",,'c,d',,]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "string",
+          "value": "a,,b"
+        },
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "string",
+          "value": "c,d"
+        },
+        {
+          "type": "null",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "source": "[,[,,a],,{x: [,,b,,]},]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "list",
+          "value": [
+            {
+              "type": "null",
+              "value": null
+            },
+            {
+              "type": "null",
+              "value": null
+            },
+            {
+              "type": "string",
+              "value": "a"
+            }
+          ]
+        },
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "dict",
+          "value": [
+            [
+              {
+                "type": "string",
+                "value": "x"
+              },
+              {
+                "type": "list",
+                "value": [
+                  {
+                    "type": "null",
+                    "value": null
+                  },
+                  {
+                    "type": "null",
+                    "value": null
+                  },
+                  {
+                    "type": "string",
+                    "value": "b"
+                  },
+                  {
+                    "type": "null",
+                    "value": null
+                  }
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "source": "x: [,,\"a,b\",,]\ny: [one, two]",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "x"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "null",
+                "value": null
+              },
+              {
+                "type": "null",
+                "value": null
+              },
+              {
+                "type": "string",
+                "value": "a,b"
+              },
+              {
+                "type": "null",
+                "value": null
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "y"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "string",
+                "value": "one"
+              },
+              {
+                "type": "string",
+                "value": "two"
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "[,,!!str true,,!!float 1.5,,]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "string",
+          "value": "true"
+        },
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "float",
+          "value": 1.5
+        },
+        {
+          "type": "null",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "source": "a: &a [,,x]\nb: [,*a,,]",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "a"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "null",
+                "value": null
+              },
+              {
+                "type": "null",
+                "value": null
+              },
+              {
+                "type": "string",
+                "value": "x"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "b"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "null",
+                "value": null
+              },
+              {
+                "type": "list",
+                "value": [
+                  {
+                    "type": "null",
+                    "value": null
+                  },
+                  {
+                    "type": "null",
+                    "value": null
+                  },
+                  {
+                    "type": "string",
+                    "value": "x"
+                  }
+                ]
+              },
+              {
+                "type": "null",
+                "value": null
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "[,,a,,",
+    "error": true
+  },
+  {
+    "source": "[, {key: \"value,,quoted\"},, [\"nested,comma\",,],,]",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "dict",
+          "value": [
+            [
+              {
+                "type": "string",
+                "value": "key"
+              },
+              {
+                "type": "string",
+                "value": "value,,quoted"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "null",
+          "value": null
+        },
+        {
+          "type": "list",
+          "value": [
+            {
+              "type": "string",
+              "value": "nested,comma"
+            },
+            {
+              "type": "null",
+              "value": null
+            }
+          ]
+        },
+        {
+          "type": "null",
+          "value": null
+        }
+      ]
+    }
+  },
+  {
+    "source": "!!str \"\"",
+    "expected": {
+      "type": "string",
+      "value": ""
+    }
+  },
+  {
+    "source": "!!str ''",
+    "expected": {
+      "type": "string",
+      "value": ""
+    }
+  },
+  {
+    "source": "!!float \"\"",
+    "expected": {
+      "type": "float",
+      "value": 0.0
+    }
+  },
+  {
+    "source": "!!float ''",
+    "expected": {
+      "type": "float",
+      "value": 0.0
+    }
+  },
+  {
+    "source": "description: !!str \"\"",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "description"
+          },
+          {
+            "type": "string",
+            "value": ""
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "description: !!str ''",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "description"
+          },
+          {
+            "type": "string",
+            "value": ""
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "number: !!float \"\"",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "number"
+          },
+          {
+            "type": "float",
+            "value": 0.0
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "number: !!float ''",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "number"
+          },
+          {
+            "type": "float",
+            "value": 0.0
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "{nested: {text: !!str \"\", number: !!float ''}}",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "nested"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "text"
+                },
+                {
+                  "type": "string",
+                  "value": ""
+                }
+              ],
+              [
+                {
+                  "type": "string",
+                  "value": "number"
+                },
+                {
+                  "type": "float",
+                  "value": 0.0
+                }
+              ]
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "[!!str \"\", !!float '']",
+    "expected": {
+      "type": "list",
+      "value": [
+        {
+          "type": "string",
+          "value": ""
+        },
+        {
+          "type": "float",
+          "value": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "source": "!!float",
+    "error": true
+  },
+  {
+    "source": "description: !!str",
+    "error": true
+  },
+  {
+    "source": "number: !!float",
+    "error": true
+  },
+  {
+    "source": "1969-12-31T23:59:59.5Z",
+    "expected": {
+      "type": "float",
+      "value": -1.5
+    }
+  },
+  {
+    "source": "1969-12-31T23:59:59Z",
+    "expected": {
+      "type": "int",
+      "value": -1
+    }
+  },
+  {
+    "source": "1969-12-31T23:59:59.0Z",
+    "expected": {
+      "type": "int",
+      "value": -1
+    }
+  },
+  {
+    "source": "1969-12-31T23:59:58.123456Z",
+    "expected": {
+      "type": "float",
+      "value": -2.123456
+    }
+  },
+  {
+    "source": "1970-01-01T00:00:00.5Z",
+    "expected": {
+      "type": "float",
+      "value": 0.5
+    }
+  },
+  {
+    "source": "1970-01-01T00:00:01.5Z",
+    "expected": {
+      "type": "float",
+      "value": 1.5
+    }
+  },
+  {
+    "source": "1970-01-01T01:59:59.5+02:00",
+    "expected": {
+      "type": "float",
+      "value": -1.5
+    }
+  },
+  {
+    "source": "timestamp: 1969-12-31T23:59:59.5Z",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "timestamp"
+          },
+          {
+            "type": "float",
+            "value": -1.5
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "value: &a !!str |\n  text\nlist:\n  - *a",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "value"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "!str",
+              "value": "text\n"
+            }
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "tagged",
+                "value": {
+                  "tag": "!str",
+                  "value": "text\n"
+                }
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "value: &a !!str |\n  text\nlist: [*a]\nalias: *a",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "value"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "!str",
+              "value": "text\n"
+            }
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "tagged",
+                "value": {
+                  "tag": "!str",
+                  "value": "text\n"
+                }
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "alias"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "!str",
+              "value": "text\n"
+            }
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "value: &a !custom |\n  text\nlist:\n  - *a",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "value"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "custom",
+              "value": "text\n"
+            }
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "tagged",
+                "value": {
+                  "tag": "custom",
+                  "value": "text\n"
+                }
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "value: &a !custom |\n  text\nlist: [*a]\nalias: {text: *a}",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "value"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "custom",
+              "value": "text\n"
+            }
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "tagged",
+                "value": {
+                  "tag": "custom",
+                  "value": "text\n"
+                }
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "alias"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "text"
+                },
+                {
+                  "type": "tagged",
+                  "value": {
+                    "tag": "custom",
+                    "value": "text\n"
+                  }
+                }
+              ]
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "value: &a !!float |\n  1.5\nlist: [*a]",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "value"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "!float",
+              "value": "1.5\n"
+            }
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "tagged",
+                "value": {
+                  "tag": "!float",
+                  "value": "1.5\n"
+                }
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "value: &a !php/object |\n  inert\nlist: [*a]",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "value"
+          },
+          {
+            "type": "tagged",
+            "value": {
+              "tag": "php/object",
+              "value": "inert\n"
+            }
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "tagged",
+                "value": {
+                  "tag": "php/object",
+                  "value": "inert\n"
+                }
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "value: &a !!binary |\n  SGVsbG8=\nlist: [*a]\nalias: *a",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "value"
+          },
+          {
+            "type": "string",
+            "value": "Hello"
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "string",
+                "value": "Hello"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "alias"
+          },
+          {
+            "type": "string",
+            "value": "Hello"
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "list:\n  - &a !!str |\n    text\nalias: *a\nflow: [*a]",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "string",
+                "value": "| text"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "alias"
+          },
+          {
+            "type": "string",
+            "value": "| text"
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "flow"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "string",
+                "value": "| text"
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "list:\n  - &a !!float |\n    1.5\nalias: *a",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "float",
+                "value": 0.0
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "alias"
+          },
+          {
+            "type": "float",
+            "value": 0.0
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "list:\n  - &a !php/object |\n    inert\nalias: *a",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "list"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "null",
+                "value": null
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "alias"
+          },
+          {
+            "type": "null",
+            "value": null
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "value: &a\n  text: &t !custom |\n    inert\nalias: [*a, *t]",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "value"
+          },
+          {
+            "type": "dict",
+            "value": [
+              [
+                {
+                  "type": "string",
+                  "value": "text"
+                },
+                {
+                  "type": "tagged",
+                  "value": {
+                    "tag": "custom",
+                    "value": "inert\n"
+                  }
+                }
+              ]
+            ]
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "alias"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "dict",
+                "value": [
+                  [
+                    {
+                      "type": "string",
+                      "value": "text"
+                    },
+                    {
+                      "type": "tagged",
+                      "value": {
+                        "tag": "custom",
+                        "value": "inert\n"
+                      }
+                    }
+                  ]
+                ]
+              },
+              {
+                "type": "tagged",
+                "value": {
+                  "tag": "custom",
+                  "value": "inert\n"
+                }
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "source": "value: &a\n  nested: *a",
+    "error": true
+  },
+  {
+    "source": "value: &a [*a]",
+    "error": true
+  },
+  {
+    "source": "text: &a !!str \"\"\nalias: [*a]",
+    "expected": {
+      "type": "dict",
+      "value": [
+        [
+          {
+            "type": "string",
+            "value": "text"
+          },
+          {
+            "type": "string",
+            "value": ""
+          }
+        ],
+        [
+          {
+            "type": "string",
+            "value": "alias"
+          },
+          {
+            "type": "list",
+            "value": [
+              {
+                "type": "string",
+                "value": ""
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  }
+]

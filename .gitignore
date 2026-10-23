@@ -1,0 +1,9 @@
+# Local build output and Python-generated resources
+@build/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/

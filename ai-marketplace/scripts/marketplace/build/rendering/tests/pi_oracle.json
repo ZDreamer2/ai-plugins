@@ -1,0 +1,388 @@
+{
+    "oracle": {
+        "runtime": "8.5.7",
+        "encoding": "UTF-8",
+        "renderer": "PiSkillRenderer.php",
+        "yaml_inline": 4,
+        "yaml_indent": 2,
+        "plugin_root": "folder",
+        "plugin_name": "manifest",
+        "skill_path": "skills/sample/SKILL.md"
+    },
+    "binary": [
+        {
+            "hex": "ff",
+            "mb_strlen": 1,
+            "trim_hex": "ff",
+            "source": "---\nname: sample\ndescription: !!binary /w==\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary /w==\n---\nBody\r\n"
+        },
+        {
+            "hex": "c2",
+            "mb_strlen": 1,
+            "trim_hex": "c2",
+            "source": "---\nname: sample\ndescription: !!binary wg==\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary wg==\n---\nBody\r\n"
+        },
+        {
+            "hex": "e2",
+            "mb_strlen": 1,
+            "trim_hex": "e2",
+            "source": "---\nname: sample\ndescription: !!binary 4g==\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 4g==\n---\nBody\r\n"
+        },
+        {
+            "hex": "f0",
+            "mb_strlen": 1,
+            "trim_hex": "f0",
+            "source": "---\nname: sample\ndescription: !!binary 8A==\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 8A==\n---\nBody\r\n"
+        },
+        {
+            "hex": "8080",
+            "mb_strlen": 2,
+            "trim_hex": "8080",
+            "source": "---\nname: sample\ndescription: !!binary gIA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary gIA=\n---\nBody\r\n"
+        },
+        {
+            "hex": "c080",
+            "mb_strlen": 2,
+            "trim_hex": "c080",
+            "source": "---\nname: sample\ndescription: !!binary wIA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary wIA=\n---\nBody\r\n"
+        },
+        {
+            "hex": "eda080",
+            "mb_strlen": 3,
+            "trim_hex": "eda080",
+            "source": "---\nname: sample\ndescription: !!binary 7aCA\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 7aCA\n---\nBody\r\n"
+        },
+        {
+            "hex": "f4908080",
+            "mb_strlen": 4,
+            "trim_hex": "f4908080",
+            "source": "---\nname: sample\ndescription: !!binary 9JCAgA==\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 9JCAgA==\n---\nBody\r\n"
+        },
+        {
+            "hex": "41ff42",
+            "mb_strlen": 3,
+            "trim_hex": "41ff42",
+            "source": "---\nname: sample\ndescription: !!binary Qf9C\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary Qf9C\n---\nBody\r\n"
+        },
+        {
+            "hex": "c241",
+            "mb_strlen": 2,
+            "trim_hex": "c241",
+            "source": "---\nname: sample\ndescription: !!binary wkE=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary wkE=\n---\nBody\r\n"
+        },
+        {
+            "hex": "e241",
+            "mb_strlen": 2,
+            "trim_hex": "e241",
+            "source": "---\nname: sample\ndescription: !!binary 4kE=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 4kE=\n---\nBody\r\n"
+        },
+        {
+            "hex": "e28041",
+            "mb_strlen": 2,
+            "trim_hex": "e28041",
+            "source": "---\nname: sample\ndescription: !!binary 4oBB\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 4oBB\n---\nBody\r\n"
+        },
+        {
+            "hex": "f041",
+            "mb_strlen": 2,
+            "trim_hex": "f041",
+            "source": "---\nname: sample\ndescription: !!binary 8EE=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 8EE=\n---\nBody\r\n"
+        },
+        {
+            "hex": "f09041",
+            "mb_strlen": 2,
+            "trim_hex": "f09041",
+            "source": "---\nname: sample\ndescription: !!binary 8JBB\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 8JBB\n---\nBody\r\n"
+        },
+        {
+            "hex": "f0908041",
+            "mb_strlen": 2,
+            "trim_hex": "f0908041",
+            "source": "---\nname: sample\ndescription: !!binary 8JCAQQ==\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 8JCAQQ==\n---\nBody\r\n"
+        },
+        {
+            "hex": "e280",
+            "mb_strlen": 1,
+            "trim_hex": "e280",
+            "source": "---\nname: sample\ndescription: !!binary 4oA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 4oA=\n---\nBody\r\n"
+        },
+        {
+            "hex": "f090",
+            "mb_strlen": 1,
+            "trim_hex": "f090",
+            "source": "---\nname: sample\ndescription: !!binary 8JA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 8JA=\n---\nBody\r\n"
+        },
+        {
+            "hex": "f09080",
+            "mb_strlen": 1,
+            "trim_hex": "f09080",
+            "source": "---\nname: sample\ndescription: !!binary 8JCA\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 8JCA\n---\nBody\r\n"
+        },
+        {
+            "hex": "f5808080",
+            "mb_strlen": 4,
+            "trim_hex": "f5808080",
+            "source": "---\nname: sample\ndescription: !!binary 9YCAgA==\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 9YCAgA==\n---\nBody\r\n"
+        },
+        {
+            "hex": "fe808080808080",
+            "mb_strlen": 7,
+            "trim_hex": "fe808080808080",
+            "source": "---\nname: sample\ndescription: !!binary /oCAgICAgA==\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary /oCAgICAgA==\n---\nBody\r\n"
+        },
+        {
+            "hex": "ff41",
+            "mb_strlen": 2,
+            "trim_hex": "ff41",
+            "source": "---\nname: sample\ndescription: !!binary /0E=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary /0E=\n---\nBody\r\n"
+        },
+        {
+            "hex": "e0a0",
+            "mb_strlen": 1,
+            "trim_hex": "e0a0",
+            "source": "---\nname: sample\ndescription: !!binary 4KA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 4KA=\n---\nBody\r\n"
+        },
+        {
+            "hex": "e080",
+            "mb_strlen": 2,
+            "trim_hex": "e080",
+            "source": "---\nname: sample\ndescription: !!binary 4IA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 4IA=\n---\nBody\r\n"
+        },
+        {
+            "hex": "ed9f",
+            "mb_strlen": 1,
+            "trim_hex": "ed9f",
+            "source": "---\nname: sample\ndescription: !!binary 7Z8=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 7Z8=\n---\nBody\r\n"
+        },
+        {
+            "hex": "eda0",
+            "mb_strlen": 2,
+            "trim_hex": "eda0",
+            "source": "---\nname: sample\ndescription: !!binary 7aA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 7aA=\n---\nBody\r\n"
+        },
+        {
+            "hex": "f08f",
+            "mb_strlen": 2,
+            "trim_hex": "f08f",
+            "source": "---\nname: sample\ndescription: !!binary 8I8=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 8I8=\n---\nBody\r\n"
+        },
+        {
+            "hex": "f090",
+            "mb_strlen": 1,
+            "trim_hex": "f090",
+            "source": "---\nname: sample\ndescription: !!binary 8JA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 8JA=\n---\nBody\r\n"
+        },
+        {
+            "hex": "f48f",
+            "mb_strlen": 1,
+            "trim_hex": "f48f",
+            "source": "---\nname: sample\ndescription: !!binary 9I8=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 9I8=\n---\nBody\r\n"
+        },
+        {
+            "hex": "f490",
+            "mb_strlen": 2,
+            "trim_hex": "f490",
+            "source": "---\nname: sample\ndescription: !!binary 9JA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 9JA=\n---\nBody\r\n"
+        },
+        {
+            "hex": "0009200a0d0b",
+            "mb_strlen": 6,
+            "trim_hex": "",
+            "source": "---\nname: sample\ndescription: !!binary AAkgCg0L\n---\nBody\r\n",
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' must define a non-empty string description."
+        },
+        {
+            "hex": "0c",
+            "mb_strlen": 1,
+            "trim_hex": "0c",
+            "source": "---\nname: sample\ndescription: !!binary DA==\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: \"\\f\"\n---\nBody\r\n"
+        },
+        {
+            "hex": "c2a0",
+            "mb_strlen": 1,
+            "trim_hex": "c2a0",
+            "source": "---\nname: sample\ndescription: !!binary wqA=\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: \"\\_\"\n---\nBody\r\n"
+        },
+        {
+            "hex": "e28083",
+            "mb_strlen": 1,
+            "trim_hex": "e28083",
+            "source": "---\nname: sample\ndescription: !!binary 4oCD\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: ' '\n---\nBody\r\n"
+        },
+        {
+            "hex": "efbbbf",
+            "mb_strlen": 1,
+            "trim_hex": "efbbbf",
+            "source": "---\nname: sample\ndescription: !!binary 77u/\n---\nBody\r\n",
+            "rendered": "---\nname: manifest-sample\ndescription: ﻿\n---\nBody\r\n"
+        }
+    ],
+    "boundaries": [
+        {
+            "hex": "ff",
+            "repeat": 1024,
+            "ascii_suffix": 0,
+            "mb_strlen": 1024,
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////w==\n---\nBody"
+        },
+        {
+            "hex": "ff",
+            "repeat": 1024,
+            "ascii_suffix": 1,
+            "mb_strlen": 1025,
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' has a description longer than 1024 characters."
+        },
+        {
+            "hex": "c2",
+            "repeat": 1024,
+            "ascii_suffix": 0,
+            "mb_strlen": 1024,
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary wsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwg==\n---\nBody"
+        },
+        {
+            "hex": "c2",
+            "repeat": 1024,
+            "ascii_suffix": 1,
+            "mb_strlen": 1025,
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' has a description longer than 1024 characters."
+        },
+        {
+            "hex": "e280",
+            "repeat": 1024,
+            "ascii_suffix": 0,
+            "mb_strlen": 1024,
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oDigOKA4oA=\n---\nBody"
+        },
+        {
+            "hex": "e280",
+            "repeat": 1024,
+            "ascii_suffix": 1,
+            "mb_strlen": 1025,
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' has a description longer than 1024 characters."
+        },
+        {
+            "hex": "f09080",
+            "repeat": 1024,
+            "ascii_suffix": 0,
+            "mb_strlen": 1024,
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA8JCA\n---\nBody"
+        },
+        {
+            "hex": "f09080",
+            "repeat": 1024,
+            "ascii_suffix": 1,
+            "mb_strlen": 1025,
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' has a description longer than 1024 characters."
+        },
+        {
+            "hex": "8080",
+            "repeat": 512,
+            "ascii_suffix": 0,
+            "mb_strlen": 1024,
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==\n---\nBody"
+        },
+        {
+            "hex": "8080",
+            "repeat": 512,
+            "ascii_suffix": 1,
+            "mb_strlen": 1025,
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' has a description longer than 1024 characters."
+        },
+        {
+            "hex": "c080",
+            "repeat": 512,
+            "ascii_suffix": 0,
+            "mb_strlen": 1024,
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary wIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgA==\n---\nBody"
+        },
+        {
+            "hex": "c080",
+            "repeat": 512,
+            "ascii_suffix": 1,
+            "mb_strlen": 1025,
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' has a description longer than 1024 characters."
+        },
+        {
+            "hex": "eda080",
+            "repeat": 341,
+            "ascii_suffix": 1,
+            "mb_strlen": 1024,
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCA7aCAQQ==\n---\nBody"
+        },
+        {
+            "hex": "eda080",
+            "repeat": 341,
+            "ascii_suffix": 2,
+            "mb_strlen": 1025,
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' has a description longer than 1024 characters."
+        },
+        {
+            "hex": "f4908080",
+            "repeat": 256,
+            "ascii_suffix": 0,
+            "mb_strlen": 1024,
+            "rendered": "---\nname: manifest-sample\ndescription: !!binary 9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgPSQgID0kICA9JCAgA==\n---\nBody"
+        },
+        {
+            "hex": "f4908080",
+            "repeat": 256,
+            "ascii_suffix": 1,
+            "mb_strlen": 1025,
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' has a description longer than 1024 characters."
+        }
+    ],
+    "text": [
+        {
+            "id": "nested_metadata",
+            "source": "---\nname: sample\ndescription: 'Unicode 雪: # quote'\nallowed-tools: [Read, 'a:b']\nmetadata:\n  first:\n    second:\n      third:\n        fourth: [one, two]\n        null-value: null\n    list:\n      - deep:\n          sequence: [α, β]\n  integer: 12\ncompatibility: null\nlicense: false\ndisable-model-invocation: arbitrary\nuser-invocable: true\nhints: dropped\n---\nBody\r\nlast",
+            "rendered": "---\nname: manifest-sample\ndescription: 'Unicode 雪: # quote'\ndisable-model-invocation: arbitrary\nlicense: false\ncompatibility: null\nmetadata:\n  first:\n    second:\n      third: { fourth: [one, two], null-value: null }\n    list:\n      - { deep: { sequence: [α, β] } }\n  integer: 12\nallowed-tools:\n  - Read\n  - 'a:b'\n---\nBody\r\nlast"
+        },
+        {
+            "id": "php_unicode_trim",
+            "source": "---\nname: sample\ndescription: \"\\u00a0\\u2003\\ufeff\"\n---\n ",
+            "rendered": "---\nname: manifest-sample\ndescription: \"\\_ ﻿\"\n---\n "
+        },
+        {
+            "id": "php_ascii_trim",
+            "source": "---\nname: sample\ndescription: \"\\x00\\t \\n\\r\\x0b\"\n---\nBody",
+            "error": "Pi skill 'folder/skills/sample/SKILL.md' must define a non-empty string description."
+        },
+        {
+            "id": "php_formfeed_kept",
+            "source": "---\nname: sample\ndescription: \"\\x0c\"\n---\nBody",
+            "rendered": "---\nname: manifest-sample\ndescription: \"\\f\"\n---\nBody"
+        }
+    ]
+}

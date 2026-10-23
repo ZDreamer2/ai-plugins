@@ -1,0 +1,324 @@
+# AiDoc Documentation Guide
+
+Welcome to AiDoc — a system for writing documentation that AI agents actually use well. This guide helps you create, improve, and manage AiDocs through a structured workflow with AI assistance.
+
+## The Documentation System
+
+The framework uses three document layers:
+
+**AiDocFormatDoc** (`.format.md`) — Format blueprints. Defines HOW to write a type of document: template, structure rules, validation. Formats already exist for common types — you rarely need to create new ones.
+
+**AiDocMetaDoc** (`.meta.md`) — Document specification. Defines WHAT a specific document should be: its purpose, constraints, required reading context, and usage patterns. You create one before writing any new AiDoc.
+
+**AiDoc** (`.md`) — The actual document AI agents read during tasks. Concise, actionable, optimized for the chosen format.
+
+### Why this separation?
+
+Without it, you either re-explain a document's purpose every editing session, or pollute the working doc with meta-information that confuses agents during normal use. The AiDocMetaDoc preserves editing context between sessions without bloating the AiDoc itself.
+
+### Available Formats
+
+**BaseDoc** — General documentation with clear structure. The default format — used when nothing else fits better. You don't need to specify it.
+
+**CodeDoc** — Code patterns with comprehensive examples and inline comments. Use when the document is primarily about how to write code.
+
+**WorkflowDoc** — Multi-step procedures with context gathering and verification. Auto-detected for docs in `/Workflows/`, so you don't need to specify it.
+
+**SkillDoc** — Agent skill definitions (SKILL.md files). Auto-detected for files named `SKILL.md`. Skills that define multi-step procedures are recommended to also follow WorkflowDoc format.
+
+**FormatDoc** — Format specifications that define AiDocFormat structure and rules. You'll rarely need this unless creating a new document format.
+
+**HumanDoc** — Human-facing guides like this one. Conversational tone, emojis, visual aids.
+
+---
+
+## 🔄 Overall Workflow
+
+The process for creating new documentation:
+
+1. **Define** → `${AGENT_SKILL(ai-doc)} meta` creates an AiDocMetaDoc specification
+2. **Build** → `${AGENT_SKILL(ai-doc)} build` creates the AiDoc following that specification
+3. **Test** → `${AGENT_SKILL(ai-doc)} debug` reflects on documentation quality after real use
+4. **Iterate** → `${AGENT_SKILL(ai-doc)} build` again to improve based on findings
+
+Everything runs through `${AGENT_SKILL(ai-doc)}`, followed by what you want: `meta`, `build`, `refine`, `stress-test`, `debug`, or `move`. Use a **fresh agent conversation** for each step.
+
+---
+
+## 📋 `${AGENT_SKILL(ai-doc)} meta` — Define What You Want
+
+Creates an **AiDocMetaDoc** — a specification that captures your document's purpose, constraints, required reading, and usage patterns. This is your foundation for all subsequent work.
+
+**When to use:**
+- Starting work on a new AiDoc
+- When no `.meta.md` file exists yet for the target document
+
+**Example prompt:**
+
+```
+${AGENT_SKILL(ai-doc)} meta Create meta file for docs/Code/Core/Ai/Mcp/McpTests.md with these considerations:
+- It describes how to write proper MCP test classes
+- Has CodeDoc format
+- tests/Services/Ai/Mcp/Redmine/RedmineMcpServerSchemaTest.php is a good example
+```
+
+**What you get:**
+
+An AiDocMetaDoc (`.meta.md`) with:
+- **Goals and principles** — what the document achieves
+- **AiDocFormat** — which format blueprint to follow
+- **MUST read / MAY read** — required and optional context for editing
+- **Typical use context** — how the document gets loaded and used
+
+### What to mention in your prompt
+
+Your considerations directly shape every section of the generated meta file. Here's what drives the best results:
+
+**Purpose and constraints** — Always the most useful starting point. What should this doc achieve? "Describes how to write proper MCP test classes", "Guides entity migration step-by-step", etc.
+
+**Usage patterns** — Always valuable. How will this doc be loaded?
+- Directly: "User loads when writing repository code"
+- Indirectly: "Called from BuildMcp workflow step 2, not used directly"
+- This shapes the "typical use context" section, which helps future editing sessions understand how the doc is actually consumed.
+
+**Format** — Only specify when not auto-detected. BaseDoc (default), WorkflowDoc (auto-detected from `/Workflows/` path), and SkillDoc (auto-detected for `SKILL.md` files) don't need mentioning. Explicitly state CodeDoc, FormatDoc, or HumanDoc.
+
+**Special terms** — Mention any of these named terms to trigger specialized reading by the meta-building skill:
+- HubDoc — loads [HubDoc meta-document guidance](Formats/MetaDoc/HubDocMeta.md), adds structural guidance for entry-point/routing docs
+- ChildDoc — loads [ChildDoc meta-document guidance](Formats/MetaDoc/ChildDocMeta.md), adds guidance for docs extending another doc
+- HubSkill — loads the [HubSkill format](Formats/SkillDoc/Types/HubSkill.format.md), adds guidance for SKILL.md that serves as a single entry point dispatching to multiple handlers
+- StartSimple — loads the [StartSimple methodology](Theory/StartSimple.md), adds the methodology of minimal initial content expanded only when real usage reveals gaps
+- WriteFinal — loads [WriteFinal principles](Theory/WriteFinal.md), guides referencing during ecosystem build-out: treat planned stubs as if they exist, skip transitional docs that will be absorbed
+
+**Relations to other documents** — Mention how the doc relates to other documents in the project. These become MUST read / MAY read entries with actionable descriptions. Common patterns from the project:
+- Boundaries: "Should not duplicate content from TestsClass.md"
+- Source of knowledge: "Use McpCode.md as main source" or "Extract patterns from X.md"
+- Methodology: "Follow StartSimple.md approach"
+- Terminology: "Must use terminology consistently with AiDocTerminology.md"
+- Examples: "RedmineMcpServerSchemaTest.php is a good example of MCP tests"
+- Predecessor: "Replaces outdated HowToWriteDocs.md"
+- Hub-spoke: "Primary entry point that routes to A.md, B.md, C.md"
+- Extension: "Extends X.md with [specific aspect]"
+
+---
+
+## 🔨 `${AGENT_SKILL(ai-doc)} build` — Create or Improve Documentation
+
+Creates a new AiDoc or improves an existing one, using its AiDocMetaDoc as the source of truth for requirements and context.
+
+**When to use:**
+- After AiDocMetaDoc exists and you're ready to write the AiDoc
+- When an existing AiDoc needs improvements
+
+**How it works:**
+1. AI reads the AiDocMetaDoc to understand goals and constraints
+2. AI reads the AiDocFormatDoc specified in it
+3. AI reads all documents from the "MUST read" section
+4. AI plans, then creates or improves the AiDoc
+5. AI verifies against format rules and AiDocMetaDoc goals
+
+**Example prompts:**
+
+Create new:
+```
+${AGENT_SKILL(ai-doc)} build Create docs/Code/Core/Ai/Mcp/McpTests.md
+- Let's use docs/Code/Core/Ai/Mcp/McpCode.md as main source of knowledge
+- We want to move all test related knowledge from there
+```
+
+Improve existing:
+```
+${AGENT_SKILL(ai-doc)} build Improve docs/Feature/MyFeature.md
+- The examples section needs updating for the new API
+```
+
+**Important:** Always run `${AGENT_SKILL(ai-doc)} build` in a **fresh agent conversation**. Context from `${AGENT_SKILL(ai-doc)} meta` or previous sessions adds noise that reduces quality.
+
+```
+${AGENT_SKILL(ai-doc)} build Let's improve docs/Feature/MyFeature.md
+- Please think how to reorganize it so templates come first, then scenarios
+```
+
+---
+
+## ✏️ `${AGENT_SKILL(ai-doc)} refine` — Refine Your Edits
+
+After you edit a document, AI improves the wording and repairs related inconsistencies while preserving your intended meaning, organization, and level of detail. Definitions, descriptions, specifications, and instructions keep their roles.
+
+**When to use:**
+
+- You have made the substantive edits and want clearer language
+- Your edits may have left stale references or conflicting statements elsewhere
+
+**Example prompt:**
+
+```text
+${AGENT_SKILL(ai-doc)} refine docs/Feature/MyFeature.md
+```
+
+Use the edited document's path. This works in a fresh session: AI reads the document and its git diff. By default, it uses staged and unstaged changes against HEAD; specify a commit or range when those are the edits you want refined. Add an explanation when the reason for a change would help AI interpret it. An AiDocMetaDoc is useful but not required.
+
+**How it works:**
+
+1. AI reads your edits and the relevant context. If materially different meanings remain plausible, it groups clarification questions and offers alternatives with a recommendation.
+2. AI refines the text and aligns directly affected references and meta guidance. Your intended changes, including deletions and simplifications, guide the edit.
+3. You receive the revised files and a brief report of meaningful interpretations and concerns beyond refinement, such as a proposed structural change.
+
+Review the reported calls to check that AI understood your intent. This is the first version of the workflow; feedback from actual use will shape it.
+
+---
+
+## 🧪 `${AGENT_SKILL(ai-doc)} stress-test` — Challenge Uncommitted Changes
+
+Critically reviews the AiDoc changes sitting in your working copy — whoever made them, you or AI — and applies the improvements it can justify.
+
+**When to use:**
+
+- After `${AGENT_SKILL(ai-doc)} build` or a batch of edits, before you commit
+- Several documents changed together and you want their boundaries and repetition checked
+
+**Example prompts:**
+
+Review everything uncommitted:
+```text
+${AGENT_SKILL(ai-doc)} stress-test
+```
+
+Narrow the scope:
+```text
+${AGENT_SKILL(ai-doc)} stress-test only the docs under docs/Code/Core/Ai/Mcp
+```
+
+**How it works:**
+
+1. AI finds the changed AiDocs from Git status, including new untracked files
+2. Each document gets its own focused review pass, using its AiDocMetaDoc when one exists (a missing one doesn't block the review)
+3. AI reviews the documents together — boundaries, repetition, reading dependencies
+4. You receive a brief report of what improved and any questions that need your decision
+
+How is this different from `refine`? Refine polishes *your* edits while protecting your intent. Stress-test questions whether each changed passage earns its place at all.
+
+---
+
+## 🔍 `${AGENT_SKILL(ai-doc)} debug` — Test Documentation Quality
+
+Reflects on documentation effectiveness using actual session evidence. Documentation is accountable for AI guidance quality — if AI performed poorly, documentation failed to guide properly.
+
+**When to use:**
+- After a session where AI behavior didn't match expectations
+- End of any session, to get AI feedback on documentation quality
+
+**Two modes:**
+
+Investigate specific anomaly:
+```
+${AGENT_SKILL(ai-doc)} debug AI created entity files in wrong directory structure, didn't follow CodeUnit patterns
+```
+
+General session reflection (no arguments):
+```
+${AGENT_SKILL(ai-doc)} debug
+```
+
+**What you get:**
+- Identified documentation gaps framed as practical data points (not AI errors)
+- Specific improvement direction for the documentation that was insufficient
+
+---
+
+## 📦 `${AGENT_SKILL(ai-doc)} move` — Relocate Documentation
+
+Moves documentation files while keeping all references intact across the codebase.
+
+**When to use:**
+- Reorganizing documentation structure
+- Renaming or relocating AiDoc files
+
+**Example prompts:**
+
+```
+${AGENT_SKILL(ai-doc)} move docs/Old/Feature.md to docs/New/Feature.md
+```
+
+```
+${AGENT_SKILL(ai-doc)} move docs/Old/FeatureFolder to docs/New/FeatureFolder
+```
+
+**What happens:**
+1. AI identifies all files to move (including `.meta.md` companions)
+2. AI searches for all references to these files
+3. Files are moved with `git mv` to preserve history
+4. All references are updated
+5. AI verifies no broken references remain
+
+---
+
+## 🔗 `${AGENT_SKILL(ai-doc:ref)}` — Reference Plugin Content from External Docs
+
+Agent-facing skill that prints ai-doc plugin documents by short name. Used in external project files (workflows, commands, format specs) without knowing the installed plugin path.
+
+**Example usage in an external doc:** `- Call '${AGENT_SKILL(ai-doc:ref)} HumanDoc' skill - format for human-facing documentation`
+
+See the [available short-name references](skills/ref/help.md).
+
+---
+
+## 📖 Complete Scenarios
+
+### Scenario 1: Creating New Documentation
+
+**Context:** You need to document MCP test patterns.
+
+**Step 1: Create AiDocMetaDoc** (fresh dialogue)
+```
+${AGENT_SKILL(ai-doc)} meta Create meta for docs/Code/Core/Ai/Mcp/McpTests.md with these considerations:
+- Describes proper MCP test class patterns
+- Has CodeDoc format
+- tests/Services/Ai/Mcp/Redmine/RedmineMcpServerSchemaTest.php is a good example
+```
+
+Review the generated `.meta.md` — check that goals, required reading, and format look right.
+
+**Step 2: Create AiDoc** (fresh dialogue)
+```
+${AGENT_SKILL(ai-doc)} build Create docs/Code/Core/Ai/Mcp/McpTests.md
+- Use docs/Code/Core/Ai/Mcp/McpCode.md as main source of knowledge
+```
+
+The AI reads your AiDocMetaDoc, loads all required context, and builds the document.
+
+### Scenario 2: Improving Existing Documentation
+
+**Context:** A workflow document needs restructuring after a process change.
+
+**Single step** (fresh dialogue):
+```
+${AGENT_SKILL(ai-doc)} build Improve docs/code/on-build.md
+- Clarify which verification the workspace check already performs
+- Keep the builder's additional verification responsibilities explicit
+```
+
+The AI reads the existing AiDocMetaDoc, understands the goals, and applies improvements while maintaining format compliance.
+
+### Scenario 3: Reorganizing Documentation
+
+**Context:** A directory was restructured and docs need to follow.
+
+```
+${AGENT_SKILL(ai-doc)} move docs/Code/Domain/OldModule to docs/Code/Domain/NewModule
+```
+
+The AI moves all files (including `.meta.md` companions), updates every reference across the codebase, and verifies nothing is broken.
+
+---
+
+## 🎯 Start Simple, Iterate
+
+Every line in your documentation competes for AI attention. More isn't better — it's worse.
+
+1. Start with minimal documentation
+2. Use it in practice
+3. Add only what's clearly missing
+4. Remove what isn't used
+
+**Recognizing bloat:** repeated information across sections, examples that don't add new patterns, explanations of obvious concepts. If you can't immediately explain why a line is essential, it probably isn't.
