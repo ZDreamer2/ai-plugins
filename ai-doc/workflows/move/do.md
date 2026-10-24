@@ -36,9 +36,7 @@ Search tools respect .gitignore by default and skip nested repositories without 
 
 Classify the results before editing. Live references are updated; append-only records - session logs, finished plans, IDE state - are left as written. Pass `--exclude <name>` to drop a classified directory from later runs.
 
-Reference formats used in this project:
-- `@docs/Path/File.md` - Documentation reference format
-- `docs/Path/File.md` - Direct path from project root
+Include Markdown links, frontmatter paths and legacy literal references. Interpret their bases using the [reference path rules](../../Theory/References/ReferencePathManagement.md).
 
 ### Step 3: Move files
 
@@ -55,6 +53,7 @@ For each identified file, call:
 Update all found references in source files:
 - Replace old paths with new paths
 - Maintain original reference format
+- Rebase document-relative references inside moved files so they still resolve to the same targets. Keep `AI_DOC_PLUGIN/...` references plugin-root-relative.
 
 ### Step 5: Verify no broken references
 

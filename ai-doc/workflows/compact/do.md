@@ -21,8 +21,8 @@ Reduce the effort of reading an AiDoc while preserving what its intended reader 
 Reuse sufficient, current context already available; read what is missing.
 
 - Read [AiDoc terminology](../../Theory/AiDocTerminology.md) and [writing principles](../../Theory/AiDocBaseFormat.md).
-- Locate and read the target's meta. A target meta is required; if missing, create it through the [meta creation workflow](../meta/do.md) before compaction.
-- Read the format specified by the meta, including its required context, and the meta's required editing sources. Read relevant optional sources as needed. Resolve `AI_DOC_PLUGIN/...` from this plugin's root (`../../` relative to this workflow); other document references are relative to their containing document.
+- Read the target's AiDocMetaDoc if present. Read its AiDocFormatDoc and all required sources listed in either document.
+- Read relevant optional sources as needed. Resolve `AI_DOC_PLUGIN/...` from this plugin's root (`../../` relative to this workflow); other document references are relative to their containing document.
 - Read the complete current target and [documentation usefulness guidance](../../Theory/docs-usefulness.md).
 
 Inspect the target and meta's uncommitted Git changes when available:
@@ -48,8 +48,8 @@ Revise the target and directly affected documentation according to the assessmen
 
 When satellite extraction is justified:
 
-- Create each satellite's meta through the [meta creation workflow](../meta/do.md).
-- Create the satellite through the [AiDoc creation workflow](../build/do.md), using that meta.
+- Create each satellite's meta through the [meta creation workflow](../meta/do.md), unless the user requests satellites without metas.
+- Create the satellite through the [AiDoc creation workflow](../build/do.md).
 - Transfer the detail and adjust the main document's explanation and links. Retain the compact local explanation its reader needs; useful overlap with fuller satellite detail is acceptable.
 
 Align directly affected metas and references with the resulting documentation.

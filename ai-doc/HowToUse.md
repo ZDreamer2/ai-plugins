@@ -8,7 +8,7 @@ The framework uses three document layers:
 
 **AiDocFormatDoc** (`.format.md`) — Format blueprints. Defines HOW to write a type of document: template, structure rules, validation. Formats already exist for common types — you rarely need to create new ones.
 
-**AiDocMetaDoc** (`.meta.md`) — Document specification. Defines WHAT a specific document should be: its purpose, constraints, required reading context, and usage patterns. You create one before writing any new AiDoc.
+**AiDocMetaDoc** (`.meta.md`) — Additional authoring context: purpose, constraints, required reading, and usage patterns.
 
 **AiDoc** (`.md`) — The actual document AI agents read during tasks. Concise, actionable, optimized for the chosen format.
 
@@ -34,7 +34,7 @@ Without it, you either re-explain a document's purpose every editing session, or
 
 ## 🔄 Overall Workflow
 
-The process for creating new documentation:
+A typical documentation workflow:
 
 1. **Define** → `${AGENT_SKILL(ai-doc)} meta` creates an AiDocMetaDoc specification
 2. **Build** → `${AGENT_SKILL(ai-doc)} build` creates the AiDoc following that specification
@@ -47,11 +47,11 @@ Everything runs through `${AGENT_SKILL(ai-doc)}`, followed by what you want: `me
 
 ## 📋 `${AGENT_SKILL(ai-doc)} meta` — Define What You Want
 
-Creates an **AiDocMetaDoc** — a specification that captures your document's purpose, constraints, required reading, and usage patterns. This is your foundation for all subsequent work.
+Creates an **AiDocMetaDoc** — a specification that captures your document's purpose, constraints, required reading, and usage patterns.
 
 **When to use:**
-- Starting work on a new AiDoc
-- When no `.meta.md` file exists yet for the target document
+- Creating document-specific editing context before building an AiDoc
+- Adding a meta to an existing document
 
 **Example prompt:**
 
@@ -104,18 +104,17 @@ Your considerations directly shape every section of the generated meta file. Her
 
 ## 🔨 `${AGENT_SKILL(ai-doc)} build` — Create or Improve Documentation
 
-Creates a new AiDoc or improves an existing one, using its AiDocMetaDoc as the source of truth for requirements and context.
+Creates or improves an AiDoc using its AiDocFormatDoc and, when present, its AiDocMetaDoc.
 
 **When to use:**
 - After AiDocMetaDoc exists and you're ready to write the AiDoc
 - When an existing AiDoc needs improvements
 
 **How it works:**
-1. AI reads the AiDocMetaDoc to understand goals and constraints
-2. AI reads the AiDocFormatDoc specified in it
-3. AI reads all documents from the "MUST read" section
-4. AI plans, then creates or improves the AiDoc
-5. AI verifies against format rules and AiDocMetaDoc goals
+1. AI reads the AiDocMetaDoc if present
+2. AI reads the AiDocFormatDoc and required sources listed in either document
+3. AI plans, then creates or improves the AiDoc
+4. AI verifies format compliance and, when present, the meta's goals
 
 **Example prompts:**
 
@@ -131,6 +130,15 @@ Improve existing:
 ${AGENT_SKILL(ai-doc)} build Improve docs/Feature/MyFeature.md
 - The examples section needs updating for the new API
 ```
+
+Create without a meta:
+```
+${AGENT_SKILL(ai-doc)} build Create docs/Code/McpTests.md without a meta
+- Follow AI_DOC_PLUGIN/Formats/CodeDoc/CodeDoc.format.md
+- Describe the MCP test patterns in tests/Services/Ai/Mcp/
+```
+
+AI records the format in the document's frontmatter.
 
 **Important:** Always run `${AGENT_SKILL(ai-doc)} build` in a **fresh agent conversation**. Context from `${AGENT_SKILL(ai-doc)} meta` or previous sessions adds noise that reduces quality.
 
@@ -298,7 +306,7 @@ ${AGENT_SKILL(ai-doc)} build Improve docs/code/on-build.md
 - Keep the builder's additional verification responsibilities explicit
 ```
 
-The AI reads the existing AiDocMetaDoc, understands the goals, and applies improvements while maintaining format compliance.
+The AI reads the document's meta when present, its format and required sources, then applies improvements while maintaining format compliance.
 
 ### Scenario 3: Reorganizing Documentation
 

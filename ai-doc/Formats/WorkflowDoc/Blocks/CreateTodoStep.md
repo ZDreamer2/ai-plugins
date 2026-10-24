@@ -28,7 +28,7 @@ Step number where todo creation occurs, typically follows immediately after plan
 
 ## CreateTodoStep example
 
-From the [AiDoc creation workflow](../../../workflows/build/do.md):
+For an AiDoc authoring workflow:
 
 ```markdown
 ### Step 3: Create todo list for execution
@@ -36,8 +36,9 @@ From the [AiDoc creation workflow](../../../workflows/build/do.md):
 Create a detailed task breakdown:
 - Transform the plan into specific, actionable tasks
 - Todo list MUST include verification tasks at the end:
-  - Verify against AiDocFormat specified in AiDocMetaDoc using its Validation Rules section
-  - Verify all AiDocMetaDoc goals and principles are met
+  - Verify against the selected AiDocFormat using its Validation Rules section
+  - When a meta exists, verify its goals and principles are met
+  - Verify document references resolve
 ```
 
 ## Validation Rules

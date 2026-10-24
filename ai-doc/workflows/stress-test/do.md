@@ -28,7 +28,7 @@ Reuse document content, diffs, meta documents, and editorial criteria already av
 
 ### Step 2: Gather editing context
 
-For each document, use its AiDocMetaDoc if present, reading it only when the available context is insufficient or stale. A missing meta does not block review. When the reviewed document is itself a meta, use the [meta format](../../Formats/MetaDoc/AiDocMetaDoc.format.md) and its target's purpose and use as the review context.
+For each document, read its AiDocMetaDoc if present. Read its AiDocFormatDoc and all required sources listed in either document. Reuse sufficient, current content already in the session; read what is missing or stale. A missing meta does not block review. When the reviewed document is itself a meta, use the [meta format](../../Formats/MetaDoc/AiDocMetaDoc.format.md) and its target's purpose and use as the review context.
 
 Use the [shared editorial criteria](../build/workflows/on-build-done.md) for the review passes; load them if not already available in context.
 

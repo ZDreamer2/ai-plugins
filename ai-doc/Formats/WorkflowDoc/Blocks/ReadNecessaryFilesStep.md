@@ -68,15 +68,11 @@ Demonstrates action-oriented substep titles and clear structure:
 
 Substeps MUST be executed sequentially due to path dependencies.
 
-#### 1.1: Read AiDocMetaDoc
+#### 1.1: Determine editing context
 
-Locate and read based on provided AiDoc path:
-- Check for meta file using AiDocMetaDoc naming convention from [AiDoc terminology](../../../Theory/AiDocTerminology.md#aidocmetadoc-files)
-- IF AiDocMetaDoc does not exist THEN
-	- Exit workflow - AiDocMetaDoc is required
-- IF AiDocMetaDoc exists THEN
-	- Understand its goals, principles, and requirements
-	- Extract AiDocFormat path from `## AiDocFormat` section
+- Locate the target's AiDocMetaDoc using the [naming convention](../../../Theory/AiDocTerminology.md#aidocmetadoc-files).
+- IF a meta exists THEN read it and extract the format path from its `## AiDocFormat` section.
+- Otherwise, obtain the AiDocFormatDoc path specified in the target or supplied by the user when requesting work without a meta.
 
 #### 1.2: Read AiDocFormatDoc
 
@@ -89,7 +85,7 @@ Locate and read based on provided AiDoc path:
 	- Read all documents listed in that section
 ```
 
-Adapted from the [AiDoc creation workflow](../../../workflows/build/do.md). See also the [AiDocMetaDoc context-gathering steps](../../../workflows/meta/do.md#step-1-gather-context) for complex conditional logic.
+Adapted from the [AiDoc creation workflow](../../../workflows/build/do.md). See also the [AiDocMetaDoc context-gathering steps](../../../workflows/meta/do.md#step-1-establish-the-intended-document) for complex conditional logic.
 
 ## Validation Rules
 
