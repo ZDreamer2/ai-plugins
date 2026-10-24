@@ -40,8 +40,10 @@ def source_entries(
         for path in folder.iterdir():
             relative = path.relative_to(source).as_posix()
             resolved = path.resolve()
-            if relative in {"@common", ".gitlab-ci.yml", ".gitlab", ".github"}:
-                # Marketplace CI owns publication, not the rendered distributions.
+            if relative in {
+                "@common", ".gitlab-ci.yml", ".gitlab", ".github", ".marketplace",
+            }:
+                # Shared roots, CI and build configuration are source-only.
                 continue
             if exclude_output and (resolved == output or output in resolved.parents):
                 # A file alias outside the logical output still exposes a source
@@ -103,7 +105,7 @@ def replace_tree(path: Path) -> None:
 
 def render_tree(
     inventory: SourceInventory, entries: tuple[SourceEntry, ...],
-    tree: Path, host: str, dry_run: bool,
+    tree: Path, host: str, dry_run: bool, readme: str | None = None,
 ) -> tuple[int, tuple[str, ...], CodexConstructReport | PiConstructReport | None]:
     report = (
         CodexConstructReport() if host == "codex"
@@ -114,6 +116,8 @@ def render_tree(
     count = 0
     generated: list[str] = []
     for entry in entries:
+        if readme is not None and entry.relative == "README.md":
+            continue
         destination = tree / entry.relative
         if entry.directory:
             if not dry_run:
@@ -143,4 +147,8 @@ def render_tree(
             make_directory(destination.parent)
             shutil.copyfile(entry.path, destination)
             destination.chmod(0o755 if os.access(entry.path, os.X_OK) else 0o644)
+    if readme is not None:
+        generated.append("README.md")
+        if not dry_run:
+            write_bytes(tree / "README.md", readme.encode("utf-8"))
     return count, tuple(generated), report

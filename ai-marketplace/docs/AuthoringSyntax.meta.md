@@ -5,7 +5,7 @@ Specification for editing [Markdown authoring syntax](AuthoringSyntax.md). Defin
 ## AuthoringSyntax.md goals and principles
 
 - The normative shared Markdown authoring contract for marketplaces adopting this CodebaseType: skill frontmatter, document references, agent-executed commands, agent placeholders and agent includes. Authors use the shared syntax without choosing a host except for intentionally agent-specific features
-- Rules only: every statement is a rule an author applies or a fact the build enforces, with one example where the shape is not obvious. Host renderings, validation details and reports belong to [host rendering](HostRendering.md); marketplace-specific testing and publication status belong to the marketplace README. They are not prerequisites for applying these rules
+- Rules only: every statement is a rule an author applies or a fact the build enforces, with one example where the shape is not obvious. Host renderings, validation details and reports belong to [host rendering](HostRendering.md); marketplace-specific testing and publication status belong to the maintainer guide. They are not prerequisites for applying these rules
 - MUST agree with the rendering implementation. Consult the implementation references below when changing rendering claims; use neutral names for syntax examples
 - MUST distinguish installed-plugin references from source meta references: metas can reach the whole marketplace, with document-relative Markdown links and directory paths and marketplace-root paths for code and other non-Markdown files
 - MUST NOT cover marketplace-specific plugin lifecycle, report locations, build authorization or cleanup
@@ -32,7 +32,7 @@ The following marketplace-root implementation paths support maintenance of the s
 
 - [Reference path management](AI_DOC_PLUGIN/Theory/References/ReferencePathManagement.md) - When touching the reference rules: apply its document-relative paths, link syntax, reading obligations and prohibition on context injection
 - [Host rendering](HostRendering.md) - When deciding whether a statement is a shared rule (here) or an output explanation (there)
-- [Marketplace README](../../README.md) - When deciding whether a statement belongs to syntax or local marketplace operations
+- [Maintainer guide](../../docs/Maintaining.md) - When deciding whether a statement belongs to syntax or local marketplace operations
 - `ai-marketplace/scripts/marketplace/build/rendering/tests/` - When verifying a rule, use the focused rendering fixtures for Claude, Codex and Pi
 
 ## AuthoringSyntax.md typical use context

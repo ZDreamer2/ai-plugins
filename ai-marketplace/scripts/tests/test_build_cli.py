@@ -1,6 +1,7 @@
 """Exercise a copied plugin from an unrelated directory without site packages."""
 
 import base64
+import json
 import os
 from pathlib import Path
 import shutil
@@ -91,6 +92,21 @@ class BuildCliTests(unittest.TestCase):
         self.assertFalse((self.source / "@build").exists())
         self.assertFalse(list(self.plugin.rglob("__pycache__")))
         self.assertEqual(0o755, self.command.stat().st_mode & 0o777)
+
+    def test_copied_builder_generates_and_narrates_distribution_readmes(self) -> None:
+        self.write(".marketplace/readme.json", json.dumps({
+            "marketplace": "Example", "source_url": "https://example.org/source",
+            "installation": dict.fromkeys(("claude", "codex", "pi"), "Install here."),
+        }).encode())
+        result = self.run_cli("--dir", str(self.source))
+        self.assertEqual(0, result.returncode, result.stderr)
+        for host in ("claude", "codex", "pi"):
+            self.assertIn(f"{host}/README.md: generated distribution README", result.stdout)
+            text = (self.source / "@build" / host / "README.md").read_text()
+            self.assertIn("Install here.", text)
+            self.assertIn("https://example.org/source", text)
+        self.assertNotIn("README.md: policy", result.stdout)
+        self.assertFalse(list(self.plugin.rglob("__pycache__")))
 
     def test_dry_run_narrates_without_writes(self) -> None:
         output = self.root / "preview"

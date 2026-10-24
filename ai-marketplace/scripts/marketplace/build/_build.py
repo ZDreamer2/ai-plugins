@@ -13,6 +13,7 @@ from marketplace import TaggedValue
 from marketplace.source import discover_source, resolve_identity
 
 from ._installers import build_installers
+from ._readme import distribution_readmes
 from ._tree import render_tree, source_entries, write_bytes
 from .rendering import (
     claude_marketplace_metadata, claude_plugin_metadata,
@@ -125,12 +126,15 @@ def build(
         codex_plugin_metadata(plugin) for plugin in inventory.plugins
     ]
     preflight_pi(inventory)
+    readmes = distribution_readmes(source)
     results: list[TreeResult] = []
     entries, excluded_inputs = (
         source_entries(source, output) if inventory.plugins else ((), ())
     )
     # Read-only inputs excluded from copying still need protection from writes.
     inputs = [entry.path for entry in entries] + list(excluded_inputs)
+    if readmes:
+        inputs.append(source / ".marketplace/readme.json")
     for plugin in inventory.plugins:
         inputs.append(plugin.directory / "ai-plugin.yml")
         inputs.extend(
@@ -158,7 +162,7 @@ def build(
     if inventory.plugins:
         for host, tree in zip(("claude", "codex", "pi"), trees):
             count, generated, report = render_tree(
-                inventory, entries, tree, host, dry_run,
+                inventory, entries, tree, host, dry_run, readmes.get(host),
             )
             metadata: dict[str, str] = {}
 

@@ -17,7 +17,7 @@ _VCS_DIRS = {
 _FORBIDDEN_ROOT = (
     'package.json', '@common', 'pi-report.md', 'codex-report.md',
     '.claude-plugin', '.agents', '@setup',
-    '.gitlab-ci.yml', '.gitlab', '.github',
+    '.gitlab-ci.yml', '.gitlab', '.github', '.marketplace',
 )
 
 

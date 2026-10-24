@@ -1,12 +1,13 @@
 # README.meta.md
 
-Specification for creating and editing [marketplace README](README.md). Defines purpose, usage patterns and constraints.
+Specification for the [public marketplace overview](README.md).
 
 ## README.md goals and principles
 
-- Orients maintainers working with the standalone two-plugin marketplace, distinguishing private GitLab delivery, public GitHub delivery and consumer migration.
-- Keeps executable local verification reproducible without the original checkout, shared SDK or downloaded Python dependencies.
-- Owns local verification and delivery operations, including the shared-runner trust boundary, credential renewal, SSH deploy-key boundaries and artifact verification. Configured delivery and verified delivery stay distinct; license exceptions remain visible.
+- Helps repository visitors decide whether the plugins solve their documentation or marketplace-authoring needs.
+- Owns shared plugin descriptions, first-use examples and links to host-specific installation pages, avoiding parallel usage guides across generated repositories.
+- Separates consumer guidance from maintainer operations and private delivery infrastructure.
+- Describes actual capabilities without implying installed-host acceptance has been completed.
 
 ## AiDocFormat
 
@@ -14,17 +15,17 @@ Specification for creating and editing [marketplace README](README.md). Defines 
 
 ## MUST read before editing README.md
 
-- [StartSimple methodology](AI_DOC_PLUGIN/Theory/StartSimple.md) - Keeps the entry point focused on established local operations.
-- [Host rendering](ai-marketplace/docs/HostRendering.md) - Defines the output contract the local commands exercise.
+- [StartSimple methodology](AI_DOC_PLUGIN/Theory/StartSimple.md) - Keeps the public entry point focused on immediate user needs.
+- [Host rendering](ai-marketplace/docs/HostRendering.md) - Owns the host-specific invocation names used in examples.
 
 ## README.md typical use context
 
 ### 💡 Distinct usage patterns for README.md
 
-#### Direct checkout entry point
+#### Public repository discovery
 
-`Build and test this checkout using README.md.`
+Visitor opens the source repository or follows a generated distribution README -> overview -> host installation page or plugin documentation.
 
 ### Role README.md serves during use
 
-- Local setup and verification entry point, with extraction provenance and deployment boundaries.
+- Public product overview and shared getting-started reference.

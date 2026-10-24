@@ -28,7 +28,11 @@ def main() -> int:
     for tree in result.trees:
         print(f"{label}{tree.host}: {tree.source_file_count} source file(s)")
         for path in tree.generated_files:
-            print(f"{label}{tree.host}/{path}: policy.allow_implicit_invocation: false")
+            note = (
+                "generated distribution README" if path == "README.md"
+                else "policy.allow_implicit_invocation: false"
+            )
+            print(f"{label}{tree.host}/{path}: {note}")
         for path, note in tree.metadata.items():
             print(f"{label}{tree.host}/{path}: {note}")
         for section, summary in tree.report_summaries.items():

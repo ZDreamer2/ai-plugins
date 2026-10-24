@@ -23,7 +23,7 @@ Authoring context for [marketplace repository configuration](do.md).
 
 - [Marketplace organization](../../../../../codebase/on-plan.md) - When describing source, plugin and distribution boundaries.
 - [Host rendering](../../../../../docs/HostRendering.md) - When describing the generated outputs and the distinction between successful rendering and host acceptance.
-- [zd-plugins operations](../../../../../../README.md) - Concrete GitLab publication example; GitHub delivery is not implemented there. Its current topology is not the generic configuration contract.
+- [zd-plugins operations](../../../../../../docs/Maintaining.md) - Concrete GitLab and GitHub publication example; its current topology is not the generic configuration contract.
 - `ai-marketplace/scripts/build.py` and `ai-marketplace/scripts/validate_pi.py` - Own the bundled converter's actual CLI; setup guidance should use these tools rather than leave the agent to invent a build system.
 - `.gitlab-ci.yml` and `.gitlab/publish.sh` - When using the existing GitLab publication implementation as evidence for configuration outcomes and safeguards.
 - [GitLab CI documentation](https://docs.gitlab.com/ci/) and [GitHub Actions documentation](https://docs.github.com/en/actions) - When platform capabilities affect the guidance; these own current platform mechanics rather than the workflow duplicating them.

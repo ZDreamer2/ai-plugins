@@ -1,0 +1,9 @@
+{
+  "marketplace": "AI Plugins",
+  "source_url": "https://github.com/ZDreamer2/ai-plugins",
+  "installation": {
+    "claude": "Requires Claude Code with plugin support and Git. Run in your terminal:\n\n```sh\nclaude plugin marketplace add https://github.com/ZDreamer2/ai-plugins-claude.git\nclaude plugin install ai-doc@zd-plugins\nclaude plugin install ai-marketplace@zd-plugins\n```\n\nInstall either plugin or both, then start a new Claude Code session. For updates, run `claude plugin marketplace update zd-plugins`, followed by `claude plugin update ai-doc@zd-plugins` and/or `claude plugin update ai-marketplace@zd-plugins`, then restart the session.",
+    "codex": "Requires a Codex CLI version with `codex plugin` support and Git. Run in your terminal:\n\n```sh\ncodex plugin marketplace add https://github.com/ZDreamer2/ai-plugins-codex.git\ncodex plugin add ai-doc@zd-plugins\ncodex plugin add ai-marketplace@zd-plugins\n```\n\nInstall either plugin or both, then start a new Codex session. To refresh the marketplace, run `codex plugin marketplace upgrade zd-plugins`; use `/plugins` in Codex to manage installed plugins and their updates.",
+    "pi": "Requires Pi and Git. This repository contains two independent packages, so clone it to a permanent location and install the package directories you need:\n\n```sh\ngit clone https://github.com/ZDreamer2/ai-plugins-pi.git\npi install ./ai-plugins-pi/ai-doc\npi install ./ai-plugins-pi/ai-marketplace\n```\n\nInstall either package or both, then start a new Pi session. These are local-path installs: keep the checkout in place. To update, run `git -C ai-plugins-pi pull --ff-only` and start a new session. The repository root is not itself a Pi package."
+  }
+}

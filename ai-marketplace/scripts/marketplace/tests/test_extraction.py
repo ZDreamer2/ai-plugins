@@ -46,7 +46,7 @@ class ExtractionTests(unittest.TestCase):
         for name in ("AuthoringSyntax.meta.md", "HostRendering.meta.md"):
             text = (ROOT / "ai-marketplace/docs" / name).read_text(encoding="utf-8")
             self.assertNotIn("@common/docs/", text)
-            self.assertIn("../../README.md", text)
+            self.assertIn("../../docs/Maintaining.md", text)
         for relative in (
             "ai-marketplace/codebase/on-plan.meta.md",
             "ai-marketplace/codebase/on-build.meta.md",
@@ -79,6 +79,11 @@ class ExtractionTests(unittest.TestCase):
                     self.assertEqual(catalog["owner"], {"name": "ZDreamer2"})
             for host in ("claude", "codex", "pi"):
                 tree = output / host
+                readme = (tree / "README.md").read_text()
+                self.assertIn("https://github.com/ZDreamer2/ai-plugins", readme)
+                self.assertIn("## Install", readme)
+                self.assertNotIn("## GitLab publication", readme)
+                self.assertFalse((tree / ".marketplace").exists())
                 for path in tree.rglob("*"):
                     self.assertFalse(path.is_symlink(), str(path))
                     self.assertNotIn(path.name, {"@common", "@setup", "@setup-sources"})

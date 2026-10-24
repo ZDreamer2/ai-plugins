@@ -105,6 +105,79 @@ class BuildTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "must not be published"):
             validate_pi_distribution(self.source, output / "pi", output)
 
+    def test_distribution_readmes_use_shared_template_and_instance_config(self) -> None:
+        self.plugin()
+        self.write("README.md", "Source-only overview ${AGENT_TYPO}.\n")
+        self.write(".marketplace/readme.json", json.dumps({
+            "marketplace": "Example Marketplace",
+            "source_url": "https://example.org/source",
+            "installation": {
+                host: f"Install {host}: `$literal` and ${{AGENT_TYPO}}."
+                for host in HOSTS
+            },
+        }))
+        output = self.base / "output"
+        before = snapshot(self.source)
+        preview = build(self.source, output, dry_run=True, now=NOW)
+        self.assertFalse(output.exists())
+        built = build(self.source, output, now=NOW)
+        self.assertEqual(preview, built)
+        self.assertEqual(snapshot(self.source), before)
+        for host, name in zip(HOSTS, ("Claude Code", "Codex", "Pi")):
+            text = (output / host / "README.md").read_text()
+            self.assertTrue(text.startswith(f"# Example Marketplace for {name}\n"))
+            self.assertIn(f"Install {host}: `$literal` and ${{AGENT_TYPO}}.", text)
+            self.assertIn("https://example.org/source", text)
+            self.assertNotIn("Source-only overview", text)
+            self.assertFalse((output / host / ".marketplace").exists())
+            self.assertIn("README.md", built.trees[HOSTS.index(host)].generated_files)
+        self.assertEqual(validate_pi_distribution(self.source, output / "pi", output), 1)
+        (output / "pi/.marketplace").mkdir()
+        with self.assertRaisesRegex(ValueError, "must not be published"):
+            validate_pi_distribution(self.source, output / "pi", output)
+
+    def test_invalid_readme_config_fails_before_output_replacement(self) -> None:
+        self.plugin()
+        output = self.seed_output()
+        before = snapshot(output)
+        valid = {
+            "marketplace": "Example", "source_url": "https://example.org",
+            "installation": dict.fromkeys(HOSTS, "Install here."),
+        }
+        for config in (None, [], {}, {**valid, "marketplace": " "},
+                       {**valid, "installation": {"claude": "Only one host"}},
+                       {**valid, "installation": []},
+                       {**valid, "source_url": 123}):
+            self.write(".marketplace/readme.json", json.dumps(config))
+            for dry_run in (True, False):
+                with self.subTest(config=config, dry_run=dry_run):
+                    with self.assertRaisesRegex(ValueError, "Invalid distribution README"):
+                        build(self.source, output, dry_run=dry_run, now=NOW)
+                    self.assertEqual(snapshot(output), before)
+        self.write(".marketplace/readme.json", "{invalid")
+        with self.assertRaisesRegex(ValueError, "Invalid distribution README"):
+            build(self.source, output, now=NOW)
+        self.assertEqual(snapshot(output), before)
+
+    def test_invalid_readme_config_blocks_installer_only_builds(self) -> None:
+        self.installer_sources(self.source / "@common/@setup-sources")
+        self.write(".marketplace/readme.json", "{invalid")
+        output = self.seed_output()
+        before = snapshot(output)
+        for dry_run in (True, False):
+            with self.subTest(dry_run=dry_run):
+                with self.assertRaisesRegex(ValueError, "Invalid distribution README"):
+                    build(self.source, output, dry_run=dry_run, now=NOW)
+                self.assertEqual(snapshot(output), before)
+
+    def test_readme_copy_is_unchanged_without_configuration(self) -> None:
+        self.plugin()
+        self.write("README.md", "Source ${AGENT_SUBAGENT_TOOL}.\n")
+        output = self.base / "output"
+        build(self.source, output, now=NOW)
+        for host, tool in zip(HOSTS, ("Agent", "spawn_agent", "subagent")):
+            self.assertEqual((output / host / "README.md").read_text(), f"Source {tool}.\n")
+
     def seed_output(self, output: Path | None = None) -> Path:
         output = output or self.source / "@build"
         for host in HOSTS:

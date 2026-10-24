@@ -1,72 +1,57 @@
-# zd-plugins
+# AI Plugins
 
-Standalone source marketplace containing `ai-doc` (documentation authoring and helpers) and `ai-marketplace` (multi-host marketplace authoring and build tools).
+Plugins for working with AI-assisted documentation and developing AI plugin marketplaces, available for Claude Code, Codex and Pi.
 
-Extracted from bc-plugins commit `0a09ad40c6e8e2964cee4603c67f22aef0b3689e`, preserving tracked payloads and executable modes, without history, shared `@common` resources or installer payloads. The original plugins and their consumers are unchanged.
+## Plugins
 
-## Local build and validation
+### ai-doc
 
-Run from this repository root. Requires Python 3.10+, Git and system timezone data including `Europe/Moscow` (for example, the OS `tzdata` package). PyYAML 6.0.2 is bundled; pip, site packages and the Bico SDK are unnecessary. Versions default to the latest touching Git commit timestamp, or the current time in a checkout without history. Build from a cache-free source tree: the builder copies local files, and `.gitignore` is not a packaging filter. Root `.gitlab-ci.yml`, `.gitlab/` and `.github/` are source-only and excluded from distributions. Some test subprocesses create Python caches despite the outer `-B`; remove those before building.
+Create and maintain documentation that guides an AI agent through practical tasks. AiDoc pairs a document with a companion `.meta.md` file that preserves its purpose, audience and editing context.
 
-```sh
-out=$(mktemp -d /tmp/zd-plugins-build.XXXXXX)
-python3 -B -S ai-marketplace/scripts/build.py --dir . --output-dir "$out"
-python3 -B -S ai-marketplace/scripts/validate_pi.py --dir . --tree "$out/pi" --output-dir "$out"
-# Inspect $out/{claude,codex,pi} and $out/{codex,pi}-report.md before cleanup.
-rm -rf -- "$out"
-```
+Use it to create documentation and its meta, refine edits, compact long guides, relocate documents with their references, or investigate why instructions did not work as intended.
 
-Claude and Codex catalogs use `zd-plugins` with ZDreamer2 identity; Pi packages are `@zdreamer2/pi-plugin-ai-doc` and `@zdreamer2/pi-plugin-ai-marketplace`. Each distribution contains exactly these two plugins. Reports identify literal host constructs, not host acceptance failures. See [host rendering](ai-marketplace/docs/HostRendering.md) and [authoring syntax](ai-marketplace/docs/AuthoringSyntax.md).
+For example, invoke the skill with: `Create a meta document for docs/Deployment.md, then build the deployment guide from it.`
 
-## Unit tests
+See the [AiDoc entry skill](ai-doc/skills/ai-doc/SKILL.md) for available workflows and [AiDoc terminology](ai-doc/Theory/AiDocTerminology.md) for the document model.
 
-The marketplace package suite includes focused standalone extraction checks. All tests use the standard library and the bundled parser. Logs may be redirected to a temporary directory outside this checkout.
+### ai-marketplace
 
-```sh
-scripts=ai-marketplace/scripts
-python3 -B -S -m unittest discover -s "$scripts/tests" -v
-for suite in marketplace/tests marketplace/source/tests marketplace/validation/tests marketplace/build/tests marketplace/build/rendering/tests; do
-  python3 -B -S -m unittest discover -s "$scripts/$suite" -t "$scripts" -v || exit 1
-done
-python3 -B -S -m unittest discover -s ai-marketplace/codebase/tests -v
-python3 -B -S -m unittest discover -s ai-doc/scripts/diff_doc/tests -t ai-doc/scripts -v
-python3 -B -S -m unittest discover -s .gitlab/tests -v
-```
+Develop plugin marketplaces from shared sources for Claude Code, Codex and Pi. The plugin supplies authoring guidance and Python tools for building host-specific metadata, rendering instructions and validating Pi distributions.
 
-## GitLab publication
+For example, invoke the skill with: `Help me add a plugin to this marketplace and check its output for Claude Code, Codex and Pi.`
 
-The default-branch pipeline builds and validates the three distributions, then publishes each tree to its private GitLab repository:
+See the [marketplace entry skill](ai-marketplace/skills/ai-marketplace/SKILL.md), [authoring syntax](ai-marketplace/docs/AuthoringSyntax.md) and [host rendering reference](ai-marketplace/docs/HostRendering.md).
 
-- Claude: `git@g.bt.su:bico/generated/zd-plugins-claude.git`
-- Codex: `git@g.bt.su:bico/generated/zd-plugins-codex.git`
-- Pi: `git@g.bt.su:bico/generated/zd-plugins-pi.git`
+## Install
 
-Protected `master` jobs use runner 6 with tag `bc-plugins-publication`, shared with the trusted private bc-plugins marketplace. The projects share its execution account, not destination repositories or credentials. The pipeline requires Python 3.10+, Git, Bash, rsync and timezone data; no PHP, Docker or pip setup is needed.
+Choose your host's distribution. Each installation page includes the commands for that host; you do not need to build this source repository.
 
-Source project 48 holds masked, protected `CLAUDE_BUILD_REPO_TOKEN`, `CODEX_BUILD_REPO_TOKEN` and `PI_BUILD_REPO_TOKEN` variables. Each is a destination-project token with only `write_repository` scope and Maintainer access for protected-branch pushes. Tokens expire on 2027-10-23; renew them in their destination projects and replace the matching protected source variable before expiry. No token belongs in source or runner configuration.
+| Host | Installation |
+|------|--------------|
+| Claude Code | [Claude Code distribution](https://github.com/ZDreamer2/ai-plugins-claude#install) |
+| Codex | [Codex distribution](https://github.com/ZDreamer2/ai-plugins-codex#install) |
+| Pi | [Pi distribution](https://github.com/ZDreamer2/ai-plugins-pi#install) |
 
-The one-day pipeline artifact contains host trees, construct reports and source/builder revision files. Publication is serialized by `zd-plugins-publication`, rejects mismatched provenance or obsolete source heads, independently validates Pi, replaces destination contents while preserving executable modes, and makes no commit for unchanged trees. Destination commits record source and Python-builder revisions. Distribution repositories do not inherit source CI configuration.
+Install either plugin or both. Review plugin instructions and bundled scripts before use: these workflows can direct your agent to edit files and execute commands.
 
-`.gitlab/tests` exercises the actual build/publish scripts using disposable local bare remotes, without network credentials. Verify live publication against the exact source pipeline SHA and compare its artifacts with all three destination trees; a successful local test is not evidence of deployment.
+## First use
 
-## GitHub delivery
+After installation, start a new host session in the project you want to work on and invoke the relevant skill with your request:
 
-GitLab remains the source of truth. After successful private publication, `sync-github-source` pushes only `master` to public `https://github.com/ZDreamer2/ai-plugins`, without force or unrelated branches/tags. A protected, masked source-project variable `GITHUB_SOURCE_DEPLOY_KEY_B64` contains the base64-encoded private half of that repository's write-enabled SSH deploy key. Source synchronization rejects obsolete pipeline revisions.
+| Host | Documentation | Marketplace development |
+|------|---------------|-------------------------|
+| Claude Code | `/ai-doc:ai-doc` | `/ai-marketplace:ai-marketplace` |
+| Codex | `$ai-doc:ai-doc` | `$ai-marketplace:ai-marketplace` |
+| Pi | `/skill:ai-doc` | `/skill:ai-marketplace` |
 
-GitHub's `.github/workflows/publish.yml` builds all three trees from the synchronized commit on Ubuntu, independently validates Pi and publishes sequentially to:
+Documentation workflows use the companion meta as editing context; create it first when the target has none. The marketplace plugin guides work in your own source checkout rather than editing an installed plugin cache.
 
-- Claude: `https://github.com/ZDreamer2/ai-plugins-claude`
-- Codex: `https://github.com/ZDreamer2/ai-plugins-codex`
-- Pi: `https://github.com/ZDreamer2/ai-plugins-pi`
+## Development and feedback
 
-The source repository holds `CLAUDE_DEPLOY_KEY_B64`, `CODEX_DEPLOY_KEY_B64` and `PI_DEPLOY_KEY_B64` Actions secrets. Each is a different base64-encoded private key with write access only to its matching distribution repository. The built-in `GITHUB_TOKEN` has read-only contents access and is not used to publish. Credentials enter only publication steps; pull requests do not run this workflow. Anyone able to change trusted source/workflows can exercise these deployment credentials.
+This is the source repository. The three host repositories are generated distributions; propose changes and report issues here.
 
-Both platforms pin GitHub's Ed25519 host key in `.github/github_known_hosts`, obtained from GitHub's authenticated HTTPS meta API and checked against its published fingerprint `SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU`. Unknown/changed host keys fail closed. Deploy keys do not expire automatically: rotate by registering a new write key in its destination, replacing the corresponding CI variable/secret and verifying delivery before deleting the old key. Keep private key material outside source and remove temporary local copies after configuration. Rotate the host-key pin only after verifying GitHub's official replacement.
-
-GitHub serializes runs and adapts its environment to `.gitlab/publish.sh`, retaining the same provenance, freshness, mode-preserving replacement, Pi preflight and no-op safeguards. Each Actions artifact contains `marketplace.tar`, preserving hidden files and executable modes inside the tar; extract it outside source and compare its host trees with the exact run's published commits. A successful source push alone does not establish downstream publication. Source workflow changes belong in GitLab, not independent GitHub commits.
-
-Installed-host acceptance and consumer migration have not been performed. Local builds and publication do not establish installed-host acceptance.
+For local build/test commands, README generation and publication operations, see the [maintainer guide](docs/Maintaining.md). Builds and publication are validated separately from installed-host behavior; end-to-end installed-host acceptance has not yet been completed.
 
 ## License
 
-Project code is available under the BSD Zero Clause license (`LICENSE`, SPDX `0BSD`). The vendored parser retains its separate [PyYAML provenance](ai-marketplace/scripts/marketplace/_vendor/PyYAML.provenance.md) and `PyYAML.LICENSE`; its license obligations still apply.
+Project code uses the BSD Zero Clause license (`LICENSE`, SPDX `0BSD`). Vendored PyYAML retains its separate license; see its [provenance and license information](ai-marketplace/scripts/marketplace/_vendor/PyYAML.provenance.md).
