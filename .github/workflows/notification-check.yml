@@ -1,0 +1,21 @@
+name: Notification delivery check (intentional failure)
+
+on:
+  push:
+    branches: [master]
+    paths: [.github/workflows/notification-check.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  intentional-failure:
+    if: github.repository == 'ZDreamer2/ai-plugins' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    steps:
+      - name: Fail deliberately to check native email notifications
+        shell: bash
+        run: |
+          echo 'Intentional notification test; publication is not affected.'
+          exit 1
