@@ -25,7 +25,7 @@ Follow the [AiDocMetaDoc creation workflow](../../workflows/meta/do.md)
 
 ### Build
 
-Create or improve an AiDoc using its AiDocMetaDoc for context and requirements.
+Create or improve an AiDoc using its AiDocFormatDoc and, when present, its AiDocMetaDoc.
 
 Follow the [AiDoc creation workflow](../../workflows/build/do.md)
 

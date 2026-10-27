@@ -6,9 +6,9 @@ Specification for creating and editing the [AiDoc compaction workflow](do.md). D
 
 - The workflow reduces the recurring effort of reading an AiDoc while preserving what its intended reader needs to understand and act. Success is improved usefulness, not minimum length; leaving a document unchanged is a valid outcome.
 - Compaction can reconsider what content belongs and where it belongs, unlike refinement focused on expressing user edits clearly. This authority serves the document's existing purpose and essential meaning, rather than redesigning the subject it documents.
-- A target meta is required because role, goals, usage context and altitude are the basis for judging content. Missing authoring context is established before compaction rather than replaced with assumptions.
+- Role, goals, usage context and altitude are the basis for judging content. Missing context is established from the target, request and available authoring sources rather than replaced with assumptions.
 - Recent changes deserve particular scrutiny, including changes to the target's meta. They provide a focus, not a boundary: the workflow assesses the resulting document as a whole, without automatically preserving or rejecting newly added content.
-- Satellite extraction is available when it improves combined reading and navigation effort, not an expected outcome of compaction. The main document remains useful on its own at its intended altitude; compact local explanations may coexist with fuller satellite detail. Satellites are maintained AiDocs with their own metas, not overflow files.
+- Satellite extraction is available when it improves combined reading and navigation effort, not an expected outcome of compaction. The main document remains useful on its own at its intended altitude; compact local explanations may coexist with fuller satellite detail. Satellites are maintained AiDocs with authoring context, not overflow files.
 - The usefulness guidance owns editorial judgment. This workflow owns gathering context, coordinating edits and checking the resulting documents together. The [meta](../meta/do.md) and [build](../build/do.md) workflows own creation mechanics; compaction connects them without developing parallel procedures.
 
 ## AiDocFormat

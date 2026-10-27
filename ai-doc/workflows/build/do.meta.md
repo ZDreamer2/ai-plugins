@@ -4,8 +4,9 @@ Specification for editing [AiDoc creation workflow](do.md). Defines purpose, usa
 
 ## do.md goals and principles
 
-- Enables systematic creation and improvement of AiDocs using their corresponding AiDocMetaDocs
-- MUST ensure AiDocMetaDoc is loaded and understood before any AiDoc modification
+- Enables creation and improvement grounded in the target's authoring context and format
+- MUST ensure the target's AiDocMetaDoc is loaded and understood before modification when present
+- Working without a meta is the user's choice, not a suitability judgment made by this workflow
 - Primary workflow for all AiDoc creation and editing tasks
 - MUST produce AiDocs that comply with their specified format requirements
 
@@ -40,6 +41,6 @@ Specification for editing [AiDoc creation workflow](do.md). Defines purpose, usa
 
 ### Role do.md serves during use
 
-- Standard workflow ensuring AiDocMetaDocs are always consulted before AiDoc changes
+- Standard workflow reading the target's meta when present, its format and required sources before AiDoc changes
 - Quality assurance mechanism through format compliance verification
-- Bridge between AiDocMetaDoc specifications and practical AiDoc content
+- Bridge between authoring context, format requirements and practical AiDoc content

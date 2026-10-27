@@ -12,8 +12,8 @@ Specification for editing [reference path management](ReferencePathManagement.md
 - MUST establish document-relative paths as the default within a project or plugin, including meta documents, with project-root paths for project code references
 - MUST distinguish installed-plugin isolation from source-only marketplace meta documents: metas may reference sibling plugins, using document-relative links and directory paths, and marketplace-root paths for code and other non-Markdown files
 - MUST preserve the required base of literal checkout paths in build commands, configuration and examples
-- MUST use Markdown links for references to Markdown documents and backticks for other file references
-- MUST reserve `AI_DOC_PLUGIN` for meta documents outside ai-doc referencing ai-doc content
+- MUST use Markdown links for references to Markdown documents and backticks for other file references, except for the YAML string path in `edit-only-context`
+- MUST support `AI_DOC_PLUGIN` in meta documents and `edit-only-context` properties outside ai-doc referencing ai-doc content; these references remain editing-only
 - MUST keep host-specific variables and executable path handling outside these authoring rules
 - MUST consider documents in different locations: project, ai-doc plugin, other plugins
 - MUST cover both normal docs and AiDocMetaDocs as reference sources

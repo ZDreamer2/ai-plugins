@@ -24,11 +24,11 @@ Meta documents used to edit marketplace sources may reference files across the e
 
 Use document-relative Markdown links for documents and document-relative paths for directories. Code and other non-Markdown file references within the marketplace use paths from its repository root, such as `pm/rm/scripts/load_issue.py` or `@common/scripts/do.py`. References outside the marketplace retain the owning project's path convention. The ai-doc prefix convention below still applies.
 
-### Meta documents outside ai-doc referencing ai-doc
+### Editing-only references to ai-doc
 
-MUST use `AI_DOC_PLUGIN/...` for references from a meta document in a project or another plugin to ai-doc content. For example: `[CodeDoc format](AI_DOC_PLUGIN/Formats/CodeDoc/CodeDoc.format.md)`.
+MUST use `AI_DOC_PLUGIN/...` for references to ai-doc content from meta documents or `edit-only-context` properties in a project or another plugin. For example: `[CodeDoc format](AI_DOC_PLUGIN/Formats/CodeDoc/CodeDoc.format.md)` in a meta.
 
-Ai-doc editing workflows resolve this prefix to the ai-doc plugin root, as defined in [AiDoc terminology](../AiDocTerminology.md#plugin-reference-convention). It is a resolver convention, not a filesystem directory. Meta documents inside ai-doc use document-relative links instead.
+Ai-doc editing workflows resolve this prefix to the ai-doc plugin root, as defined in [AiDoc terminology](../AiDocTerminology.md#plugin-reference-convention). It is a resolver convention, not a filesystem directory. Inside ai-doc, use document-relative paths instead.
 
 ### Other cross-boundary references
 
@@ -36,7 +36,7 @@ Bundled dependencies of documents used from installed plugins stay within that p
 
 ## Reference syntax
 
-Use `[label](destination)` for references to Markdown documents and backticks for references to other files. Choose the path using the rules above.
+Use `[label](destination)` for references to Markdown documents and backticks for references to other files. Choose the path using the rules above. The [editing-only frontmatter reference](../AiDocTerminology.md#aidocformatdoc-files) uses a YAML string path instead of Markdown link syntax.
 
 - Choose a concise label that identifies the target's subject or role in the current context. Use wording that helps the reader understand what the reference contributes. A document title is often sufficient; use a filename when the file's identity matters. Apply this guidance when revising existing Markdown links too.
 - Keep Markdown link destinations out of backticks. Use backticks for literal filenames, paths, commands, and syntax examples, including Markdown filenames being discussed rather than referenced for reading.

@@ -24,7 +24,7 @@ Reuse sufficient, current context already available; read what is missing.
 - Establish what the target enables, who relies on it and why its boundaries matter before selecting its format or drafting sections. Consider what a plausible rewrite could lose that matters, and what context would help a future editor judge that change. Read the surrounding entry points and contracts needed to answer this for the particular target.
 - For an existing meta, read its required editing references and relevant optional references. Resolve `AI_DOC_PLUGIN/...` from this plugin's root before reading; other document references are relative to their containing document.
 
-Choose and read the target's format. Use the user's explicit format when supplied; otherwise use an existing meta's applicable format or select by the target's role:
+Choose and read the target's AiDocFormatDoc. Use the user's explicit format when supplied; otherwise retain the format specified in the existing meta or target. If no format is recorded, select by the target's role:
 
 - `SKILL.md`: [SKILL format](../../Formats/SkillDoc/SKILL.format.md); add [WorkflowDoc](../../Formats/WorkflowDoc/WorkflowDoc.format.md) when it also contains a procedure.
 - Step-by-step procedure: [WorkflowDoc format](../../Formats/WorkflowDoc/WorkflowDoc.format.md).
@@ -56,6 +56,8 @@ Ask when an unresolved choice materially affects the target's purpose, scope or 
 ### Step 3: Write the meta
 
 Create or revise the meta as a complement to the target, giving its author the context needed to make good editing decisions. Follow the format's structure and [reference rules](../../Formats/MetaDoc/AiDocMetaDoc.format.md#path-references-in-meta-docs). Keep required reading limited to context needed for every authoring session; make conditional references optional.
+
+When adding a meta to a format-only target, record its format in the meta and remove the target's `edit-only-context` property, preserving other frontmatter fields.
 
 ### Step 4: Reread and validate
 

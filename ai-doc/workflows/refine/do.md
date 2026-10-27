@@ -20,7 +20,7 @@ Refine user edits into clear, concise, consistent documentation while preserving
 
 Read the complete current document and the relevant git diff, including deletions. Use the changes identified by the user; otherwise, use the target's staged and unstaged changes against HEAD. If the intended comparison cannot be determined from context, ask before relying on it.
 
-Read the target's AiDocMetaDoc if present and relevant formatting or editing context it references. A missing meta does not block refinement. Consult related documentation as needed to understand changed references or shared concepts.
+Read the target's AiDocMetaDoc if present. Read its AiDocFormatDoc and all required sources listed in either document. A missing meta does not block refinement. Consult related documentation as needed to understand changed references or shared concepts.
 
 Treat the user's edits and explanations as the intended direction, including removals and relaxed requirements. The previous version and meta provide context that may now be outdated; disagreement with them alone is not an error. Identify contradictions or unclear intent without silently restoring earlier decisions.
 

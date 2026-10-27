@@ -58,7 +58,7 @@ This context helps editors judge changes in light of the document's purpose and 
 
 ## Format Requirements for AiDocs
 
-Every AiDoc must follow a specific format from the `../Formats/` directory that defines its structure, token efficiency principles, and documentation standards.
+Every AiDoc follows an AiDocFormat that defines its structure and documentation standards. Formats may come from this plugin's `../Formats/` directory or the project.
 
 ### Format selection
 
