@@ -15,24 +15,27 @@ Create or improve an AiDocMetaDoc with the additional context needed to create o
 
 ## Workflow
 
-### Step 1: Establish the intended document
+### Step 1: Understand the target
 
-Reuse sufficient, current context already available; read what is missing.
+Reuse sufficient, current context; read what is missing.
 
-- Read [AiDoc terminology](../../Theory/AiDocTerminology.md), [writing principles](../../Theory/AiDocBaseFormat.md) and the [AiDocMetaDoc format](../../Formats/MetaDoc/AiDocMetaDoc.format.md), including its required context.
-- Locate the target and its meta using the naming convention. Read each that exists. An absent or empty target is normal: establish its purpose from the request and surrounding documentation instead.
-- Establish what the target enables, who relies on it and why its boundaries matter before selecting its format or drafting sections. Consider what a plausible rewrite could lose that matters, and what context would help a future editor judge that change. Read the surrounding entry points and contracts needed to answer this for the particular target.
-- For an existing meta, read its required editing references and relevant optional references. Resolve `AI_DOC_PLUGIN/...` from this plugin's root before reading; other document references are relative to their containing document.
+Read [AiDoc terminology](../../Theory/AiDocTerminology.md), [writing principles](../../Theory/AiDocBaseFormat.md) and the [AiDocMetaDoc format](../../Formats/MetaDoc/AiDocMetaDoc.format.md), including its required context.
 
-Choose and read the target's AiDocFormatDoc. Use the user's explicit format when supplied; otherwise retain the format specified in the existing meta or target. If no format is recorded, select by the target's role:
+Read the target if it exists, its companion meta if present, and any `edit-only-context` reference. Read their required sources.
 
-- `SKILL.md`: [SKILL format](../../Formats/SkillDoc/SKILL.format.md); add [WorkflowDoc](../../Formats/WorkflowDoc/WorkflowDoc.format.md) when it also contains a procedure.
-- Step-by-step procedure: [WorkflowDoc format](../../Formats/WorkflowDoc/WorkflowDoc.format.md).
-- Code guidance: [CodeDoc format](../../Formats/CodeDoc/CodeDoc.format.md).
-- Format specification: [AiDocFormatDoc format](../../Formats/FormatDoc/AiDocFormatDoc.format.md).
-- Otherwise: [BaseDoc format](../../Formats/BaseDoc/BaseDoc.format.md).
+Establish the target's purpose, audience and boundaries from the request, existing documents and relevant surrounding context. The target may be absent or empty.
 
-Resolve a named custom format in the project; ask for its location if it cannot be found.
+Choose and read the target's format: use the user's explicit choice, otherwise retain its existing format. If neither is available, select by the target's role:
+
+- Skill: [SKILL](../../Formats/SkillDoc/SKILL.format.md).
+- Procedure: [WorkflowDoc](../../Formats/WorkflowDoc/WorkflowDoc.format.md).
+- Code guidance: [CodeDoc](../../Formats/CodeDoc/CodeDoc.format.md).
+- Format specification: [AiDocFormatDoc](../../Formats/FormatDoc/AiDocFormatDoc.format.md).
+- Otherwise: [BaseDoc](../../Formats/BaseDoc/BaseDoc.format.md).
+
+A skill containing a procedure also uses WorkflowDoc. Ask if a requested custom format cannot be located.
+
+Resolve `AI_DOC_PLUGIN/...` from this plugin's root (`../../` relative to this workflow).
 
 Read specialized guidance only IF the user mentions the corresponding term:
 

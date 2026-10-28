@@ -21,7 +21,7 @@ AiDocFormatDoc files use `.format.md` extension pattern:
 - `Workflow.format.md`
 - `AiDocFormatDoc.format.md`
 
-An AiDoc references its AiDocFormatDoc through its AiDocMetaDoc or, without a meta, through the `edit-only-context` YAML frontmatter property.
+An AiDoc references its AiDocFormatDoc through its AiDocMetaDoc or through the `edit-only-context` YAML frontmatter property.
 
 ### AiDocMetaDoc Files
 
@@ -31,7 +31,9 @@ AiDocMetaDoc files insert `.meta` before the final `.md` extension:
 
 ## Editing context
 
-When creating or editing an AiDoc, read its AiDocMetaDoc if present. Read its AiDocFormatDoc and all required sources listed in either document. Do not follow `edit-only-context` during normal document use.
+When creating or editing an AiDoc, read its meta, format and their required sources. This context is for editing, not normal document use.
+
+Editing context comes from the companion `.meta.md` file or a meta/format referenced by the `edit-only-context` YAML property. Property paths are document-relative or use `AI_DOC_PLUGIN/...`.
 
 ## Plugin Reference Convention
 

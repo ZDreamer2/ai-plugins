@@ -16,11 +16,14 @@ plugin @common paths. Included Markdown links/images and reference definitions
 are rebased from the included document's consuming logical directory to the
 including file's directory; standalone content and literal code stay unchanged.
 File rendering selects case-sensitive .md paths;
-render_file_result runs includes, placeholders, host adaptation and scanning,
+render_file_result strips edit-only-context frontmatter, then runs includes,
+placeholders, host adaptation and scanning,
 returning content, extra_files (relative to the document folder) and findings.
 The tree owner writes companions and aggregates findings. render_file returns
 only the complete pipeline's content. render_markdown intentionally exposes
-only reusable shared includes/placeholders, without selection or adaptation.
+only reusable editing-context stripping and shared includes/placeholders,
+without selection or adaptation. Included documents lose editing context before
+validation and composition too.
 Callers preserve source bytes with UTF-8 surrogateescape; include reads use
 the same representation and retain line endings. Metadata consumes identity
 already resolved by the caller and returns independent mutable mappings.
