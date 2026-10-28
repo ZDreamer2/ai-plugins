@@ -1,26 +1,37 @@
 # AI Plugins
 
-Plugins for working with AI-assisted documentation and developing AI plugin marketplaces, available for Claude Code, Codex and Pi.
+Plugins for creating reliable AI guidance and developing cross-client AI plugin marketplaces.
 
 ## Plugins
 
 ### ai-doc
 
-Create and maintain documentation that guides an AI agent through practical tasks. AiDoc pairs a document with a companion `.meta.md` file that preserves its purpose, audience and editing context.
+Create and maintain project documentation that guides AI agents through practical work. The plugin helps you define a document's purpose, build it, refine edits, reduce bloat, move it safely and investigate instructions that did not work as intended.
 
-Use it to create documentation and its meta, refine edits, compact long guides, relocate documents with their references, or investigate why instructions did not work as intended.
+For reliable repeated editing, a document can have a companion `.meta.md` file that preserves its purpose, audience and authoring context without adding that information to the document itself.
 
-For example, invoke the skill with: `Create a meta document for docs/Deployment.md, then build the deployment guide from it.`
+A useful meta request explains what the document should achieve, when it is used and which boundaries or sources matter. A typical start:
 
-See the [AiDoc entry skill](ai-doc/skills/ai-doc/SKILL.md) for available workflows and [AiDoc terminology](ai-doc/Theory/AiDocTerminology.md) for the document model.
+1. Define the authoring context:
+
+   ```text
+   Create a meta document for docs/Deployment.md.
+   - Goal: guide an AI agent through safe, repeatable deployments
+   - Use context: loaded when preparing or carrying out a production release
+   - Boundary: cover deployment and verification; link to environment setup instead of duplicating it
+   ```
+
+2. After reviewing the generated meta: `Build docs/Deployment.md.`
+
+See the [AiDoc usage guide](ai-doc/HowToUse.md) for the document model, available workflows and more examples.
 
 ### ai-marketplace
 
-Develop plugin marketplaces from shared sources for Claude Code, Codex and Pi. The plugin supplies authoring guidance and Python tools for building host-specific metadata, rendering instructions and validating Pi distributions.
+Create and manage an AI plugin marketplace from shared sources, then convert its plugins into distributions for different AI clients. The current build targets Claude Code, Codex and Pi.
 
-For example, invoke the skill with: `Help me add a plugin to this marketplace and check its output for Claude Code, Codex and Pi.`
+This plugin is under construction. The conversion tooling and authoring model are present, while the guided marketplace-management workflow is still incomplete.
 
-See the [marketplace entry skill](ai-marketplace/skills/ai-marketplace/SKILL.md), [authoring syntax](ai-marketplace/docs/AuthoringSyntax.md) and [host rendering reference](ai-marketplace/docs/HostRendering.md).
+See the current [authoring syntax](ai-marketplace/docs/AuthoringSyntax.md) and [host rendering reference](ai-marketplace/docs/HostRendering.md).
 
 ## Install
 
@@ -32,7 +43,7 @@ Choose your host's distribution. Each installation page includes the commands fo
 | Codex | [Codex distribution](https://github.com/ZDreamer2/ai-plugins-codex#install) |
 | Pi | [Pi distribution](https://github.com/ZDreamer2/ai-plugins-pi#install) |
 
-Install either plugin or both. Review plugin instructions and bundled scripts before use: these workflows can direct your agent to edit files and execute commands.
+Install either plugin or both. Review their instructions and bundled scripts before use because the workflows can edit files and execute commands.
 
 ## First use
 
@@ -44,14 +55,12 @@ After installation, start a new host session in the project you want to work on 
 | Codex | `$ai-doc:ai-doc` | `$ai-marketplace:ai-marketplace` |
 | Pi | `/skill:ai-doc` | `/skill:ai-marketplace` |
 
-Documentation workflows use the companion meta as editing context; create it first when the target has none. The marketplace plugin guides work in your own source checkout rather than editing an installed plugin cache.
-
 ## Development and feedback
 
 This is the source repository. The three host repositories are generated distributions; propose changes and report issues here.
 
-For local build/test commands, README generation and publication operations, see the [maintainer guide](docs/Maintaining.md). Builds and publication are validated separately from installed-host behavior; end-to-end installed-host acceptance has not yet been completed.
+See the [maintainer guide](docs/Maintaining.md) for local development and publishing.
 
 ## License
 
-Project code uses the BSD Zero Clause license (`LICENSE`, SPDX `0BSD`). Vendored PyYAML retains its separate license; see its [provenance and license information](ai-marketplace/scripts/marketplace/_vendor/PyYAML.provenance.md).
+Licensed under [0BSD](LICENSE).

@@ -11,7 +11,7 @@ Specification for the [public marketplace overview](README.md).
 
 ## AiDocFormat
 
-[BaseDoc format](AI_DOC_PLUGIN/Formats/BaseDoc/BaseDoc.format.md)
+[HumanDoc format](AI_DOC_PLUGIN/Formats/HumanDoc/HumanDoc.format.md)
 
 ## MUST read before editing README.md
 
