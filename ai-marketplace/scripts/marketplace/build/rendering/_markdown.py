@@ -4,6 +4,7 @@ from marketplace.source import SourceInventory, plugin_root_of
 
 from ._codex import render_codex_skill
 from ._constructs import scan_codex, scan_pi
+from ._editing_context import strip_editing_context
 from ._includes import splice
 from ._placeholders import substitute
 from ._pi import render_pi_skill
@@ -71,6 +72,7 @@ def _render_markdown(
 ) -> str:
     if host not in ("claude", "codex", "pi"):
         raise ValueError(f"Unknown agent tree '{host}'.")
+    content = strip_editing_context(content)
     return substitute(
         splice(content, logical_path, host, inventory, root),
         logical_path, host, inventory,

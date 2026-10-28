@@ -8,6 +8,11 @@ Write plugin Markdown once using the shared syntax below. The build adapts it fo
 - `argument-hint` is OPTIONAL; write it as plain text, never as a YAML list
 - `user-invocable` controls direct user invocation; `disable-model-invocation` restricts automatic selection where supported
 
+## Editing-only frontmatter
+
+- Markdown documents MAY use `edit-only-context` with a YAML string path to a meta or format document. Resolve it relative to the containing document; references to ai-doc from outside that plugin use `AI_DOC_PLUGIN/...`
+- This property is for editing only. The build removes it before expanding includes in every host tree, preserving other frontmatter properties and removing the entire frontmatter when no properties remain
+
 ## Document references
 
 - References to Markdown documents in the same project or plugin use paths relative to the referencing document's directory, including `SKILL.md`, workflows and meta files

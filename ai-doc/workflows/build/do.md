@@ -25,13 +25,11 @@ Read files in this specific order to build context from general to specific:
 
 #### 1.1: Determine editing context
 
-Read the target if it exists and locate its AiDocMetaDoc using the [naming convention](../../Theory/AiDocTerminology.md#aidocmetadoc-files).
+Read the target if it exists, its companion AiDocMetaDoc if present, and any `edit-only-context` reference.
 
-- IF AiDocMetaDoc exists THEN read it, understand its goals and constraints, and extract the format reference from `## AiDocFormat`.
-- Otherwise, use the AiDocFormatDoc specified in the target or supplied by the user when requesting work without a meta. Ask for the format location if needed.
-- IF neither a meta nor a format is specified THEN stop and request the missing input.
+Identify the AiDocFormatDoc from that context or the user's request. If none is available, ask for it before proceeding.
 
-Resolve references using the [reference path rules](../../Theory/References/ReferencePathManagement.md). Resolve `AI_DOC_PLUGIN/...` from this plugin's root (`../../` relative to this workflow); other document paths are relative to their containing document. Resolve a format supplied in the request from the location the user specifies.
+Resolve `AI_DOC_PLUGIN/...` from this plugin's root (`../../` relative to this workflow).
 
 #### 1.2: Read AiDocFormatDoc
 
@@ -45,7 +43,7 @@ Resolve references using the [reference path rules](../../Theory/References/Refe
 
 #### 1.4: Read AiDoc-specific requirements
 
-- IF an AiDocMetaDoc exists and contains "MUST read before editing" section THEN
+- IF a companion or referenced AiDocMetaDoc contains "MUST read before editing" section THEN
 	- Read all documents listed in that section
 	- These provide AiDoc-specific context and requirements
 
@@ -66,7 +64,7 @@ Ensure all context from Step 1 is gathered BEFORE this step — incomplete conte
 ### Step 3: Plan and execute
 
 - Create or improve AiDoc based on analysis
-- For a target without a meta, record its format in `edit-only-context`, preserving other frontmatter fields
+- For a target without a companion or referenced meta, record its format in `edit-only-context`, preserving other frontmatter fields
 - Write document references as Markdown links following [reference path rules](../../Theory/References/ReferencePathManagement.md); required reading is carried by the section or sentence
 
 ### Step 4: Validate

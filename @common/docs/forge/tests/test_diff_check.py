@@ -9,6 +9,7 @@ import tempfile
 import unittest
 
 CHECKER = Path(__file__).resolve().parents[1] / 'on-diff-check'
+PLUGIN_PATH = Path('ai-marketplace')
 
 
 class DiffCheckTest(unittest.TestCase):
@@ -29,7 +30,7 @@ class DiffCheckTest(unittest.TestCase):
                 changes.append({'repo': '.', 'path': str((folder / name).relative_to(folder)), 'kind': 'added'})
             changes.append({'repo': '.', 'path': 'removed.py', 'kind': 'deleted'})
             payload = {'root': str(folder), 'changes': changes}
-            result = subprocess.run([str(CHECKER)], input=json.dumps(payload), text=True, capture_output=True, check=True)
+            result = subprocess.run([str(CHECKER)], cwd=folder, input=json.dumps(payload), text=True, capture_output=True, check=True)
             output = json.loads(result.stdout)
             self.assertEqual('', result.stderr)
             self.assertEqual([], output['changed'])
@@ -44,6 +45,13 @@ class DiffCheckTest(unittest.TestCase):
             payload = {'root': directory, 'changes': [{'repo': '.', 'path': 'README.md', 'kind': 'modified'}]}
             result = subprocess.run([str(CHECKER)], input=json.dumps(payload), text=True, capture_output=True, check=True)
             self.assertEqual({'changed': [], 'findings': [], 'ran': []}, json.loads(result.stdout))
+
+    def test_empty_group_claims_no_checks(self):
+        result = subprocess.run(
+            [str(CHECKER)], input=json.dumps({'root': '.', 'changes': []}),
+            text=True, capture_output=True, check=True,
+        )
+        self.assertEqual({'changed': [], 'findings': [], 'ran': []}, json.loads(result.stdout))
 
     def test_bad_input_is_execution_failure(self):
         result = subprocess.run([str(CHECKER)], input='{}', text=True, capture_output=True)
@@ -81,18 +89,21 @@ class DiffCheckTest(unittest.TestCase):
             self.assertEqual('', result.stdout)
             self.assertEqual('on-diff-check: read failed\n', result.stderr)
 
-    def test_isolated_plugin_and_import_boundaries(self) -> None:
+    def test_isolated_marketplace_and_import_boundaries(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            plugin = root / 'installed-plugin'
-            # No sibling plugins, shared SDK or Bico checkout accompany this copy.
-            shutil.copytree(CHECKER.parents[1], plugin, symlinks=True,
+            marketplace = root / 'isolated-marketplace'
+            plugin = marketplace / PLUGIN_PATH
+            # Only this concrete adapter and its owning validator plugin accompany the copy.
+            shutil.copytree(CHECKER.parents[3] / PLUGIN_PATH, plugin, symlinks=True,
                             ignore=shutil.ignore_patterns('@common', '__pycache__'))
+            copied_checker = marketplace / '@common/docs/forge/on-diff-check'
+            copied_checker.parent.mkdir(parents=True)
+            shutil.copy2(CHECKER, copied_checker)
             unrelated = root / 'unrelated'
             unrelated.mkdir()
             (unrelated / 'valid.py').write_text('raise RuntimeError("no execution")\n')
             (unrelated / 'invalid.py').write_text('if:\n')
-            copied_checker = plugin / 'codebase' / 'on-diff-check'
             payload = {'root': str(unrelated), 'changes': [
                 {'repo': 'copied', 'path': 'valid.py', 'kind': 'modified'},
                 {'repo': 'copied', 'path': 'invalid.py', 'kind': 'added'},

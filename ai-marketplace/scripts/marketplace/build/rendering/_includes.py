@@ -6,6 +6,7 @@ from typing import NoReturn
 
 from marketplace.source import SourceInventory
 
+from ._editing_context import strip_editing_context
 from ._links import rebase_links
 from ._placeholders import MARKER_PATTERN, fail, parse
 
@@ -149,6 +150,7 @@ def _document_text(
             marker, logical_path, line_number,
             f"names '{document_path}', which is not a readable file",
         )
+    text = strip_editing_context(text)
     for line in _lines(text):
         if _include_on(line, document_path) is not None:
             _fail(
