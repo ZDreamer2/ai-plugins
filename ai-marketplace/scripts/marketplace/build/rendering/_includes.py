@@ -90,20 +90,33 @@ def _replacement(
         tree = host
         path = argument.strip(_PHP_TRIM)
     document_path = _document_path(
-        path, marker, logical_path, line_number, plugin_root,
+        path, marker, logical_path, line_number,
     )
     text = _document_text(
         document_path, marker, logical_path, line_number, inventory,
     )
+    def validate_target(target: str) -> None:
+        if (not target.startswith(plugin_root + "/")
+                or not (inventory.directory / target).is_file()):
+            _fail(
+                marker, logical_path, line_number,
+                f"names '{document_path}', whose relative link target '{target}' "
+                f"is not an existing file in plugin '{plugin_root}'",
+            )
+
+    external = plugin_root != "." and not document_path.startswith(plugin_root + "/")
+    text = rebase_links(
+        text, document_path, logical_path,
+        validate_target if external else None,
+    ).rstrip("\n")
     if tree != host:
         return ""
-    text = rebase_links(text, document_path, logical_path).rstrip("\n")
     return text + "\n" if line.endswith("\n") else text
 
 
 def _document_path(
     path: str, marker: str, logical_path: str,
-    line_number: int, plugin_root: str,
+    line_number: int,
 ) -> str:
     if not path or path.startswith("/") or not path.endswith(".md"):
         _fail(
@@ -120,17 +133,11 @@ def _document_path(
         elif not segments:
             _fail(
                 marker, logical_path, line_number,
-                f"names '{path}', which leaves the plugin source",
+                f"names '{path}', which leaves the marketplace source",
             )
         else:
             segments.pop()
-    document_path = "/".join(segments)
-    if plugin_root != "." and not document_path.startswith(plugin_root + "/"):
-        _fail(
-            marker, logical_path, line_number,
-            f"names '{document_path}', outside the plugin '{plugin_root}'",
-        )
-    return document_path
+    return "/".join(segments)
 
 
 def _document_text(

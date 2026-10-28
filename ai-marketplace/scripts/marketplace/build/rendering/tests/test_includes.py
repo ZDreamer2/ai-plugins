@@ -165,21 +165,49 @@ class IncludeTests(unittest.TestCase):
             "${AGENT_INCLUDE_DOC_FOR(claude, ../../docs/x/../note.md)}",
         ), "Note.")
 
-    def test_plugin_and_marketplace_containment(self) -> None:
-        self.write("README.md", "Root.")
-        self.write("main-other/note.md", "Sibling.")
-        for path, reason in (
-            ("../../../README.md", "names 'README.md', outside the plugin 'main'"),
-            ("../../../main-other/note.md", "names 'main-other/note.md', "
-             "outside the plugin 'main'"),
-            ("../../../../x.md", "names '../../../../x.md', "
-             "which leaves the plugin source"),
-        ):
-            with self.subTest(path=path):
-                self.assert_failure(
-                    "${AGENT_INCLUDE_DOC_FOR(codex, " + path + ")}",
-                    "on line 1 " + reason,
-                )
+    def test_external_includes_stay_within_marketplace_source(self) -> None:
+        for path, text in (("README.md", "Root."), ("main-other/note.md", "Sibling."),
+                           ("@common/note.md", "Shared.")):
+            self.write(path, text)
+            for host in ("claude", "codex", "pi"):
+                with self.subTest(path=path, host=host):
+                    self.assertEqual(self.render(
+                        "${AGENT_INCLUDE_DOC(../../../" + path + ")}", host,
+                        path="main/skills/deep/README.md",
+                    ), text)
+                    self.assertEqual(self.render(
+                        "${AGENT_INCLUDE_DOC_FOR(codex, ../../../" + path + ")}", host,
+                        path="main/skills/deep/README.md",
+                    ), text if host == "codex" else "")
+        self.assert_failure(
+            "${AGENT_INCLUDE_DOC_FOR(codex, ../../../../x.md)}",
+            "on line 1 names '../../../../x.md', which leaves the marketplace source",
+        )
+
+    def test_external_include_links_require_existing_plugin_local_targets(self) -> None:
+        self.write("@common/note.md", "[Guide](../main/docs/note.md#section)\n"
+                   "![Image][image]\n[image]: ../main/image.png\n"
+                   "[Web](https://example.com) [Anchor](#local)\n"
+                   "`[Literal](missing.md)`\n")
+        self.write("main/image.png", b"image")
+        marker = "${AGENT_INCLUDE_DOC(../../../@common/note.md)}"
+        for host in ("claude", "codex", "pi"):
+            self.assertEqual(self.render(marker + "\n", host, path="main/skills/deep/README.md"),
+                             "[Guide](../../docs/note.md#section)\n"
+                             "![Image][image]\n[image]: ../../image.png\n"
+                             "[Web](https://example.com) [Anchor](#local)\n"
+                             "`[Literal](missing.md)`\n")
+        for target in ("../README.md", "../main/docs/missing.md"):
+            self.write("@common/note.md", f"[Unavailable]({target})")
+            resolved = target.removeprefix("../")
+            for host in ("claude", "codex", "pi"):
+                for prefix in ("${AGENT_INCLUDE_DOC(", "${AGENT_INCLUDE_DOC_FOR(codex, "):
+                    self.assert_failure(
+                        prefix + "../../../@common/note.md)}",
+                        "on line 1 names '@common/note.md', whose relative link target "
+                        f"'{resolved}' is not an existing file in plugin 'main'",
+                        host=host,
+                    )
 
     def test_root_level_include_is_bounded_by_marketplace(self) -> None:
         self.write("docs/note.md", "Root note.")
@@ -188,7 +216,7 @@ class IncludeTests(unittest.TestCase):
         ), "Root note.")
         self.assert_failure(
             "${AGENT_INCLUDE_DOC_FOR(codex, ../outside.md)}",
-            "on line 1 names '../outside.md', which leaves the plugin source",
+            "on line 1 names '../outside.md', which leaves the marketplace source",
             path="README.md",
         )
 
@@ -413,8 +441,8 @@ class IncludeTests(unittest.TestCase):
             ("/docs/note.md", "names no document-relative path to a `.md` file"),
             ("../../docs/note.MD", "names no document-relative path to a `.md` file"),
             ("../../docs/note.md\u00a0", "names no document-relative path to a `.md` file"),
-            ("../../../README.md", "names 'README.md', outside the plugin 'main'"),
-            ("../../../../x.md", "names '../../../../x.md', which leaves the plugin source"),
+            ("../../../missing.md", "names 'missing.md', which is not a readable file"),
+            ("../../../../x.md", "names '../../../../x.md', which leaves the marketplace source"),
             ("../../docs/missing.md", "names 'main/docs/missing.md', which is not a readable file"),
         ):
             with self.subTest(path=path):

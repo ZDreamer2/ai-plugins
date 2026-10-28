@@ -85,6 +85,29 @@ class BuildTests(unittest.TestCase):
             "name: main\nversion: 1.2.3\ndescription: Main plugin.\n"
         ))
 
+    def test_external_include_is_embedded_without_bundling_its_source(self) -> None:
+        self.plugin()
+        self.write("@common/Entity.md", "---\nedit-only-context: Missing.meta.md\n---\n# Entity\n")
+        self.write("main/skills/run/SKILL.md", skill(body=(
+            "${AGENT_INCLUDE_DOC(../../../@common/Entity.md)}\n"
+            "[Prompt](prompts/lite.md)\n"
+        )))
+        self.write("main/skills/run/prompts/lite.md", "Analyze.\n")
+        before = snapshot(self.source)
+        output = self.base / "output"
+        build(self.source, output, now=NOW)
+        for host in HOSTS:
+            plugin = output / host / "main"
+            text = (plugin / "skills/run/SKILL.md").read_text()
+            self.assertIn("# Entity\n[Prompt](prompts/lite.md)\n", text)
+            self.assertNotIn("AGENT_INCLUDE_DOC", text)
+            self.assertNotIn("edit-only-context", text)
+            self.assertFalse((plugin / "@common").exists())
+            self.assertFalse(list(plugin.rglob("Entity.md")))
+            self.assertEqual((plugin / "skills/run/prompts/lite.md").read_text(), "Analyze.\n")
+        self.assertEqual(snapshot(self.source), before)
+        self.assertEqual(validate_pi_distribution(self.source, output / "pi", output), 1)
+
     def test_root_ci_is_source_only_but_plugin_resources_are_retained(self) -> None:
         self.plugin()
         self.write(".gitlab-ci.yml", "source configuration\n")

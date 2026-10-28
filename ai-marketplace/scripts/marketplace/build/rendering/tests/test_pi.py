@@ -285,8 +285,8 @@ class PiTests(unittest.TestCase):
         before = snapshot(self.root)
         preflight_pi(source)
         self.assertEqual(snapshot(self.root), before)
-        with self.assertRaisesRegex(ValueError, "outside the plugin 'folder/skills/sample'"):
-            render_file(content, self.path, "pi", source)
+        self.assertEqual(render_file(content, self.path, "pi", source),
+                         skill(body="/skill:manifest-sample $CODEX_HOME\n"))
 
 
 class IsolatedPiTests(unittest.TestCase):

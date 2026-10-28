@@ -1,5 +1,6 @@
 """Rebase authored Markdown destinations without changing literal code or prose."""
 
+from collections.abc import Callable
 import posixpath
 import re
 
@@ -9,11 +10,14 @@ _DEFINITION = re.compile(r"^ {0,3}\[[^\]\n]+\]:[ \t]*")
 _SCHEME = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*:")
 
 
-def rebase_links(text: str, source: str, destination: str) -> str:
+def rebase_links(
+    text: str, source: str, destination: str,
+    validate_target: Callable[[str], None] | None = None,
+) -> str:
     """Move relative link targets from source's logical directory to destination's."""
     source_dir = posixpath.dirname(source)
     destination_dir = posixpath.dirname(destination)
-    if source_dir == destination_dir:
+    if source_dir == destination_dir and validate_target is None:
         return text
     result: list[str] = []
     prose: list[str] = []
@@ -32,17 +36,20 @@ def rebase_links(text: str, source: str, destination: str) -> str:
             fence_length = len(match.group(1))
         if literal or not line.strip():
             if prose:
-                result.append(_rebase_prose("".join(prose), source_dir, destination_dir))
+                result.append(_rebase_prose("".join(prose), source_dir, destination_dir, validate_target))
                 prose.clear()
             result.append(line)
         else:
             prose.append(line)
     if prose:
-        result.append(_rebase_prose("".join(prose), source_dir, destination_dir))
+        result.append(_rebase_prose("".join(prose), source_dir, destination_dir, validate_target))
     return "".join(result)
 
 
-def _rebase_prose(text: str, source_dir: str, destination_dir: str) -> str:
+def _rebase_prose(
+    text: str, source_dir: str, destination_dir: str,
+    validate_target: Callable[[str], None] | None,
+) -> str:
     """Rebase a prose block while masking code spans across its lines."""
     mask = _code_mask(text)
     result: list[str] = []
@@ -56,11 +63,11 @@ def _rebase_prose(text: str, source_dir: str, destination_dir: str) -> str:
             end, value = _destination(line, start, definition=True)
             if end != start:
                 path_start = start + (line[start] == "<")
-                line = (line[:path_start] + _rebase(value, source_dir, destination_dir)
+                line = (line[:path_start] + _rebase(value, source_dir, destination_dir, validate_target)
                         + line[end:])
                 result.append(line)
                 continue
-        result.append(_inline_links(line, protected, source_dir, destination_dir))
+        result.append(_inline_links(line, protected, source_dir, destination_dir, validate_target))
     return "".join(result)
 
 
@@ -132,7 +139,10 @@ def _destination(line: str, start: int, *, definition: bool = False) -> tuple[in
     return end, line[start:end]
 
 
-def _rebase(value: str, source_dir: str, destination_dir: str) -> str:
+def _rebase(
+    value: str, source_dir: str, destination_dir: str,
+    validate_target: Callable[[str], None] | None,
+) -> str:
     if (not value or value.startswith(("/", "\\", "#", "?"))
             or _SCHEME.match(value)):
         return value
@@ -142,11 +152,15 @@ def _rebase(value: str, source_dir: str, destination_dir: str) -> str:
     if not path:
         return value
     target = posixpath.normpath(posixpath.join(source_dir, path))
+    if validate_target is not None:
+        validate_target(target)
     return posixpath.relpath(target, destination_dir or ".") + suffix
 
 
-def _inline_links(line: str, protected: list[bool], source_dir: str,
-                  destination_dir: str) -> str:
+def _inline_links(
+    line: str, protected: list[bool], source_dir: str, destination_dir: str,
+    validate_target: Callable[[str], None] | None,
+) -> str:
     replacements: list[tuple[int, int, str]] = []
     index = 0
     while index < len(line) - 1:
@@ -178,7 +192,7 @@ def _inline_links(line: str, protected: list[bool], source_dir: str,
         valid_title = re.match(r"[ \t]+(?:\"[^\"\r\n]*\"|'[^'\r\n]*'|\([^()\r\n]*\))[ \t]*\)", tail)
         if end != start and (re.match(r"[ \t]*\)", tail) or valid_title):
             replacements.append((start + (line[start] == "<"), end,
-                                 _rebase(value, source_dir, destination_dir)))
+                                 _rebase(value, source_dir, destination_dir, validate_target)))
             index = end + 1
         else:
             index += 2
