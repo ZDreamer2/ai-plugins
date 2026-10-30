@@ -75,7 +75,7 @@ class ClaudeMetadataTests(unittest.TestCase):
             catalog = claude_marketplace_metadata(resolved)
 
         self.assertEqual(result, {
-            "name": "published-name", "version": "26.09.30210203",
+            "name": "published-name", "version": "26.9.30210203",
             "description": "Описание / ${AGENT_SKILL(example)}",
             "author": {"name": "Authored", "extra": ["kept"]},
             "hooks": {"SessionStart": [{"hooks": [{

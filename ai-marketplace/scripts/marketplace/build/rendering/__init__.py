@@ -34,6 +34,9 @@ under its inventoried consuming owner, without Git resolution or writes. Ordinar
 file rendering uses the nearest manifest owner. The builder must resolve identity and perform
 manifest/description checks before invoking preflight. Pi metadata describes
 independent packages and script identity; no root registry is generated.
+Catalog metadata and pi_package_metadata accept an optional MarketplaceIdentity
+from marketplace.source.read_marketplace_identity(source_dir). Omission preserves
+zd-plugins defaults; the builder loads configuration once before output mutation.
 """
 
 from ._claude import claude_marketplace_metadata, claude_plugin_metadata

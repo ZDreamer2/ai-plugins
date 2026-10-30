@@ -3,7 +3,7 @@
 from copy import deepcopy
 from typing import Any
 
-from marketplace.source import SourceInventory, SourcePlugin
+from marketplace.source import MarketplaceIdentity, SourceInventory, SourcePlugin
 
 
 def claude_plugin_metadata(plugin: SourcePlugin) -> dict[str, Any]:
@@ -11,12 +11,12 @@ def claude_plugin_metadata(plugin: SourcePlugin) -> dict[str, Any]:
 
 
 def claude_marketplace_metadata(
-    inventory: SourceInventory,
+    inventory: SourceInventory, identity: MarketplaceIdentity = MarketplaceIdentity(),
 ) -> dict[str, Any]:
     return {
-        "name": "zd-plugins",
-        "owner": {"name": "ZDreamer2"},
-        "metadata": {"description": "AI documentation and marketplace authoring plugins"},
+        "name": identity.name,
+        "owner": {"name": identity.owner},
+        "metadata": {"description": identity.description},
         "plugins": [
             {
                 "name": deepcopy(plugin.manifest["name"]),

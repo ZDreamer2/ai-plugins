@@ -56,6 +56,9 @@ def resolve_identity(
                     date.replace(tzinfo=timezone) if date.tzinfo is None
                     else date.astimezone(timezone)
                 )
-            data["version"] = date.strftime("%y.%m.%d%H%M%S")
+            # Normalize complete SemVer components, not the embedded HHMMSS.
+            data["version"] = ".".join(
+                str(int(part)) for part in date.strftime("%y.%m.%d%H%M%S").split(".")
+            )
         resolved.append(replace(plugin, manifest=data))
     return replace(inventory, plugins=tuple(resolved))

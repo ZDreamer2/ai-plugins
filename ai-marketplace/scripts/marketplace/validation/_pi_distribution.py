@@ -7,7 +7,10 @@ import re
 import stat
 from typing import Any
 
-from marketplace.source import SourcePlugin, discover_source, plugin_name
+from marketplace.source import (
+    MarketplaceIdentity, SourcePlugin, discover_source, plugin_name,
+    read_marketplace_identity,
+)
 
 
 _VCS_DIRS = {
@@ -217,7 +220,7 @@ def _assert_resources(plugin: SourcePlugin, package: Path, output: Path,
 
 
 def _assert_plugin(plugin: SourcePlugin, tree: Path, output: Path,
-                   source: Path) -> None:
+                   source: Path, identity: MarketplaceIdentity) -> None:
     package = tree / plugin.root
     metadata = _read_metadata(package / 'package.json')
     name = plugin_name(plugin)
@@ -234,9 +237,15 @@ def _assert_plugin(plugin: SourcePlugin, tree: Path, output: Path,
             text_name = mantissa + 'E' + f'{int(exponent):+d}'
         elif text_name in ('inf', '-inf', 'nan'):
             text_name = text_name.upper()
-    if not isinstance(metadata, dict) or not _same(
-        metadata.get('name'), '@zdreamer2/pi-plugin-' + text_name,
+    expected_name = identity.pi_package_prefix + text_name
+    actual_name = metadata.get('name') if isinstance(metadata, dict) else None
+    if len(expected_name) > 214 or (
+        isinstance(actual_name, str) and len(actual_name) > 214
     ):
+        raise ValueError(
+            f"Pi package name at '{package}' exceeds the 214-character limit."
+        )
+    if not isinstance(metadata, dict) or not _same(actual_name, expected_name):
         raise ValueError(f"Incorrect Pi package identity at '{package}'.")
     version = metadata.get('version')
     if type(version) is not str or not version:
@@ -261,6 +270,7 @@ def validate_pi_distribution(
 ) -> int:
     """Validate independent packages, retaining the caller's exclusion context."""
     source = _directory(source_dir, 'Source marketplace')
+    identity = read_marketplace_identity(source)
     tree = _directory(tree_dir, 'Pi artifact tree')
     output = (Path(output_dir) if output_dir is not None else source / '@build').resolve()
     _assert_distribution_content(tree)
@@ -271,5 +281,5 @@ def validate_pi_distribution(
         raise ValueError('No source plugins found; refusing to publish an empty Pi distribution.')
     _assert_package_inventory(tree, [plugin.root for plugin in inventory.plugins])
     for plugin in inventory.plugins:
-        _assert_plugin(plugin, tree, output, source)
+        _assert_plugin(plugin, tree, output, source, identity)
     return len(inventory.plugins)

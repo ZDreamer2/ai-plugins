@@ -16,7 +16,7 @@ from marketplace.validation import validate_pi_distribution
 
 
 NOW = datetime(2026, 10, 1, 9, 12, 34, tzinfo=timezone.utc)
-AUTO_VERSION = "26.10.01121234"
+AUTO_VERSION = "26.10.1121234"
 HOSTS = ("claude", "codex", "pi")
 CODEX_HEADER = (
     "# Unresolved Claude constructs in the Codex tree\n\n"
@@ -822,7 +822,7 @@ class BuildTests(unittest.TestCase):
             suffix = ".claude-plugin/plugin.json" if host == "claude" else ".codex-plugin/plugin.json" if host == "codex" else ".pi-plugin/plugin.json"
             auto = json.loads((folder / "auto" / suffix).read_text())
             fixed = json.loads((folder / "fixed" / suffix).read_text())
-            self.assertEqual(auto["version"], "20.01.02060405")
+            self.assertEqual(auto["version"], "20.1.2060405")
             self.assertEqual(fixed["version"], "9.0")
             if host != "pi":
                 self.assertEqual(auto["author"], {"name": "Fixture Author"})
@@ -831,7 +831,7 @@ class BuildTests(unittest.TestCase):
         git("add", "@common")
         git("commit", "-qm", "Shared change", date="2021-02-03T04:05:06+0000")
         second = build(self.source, now=NOW)
-        self.assertEqual(json.loads((second.output_dir / "claude/auto/.claude-plugin/plugin.json").read_text())["version"], "21.02.03070506")
+        self.assertEqual(json.loads((second.output_dir / "claude/auto/.claude-plugin/plugin.json").read_text())["version"], "21.2.3070506")
         self.assertEqual(json.loads((second.output_dir / "claude/fixed/.claude-plugin/plugin.json").read_text())["version"], "9.0")
 
     def test_source_root_plugin_metadata_uses_root_paths(self) -> None:

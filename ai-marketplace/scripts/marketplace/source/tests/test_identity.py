@@ -65,14 +65,14 @@ class IdentityTests(unittest.TestCase):
         self.write("other/ai-plugin.yml")
         self.commit("other", "2026-09-29T12:00:01+0000", "Other Author")
         data = self.identities()
-        self.assertEqual(data["dev/one"]["version"], "26.09.29025958")
+        self.assertEqual(data["dev/one"]["version"], "26.9.29025958")
         self.assertEqual(data["dev/one"]["author"], {"name": "First Author"})
-        self.assertEqual(data["other"]["version"], "26.09.29150001")
+        self.assertEqual(data["other"]["version"], "26.9.29150001")
         self.write("@common/docs/shared.md", "shared")
         self.commit("@common", "2026-09-30T01:02:03+0000", "Shared Author")
         data = self.identities()
         for manifest in data.values():
-            self.assertEqual(manifest["version"], "26.09.30040203")
+            self.assertEqual(manifest["version"], "26.9.30040203")
             self.assertEqual(manifest["author"], {"name": "Shared Author"})
         self.write("README.md", "unrelated root content")
         self.commit("README.md", "2026-09-30T11:00:00+0000", "Root Author")
@@ -100,7 +100,7 @@ class IdentityTests(unittest.TestCase):
         self.assertIsNot(resolved, inventory)
         data = {p.root: p.manifest for p in resolved.plugins}
         self.assertEqual(data["dev/folder"], {
-            "name": "folder", "version": "26.09.30040203",
+            "name": "folder", "version": "26.9.30040203",
             "author": {"name": "History Author"},
             "extra": {"values": ["a", "b"]},
         })
@@ -112,7 +112,7 @@ class IdentityTests(unittest.TestCase):
         self.assertEqual(
             data["version-only"]["author"], {"name": "History Author"},
         )
-        self.assertEqual(data["auto"]["version"], "26.09.30040203")
+        self.assertEqual(data["auto"]["version"], "26.9.30040203")
         raw = next(
             p.manifest for p in inventory.plugins if p.root == "dev/folder"
         )
@@ -128,13 +128,13 @@ class IdentityTests(unittest.TestCase):
                 self.init_git()
             with self.subTest(repository=init):
                 data = self.identities()
-                self.assertEqual(data["missing"]["version"], "26.10.01000203")
+                self.assertEqual(data["missing"]["version"], "26.10.1000203")
                 self.assertNotIn("author", data["missing"])
                 self.assertIsNone(data["null"]["author"])
         self.write("other/ai-plugin.yml")
         self.commit("other", "2026-09-28T00:00:00+0000")
         data = self.identities()
-        self.assertEqual(data["missing"]["version"], "26.10.01000203")
+        self.assertEqual(data["missing"]["version"], "26.10.1000203")
         self.assertNotIn("author", data["missing"])
 
     def test_custom_timezone_and_naive_clock_are_explicit(self) -> None:
@@ -144,14 +144,46 @@ class IdentityTests(unittest.TestCase):
             inventory, now=self.now, timezone=timezone.utc,
         )
         self.assertEqual(
-            resolved.plugins[0].manifest["version"], "26.09.30210203",
+            resolved.plugins[0].manifest["version"], "26.9.30210203",
         )
         resolved = resolve_identity(
             inventory, now=self.now.replace(tzinfo=None),
         )
         self.assertEqual(
-            resolved.plugins[0].manifest["version"], "26.09.30210203",
+            resolved.plugins[0].manifest["version"], "26.9.30210203",
         )
+
+    def test_numeric_semver_boundaries_preserve_time_zeros_and_order(self) -> None:
+        self.write("plugin/ai-plugin.yml", "version: AUTO_VERSION\n")
+        inventory = discover_source(self.root)
+        cases = (
+            (datetime(2000, 1, 1, 0, 0, 0), "0.1.1000000"),
+            (datetime(2001, 2, 3, 0, 4, 5), "1.2.3000405"),
+            (datetime(2026, 1, 9, 23, 59, 59), "26.1.9235959"),
+            (datetime(2026, 1, 10, 0, 0, 0), "26.1.10000000"),
+            (datetime(2026, 1, 31, 23, 59, 59), "26.1.31235959"),
+            (datetime(2026, 2, 1, 0, 0, 0), "26.2.1000000"),
+            (datetime(2026, 12, 31, 23, 59, 59), "26.12.31235959"),
+            (datetime(2027, 1, 1, 0, 0, 0), "27.1.1000000"),
+        )
+        versions = []
+        for clock, expected in cases:
+            with self.subTest(clock=clock):
+                actual = resolve_identity(inventory, now=clock).plugins[0].manifest["version"]
+                self.assertEqual(actual, expected)
+                self.assertRegex(actual, r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$")
+                versions.append(tuple(map(int, actual.split("."))))
+        self.assertEqual(versions, sorted(versions))
+
+    def test_moscow_commit_year_rollover(self) -> None:
+        self.init_git()
+        self.write("plugin/ai-plugin.yml")
+        self.commit("plugin", "2026-12-31T21:00:05+0000")
+        self.assertEqual(self.identities()["plugin"]["version"], "27.1.1000005")
+
+    def test_explicit_non_semver_version_is_unchanged(self) -> None:
+        self.write("plugin/ai-plugin.yml", "version: 01.02.03000405\n")
+        self.assertEqual(self.identities()["plugin"]["version"], "01.02.03000405")
 
     def test_duplicate_default_and_explicit_identity(self) -> None:
         self.write("a/duplicate/ai-plugin.yml")

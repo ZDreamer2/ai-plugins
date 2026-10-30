@@ -6,7 +6,7 @@ from typing import Any, NoReturn
 
 from marketplace import dump_yaml, parse_yaml
 from marketplace.source import (
-    SourceInventory, SourcePlugin, pi_skill_name, source_skill_name,
+    MarketplaceIdentity, SourceInventory, SourcePlugin, pi_skill_name, source_skill_name,
 )
 
 from ._result import FileRendering
@@ -19,12 +19,20 @@ _SUPPORTED_KEYS = (
 )
 
 
-def pi_package_metadata(plugin: SourcePlugin) -> dict[str, Any]:
+def pi_package_metadata(
+    plugin: SourcePlugin, identity: MarketplaceIdentity = MarketplaceIdentity(),
+) -> dict[str, Any]:
+    """Render package metadata, rejecting complete npm names over 214 characters."""
+    name = identity.pi_package_prefix + plugin.manifest["name"]
+    if len(name) > 214:
+        raise ValueError(
+            f"Pi package name for '{plugin.root}' exceeds the 214-character limit."
+        )
     pi = {"skills": ["./" + path for path in plugin.skills]}
     if plugin.extensions:
         pi["extensions"] = ["./" + path for path in plugin.extensions]
     return {
-        "name": "@zdreamer2/pi-plugin-" + plugin.manifest["name"],
+        "name": name,
         "version": deepcopy(plugin.manifest["version"]),
         "description": deepcopy(plugin.manifest["description"]),
         "keywords": ["pi-package"], "pi": pi,

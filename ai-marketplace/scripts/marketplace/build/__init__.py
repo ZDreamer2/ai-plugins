@@ -20,7 +20,10 @@ Report collection and formatting are read-only: callers supply logical paths
 and findings, and decide whether and where to write the returned Markdown.
 build accepts a source directory, optional output directory (default source/@build)
 and dry_run. An optional datetime now controls fallback identities and the Moscow
-installer stamp. It preflights all identities, descriptions and Pi skills before
+installer stamp. Optional source-root .marketplace/identity.json supplies catalog
+branding and the Pi package prefix; its five fields are validated even for dry
+runs and empty inventories. Missing configuration preserves zd-plugins defaults.
+It preflights all identities, descriptions and Pi skills before
 replacing Claude/Codex/Pi trees, then bundles Claude installers when sources exist.
 BuildResult returns canonical locations, plugin count, per-tree source counts,
 companions, metadata notes, reports and installer byte counts without printing.

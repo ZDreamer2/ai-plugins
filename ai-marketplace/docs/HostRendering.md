@@ -12,6 +12,10 @@ The build renders shared plugin sources for Claude Code, Codex and Pi. Use this 
 | Codex | `.codex-plugin/plugin.json`: `name`, `version`, `description`, `author`, plus `"skills": "./skills/"` when that folder exists | `.agents/plugins/marketplace.json` |
 | Pi | `package.json`: package identity and explicit skill/extension entry points; `.pi-plugin/plugin.json`: resolved name and version for bundled scripts | None; each plugin is an independent package |
 
+Marketplace branding comes from optional source-root `.marketplace/identity.json`: `name`, `owner`, `description`, `display_name` and `pi_package_prefix`. Claude uses the configured name, owner and description; Codex uses the name and `interface.displayName`; Pi prepends the package prefix to the resolved plugin name. The independent Pi validator reads the same source configuration. Missing configuration preserves zd-plugins defaults; present configuration requires all five fields and is validated before output replacement. See the [maintainer guide](../../docs/Maintaining.md) for accepted values.
+
+Automatic plugin versions use Moscow `YY.MM.DDHHMMSS` with each complete numeric component normalized to an integer string, preserving internal time zeros. Explicit versions retain their source semantics. Installer stamps retain their separate fixed-width `YY.MM.DDHHMM` format.
+
 Additional manifest keys such as `hooks`, `mcpServers` and `lsp` pass through to Claude metadata unchanged. Codex and Pi metadata carry only their fixed generated fields; Pi packages do not activate Claude hook configuration.
 
 A Pi package with one skill has this shape:

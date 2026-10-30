@@ -10,7 +10,7 @@ import re
 from typing import Any
 
 from marketplace import TaggedValue
-from marketplace.source import discover_source, resolve_identity
+from marketplace.source import discover_source, read_marketplace_identity, resolve_identity
 
 from ._installers import build_installers
 from ._readme import distribution_readmes
@@ -118,6 +118,7 @@ def build(
         tree == source or tree in source.parents for tree in trees
     ):
         raise ValueError(f"Output '{output}' overlaps source input '{source}'.")
+    identity = read_marketplace_identity(source)
     inventory = resolve_identity(
         discover_source(source, excluded_dirs=(output,)), now=now,
     )
@@ -126,6 +127,9 @@ def build(
         codex_plugin_metadata(plugin) for plugin in inventory.plugins
     ]
     preflight_pi(inventory)
+    pi_manifests = [
+        pi_package_metadata(plugin, identity) for plugin in inventory.plugins
+    ]
     readmes = distribution_readmes(source)
     results: list[TreeResult] = []
     entries, excluded_inputs = (
@@ -135,6 +139,9 @@ def build(
     inputs = [entry.path for entry in entries] + list(excluded_inputs)
     if readmes:
         inputs.append(source / ".marketplace/readme.json")
+    identity_path = source / ".marketplace/identity.json"
+    if identity_path.exists():
+        inputs.append(identity_path)
     for plugin in inventory.plugins:
         inputs.append(plugin.directory / "ai-plugin.yml")
         inputs.extend(
@@ -183,16 +190,16 @@ def build(
                          codex_manifests[index], version)
                 else:
                     emit(prefix + "package.json",
-                         pi_package_metadata(plugin), version)
+                         pi_manifests[index], version)
                     emit(prefix + ".pi-plugin/plugin.json",
                          pi_plugin_metadata(plugin), version)
             if host == "claude":
                 emit(".claude-plugin/marketplace.json",
-                     claude_marketplace_metadata(inventory),
+                     claude_marketplace_metadata(inventory, identity),
                      f"{len(inventory.plugins)} plugin(s)")
             elif host == "codex":
                 emit(".agents/plugins/marketplace.json",
-                     codex_marketplace_metadata(inventory),
+                     codex_marketplace_metadata(inventory, identity),
                      f"{len(inventory.plugins)} plugin(s)")
             report_text = report.render() if report is not None else None
             if report_text is not None and not dry_run:

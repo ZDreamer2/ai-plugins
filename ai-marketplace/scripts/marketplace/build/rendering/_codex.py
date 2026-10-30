@@ -5,7 +5,7 @@ import re
 from typing import Any
 
 from marketplace import dump_yaml, parse_yaml
-from marketplace.source import SourceInventory, SourcePlugin
+from marketplace.source import MarketplaceIdentity, SourceInventory, SourcePlugin
 
 from ._constructs import CodexConstruct, CodexConstructFinding
 from ._result import FileRendering
@@ -31,10 +31,12 @@ def codex_plugin_metadata(plugin: SourcePlugin) -> dict[str, Any]:
     return result
 
 
-def codex_marketplace_metadata(inventory: SourceInventory) -> dict[str, Any]:
+def codex_marketplace_metadata(
+    inventory: SourceInventory, identity: MarketplaceIdentity = MarketplaceIdentity(),
+) -> dict[str, Any]:
     return {
-        "name": "zd-plugins",
-        "interface": {"displayName": "ZDreamer2 plugins"},
+        "name": identity.name,
+        "interface": {"displayName": identity.display_name},
         "plugins": [
             {
                 "name": deepcopy(plugin.manifest["name"]),

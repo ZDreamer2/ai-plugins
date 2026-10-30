@@ -6,7 +6,7 @@ Extracted from bc-plugins commit `0a09ad40c6e8e2964cee4603c67f22aef0b3689e`, pre
 
 ## Local build and validation
 
-Run from this repository root. Requires Python 3.10+, Git and system timezone data including `Europe/Moscow` (for example, the OS `tzdata` package). PyYAML 6.0.2 is bundled; pip, site packages and the Bico SDK are unnecessary. Versions default to the latest touching Git commit timestamp, or the current time in a checkout without history. Build from a cache-free source tree: the builder copies local files, and `.gitignore` is not a packaging filter. Root `.gitlab-ci.yml`, `.gitlab/` and `.github/` are source-only and excluded from distributions. Some test subprocesses create Python caches despite the outer `-B`; remove those before building.
+Run from this repository root. Requires Python 3.10+, Git and system timezone data including `Europe/Moscow` (for example, the OS `tzdata` package). PyYAML 6.0.2 is bundled; pip, site packages and the Bico SDK are unnecessary. Automatic versions use the latest touching Git commit timestamp, or the current time without history, in `Europe/Moscow`. Each complete component of `YY.MM.DDHHMMSS` is converted to an integer string for numeric SemVer (`26.02.03000405` becomes `26.2.3000405`); internal time zeros remain intact. Explicit versions pass through unchanged. Build from a cache-free source tree: the builder copies local files, and `.gitignore` is not a packaging filter. Root `.gitlab-ci.yml`, `.gitlab/` and `.github/` are source-only and excluded from distributions. Use `PYTHONDONTWRITEBYTECODE=1` for tests and builds so subprocesses also avoid source caches.
 
 ```sh
 out=$(mktemp -d /tmp/zd-plugins-build.XXXXXX)
@@ -16,7 +16,9 @@ python3 -B -S ai-marketplace/scripts/validate_pi.py --dir . --tree "$out/pi" --o
 rm -rf -- "$out"
 ```
 
-Claude and Codex catalogs use `zd-plugins` with ZDreamer2 identity; Pi packages are `@zdreamer2/pi-plugin-ai-doc` and `@zdreamer2/pi-plugin-ai-marketplace`. Each distribution contains exactly these two plugins. Reports identify literal host constructs, not host acceptance failures. See [host rendering](../ai-marketplace/docs/HostRendering.md) and [authoring syntax](../ai-marketplace/docs/AuthoringSyntax.md).
+Source-root `.marketplace/identity.json` supplies `name`, `owner`, `description`, `display_name` and `pi_package_prefix`. When absent, the builder and independent Pi validator use the same zd-plugins defaults. When present, all five fields are required; unknown/duplicate keys, empty/padded/control-containing strings, invalid catalog names and invalid lowercase npm prefixes fail before output mutation, including dry runs and installer-only builds. Catalog names use lowercase letters, digits and single hyphens; Pi prefixes are optionally scoped lowercase npm names ending in `-`. `.marketplace/` remains source-only.
+
+The checked-in identity gives Claude and Codex catalogs `zd-plugins` with ZDreamer2 identity; Pi packages are `@zdreamer2/pi-plugin-ai-doc` and `@zdreamer2/pi-plugin-ai-marketplace`. Each distribution contains exactly these two plugins. Reports identify literal host constructs, not host acceptance failures. See [host rendering](../ai-marketplace/docs/HostRendering.md) and [authoring syntax](../ai-marketplace/docs/AuthoringSyntax.md).
 
 ## README sources
 
@@ -31,6 +33,7 @@ The builder validates configuration before replacing output, including in dry ru
 The marketplace package suite includes focused standalone extraction checks. All tests use the standard library and the bundled parser. Logs may be redirected to a temporary directory outside this checkout.
 
 ```sh
+export PYTHONDONTWRITEBYTECODE=1
 scripts=ai-marketplace/scripts
 python3 -B -S -m unittest discover -s "$scripts/tests" -v
 for suite in marketplace/tests marketplace/source/tests marketplace/validation/tests marketplace/build/tests marketplace/build/rendering/tests; do

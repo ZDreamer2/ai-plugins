@@ -1,0 +1,7 @@
+{
+  "name": "zd-plugins",
+  "owner": "ZDreamer2",
+  "description": "AI documentation and marketplace authoring plugins",
+  "display_name": "ZDreamer2 plugins",
+  "pi_package_prefix": "@zdreamer2/pi-plugin-"
+}
