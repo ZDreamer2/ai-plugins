@@ -13,9 +13,6 @@ A WorkflowDoc is a step-by-step procedure that instructs AI agents to complete a
 
 ## MAY read for additional context before planning WorkflowDoc document
 
-- [Command workflow patterns](Theory/CommandWorkflow.md) - Read when workflow is an AI agent command/skill
-
-Optional workflow blocks:
 - [User approval step](Blocks/UserApprovalStep.md) - Read when workflow needs user approval before proceeding
 - [Subagent delegation step](Blocks/CallSubagentStep.md) - Read when workflow delegates work to subagents
 
