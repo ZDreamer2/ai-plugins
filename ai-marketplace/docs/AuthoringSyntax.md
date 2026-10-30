@@ -75,12 +75,12 @@ For instructions specific to one agent, name its tree; the build removes the mar
 $${AGENT_INCLUDE_DOC_FOR(codex, ../../docs/includes/example.md)}
 ```
 
-- The document path names a `.md` file relative to the including document and stays inside the plugin. Host-specific includes take an agent tree, `claude`, `codex` or `pi`, followed by that path
+- The document path names a `.md` file relative to the including document and stays inside the marketplace source root supplied to the build. It may reach canonical sources outside the consuming plugin; build from the marketplace root when using these includes. Host-specific includes take an agent tree, `claude`, `codex` or `pi`, followed by that path
 - The marker stands alone on its line, apart from surrounding whitespace
 - For host-specific includes, leave no blank line before the marker and keep the usual one after it: the tree that drops the marker then has the spacing the file would have without the include
-- The included text becomes part of the including document; its placeholders resolve normally. Write Markdown link and image destinations relative to the included file: the build rebases them, including reference definitions, for the including document. Link syntax inside code stays literal
+- The included text becomes part of the including document; its placeholders resolve normally. Write Markdown link and image destinations relative to the included file: the build rebases them, including reference definitions, for the including document. For a source outside the consuming plugin, relative link/image targets MUST be existing files inside that plugin's logical tree; expose runtime dependencies there rather than linking to unbundled marketplace sources. Link syntax inside code stays literal
 - Literal paths and agent-executed commands in included text use the including document as their base. Name that base in the included text where needed
-- The build fails on a marker sharing its line with other text, an unknown tree, a path that is not a readable `.md` file inside the plugin, a marker inside the leading YAML frontmatter, and an include inside an included document
+- The build fails on a marker sharing its line with other text, an unknown tree, a path that is not a readable `.md` file inside the marketplace source, an external include with a relative link/image target outside the plugin or missing there, a marker inside the leading YAML frontmatter, and an include inside an included document
 - A second `$` escapes an include as it does any other marker
-- The included document is also published on its own, like any other source document
+- Including a document does not add it to the plugin's published files. Plugin-local documents are still published normally; marketplace-only INCLUDE sources need no plugin-local copy or symlink
 - Include text the agent needs before it can be told to read anything, such as how to run a skill's commands; elsewhere a link serves. A difference inside a sentence is a placeholder's job
