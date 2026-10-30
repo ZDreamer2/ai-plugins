@@ -57,16 +57,6 @@ User asks to implement entity -> BuildEntity workflow loads E_C_BuildClasses.md 
 `Edit src/Modules/Analytics/Domain/Report/Report/ReportRepository.php to add support for the entity "meta" field according to src/Core/Domain/Repository/Docs/Build/BuildRepository.md`
 ```
 
-Example showing internal block with only indirect loading:
-
-```markdown
-### 💡 Distinct usage patterns for ExecutePlanStep.md
-
-#### Loaded during WorkflowDoc creation when defining execution step
-
-User asks to create new workflow -> BuildDocMeta workflow loads WorkflowDoc.format.md -> WorkflowDoc.format.md references ExecutePlanStep.md for execution step pattern guidance
-```
-
 ## Validation Rules
 
 - MUST include only UNIQUE usage patterns (each representing genuinely different mechanism or context)
