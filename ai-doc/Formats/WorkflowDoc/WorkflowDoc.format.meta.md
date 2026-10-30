@@ -5,7 +5,7 @@ Specification for editing [WorkflowDoc format](WorkflowDoc.format.md). Defines p
 ## WorkflowDoc.format.md goals and principles
 
 - Defines primary AiDocFormat for step-by-step workflow AiDocs that instruct AI agents to complete specific multi-step tasks
-- Provides format standards for workflow documents typically found in /Workflows/ directories
+- Provides format standards for documents that guide AI through multi-step procedures
 - Lets each procedure's task determine its steps while preserving necessary coordination and verification
 
 ## AiDocFormat
@@ -14,14 +14,7 @@ Specification for editing [WorkflowDoc format](WorkflowDoc.format.md). Defines p
 
 ## MUST read before editing WorkflowDoc.format.md
 
-- [Workflow design theory](Theory/WorkflowTheory.md)
-  - Use its design principles to preserve the rationale for separating or combining workflow steps
-- [AiDocMetaDoc creation workflow](../../workflows/meta/do.md)
-  - Study its context gathering and validation as an example for workflow authors
-  - WorkflowDoc.format.md MUST encourage to consider it as example when creating workflows
-- [AiDoc creation workflow](../../workflows/build/do.md)
-  - Study its reading dependencies and ordered execution as an example for workflow authors
-  - WorkflowDoc.format.md MUST encourage to consider it as example when creating workflows
+- [Workflow design theory](Theory/WorkflowTheory.md) - Preserves the rationale for separating or combining workflow steps
 
 ## MAY read for additional context before editing WorkflowDoc.format.md
 
@@ -31,11 +24,9 @@ Specification for editing [WorkflowDoc format](WorkflowDoc.format.md). Defines p
 
 ### 💡 Distinct usage patterns for WorkflowDoc.format.md
 
-- Create workflow documentation for building features following the [WorkflowDoc format](WorkflowDoc.format.md)
-  - Direct reference when creating new workflow AiDocs
-- Build `docs/Workflows/BuildFeature.md` following the [AiDoc creation workflow](../../workflows/build/do.md)
-  - Will be automatically used, because AiDocMetaDoc document for BuildFeature.md will guide to use WorkflowDoc.format.md
-  - And AiDocMetaDoc will be created to guide this way automatically by [AiDocMetaDoc format](../MetaDoc/AiDocMetaDoc.format.md) since BuildFeature.md is in workflows directory
+#### Loaded when creating or improving an AI procedure
+
+User requests a multi-step procedure -> ai-doc selects WorkflowDoc format -> the format guides its structure and constraints
 
 ### Role WorkflowDoc.format.md serves during use
 

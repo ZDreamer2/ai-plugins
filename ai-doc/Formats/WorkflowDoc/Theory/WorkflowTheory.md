@@ -1,8 +1,4 @@
-# WorkflowDoc.md underlying theory
-
-## Important Definitions section handling
-
-Some workflows may have an "Important Definitions" section at the very beginning, added by users to define key terms specific to that workflow. When present, this section should be preserved without modification unless explicitly asked otherwise - the definitions are carefully chosen for the workflow's specific context and domain.
+# Workflow Design Theory
 
 ## Step boundaries
 
