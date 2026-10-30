@@ -20,10 +20,6 @@ Specification for editing [Subagent delegation step](CallSubagentStep.md). Defin
 - [Workflow design theory](../Theory/WorkflowTheory.md) - Apply its design principles to the structure of delegation steps
 - [StartSimple methodology](../../../Theory/StartSimple.md) - Start minimal and expand only when evidence shows gaps
 
-## MAY read for additional context before editing CallSubagentStep.md
-
-- [User approval step](UserApprovalStep.md) - Read when referencing existing block structure patterns
-
 ## CallSubagentStep.md typical use context
 
 ### 💡 Distinct usage patterns for CallSubagentStep.md

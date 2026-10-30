@@ -13,7 +13,6 @@ A WorkflowDoc is a step-by-step procedure that instructs AI agents to complete a
 
 ## MAY read for additional context before planning WorkflowDoc document
 
-- [User approval step](Blocks/UserApprovalStep.md) - Read when workflow needs user approval before proceeding
 - [Subagent delegation step](Blocks/CallSubagentStep.md) - Read when workflow delegates work to subagents
 
 ## WorkflowDoc template
@@ -64,6 +63,8 @@ Rarely needed. When present, preserve without modification unless explicitly ask
 ### Workflow Steps section
 
 Number steps sequentially. Each step title MUST start with an active verb describing the action.
+
+Consider ${AGENT_QUESTION_TOOL} for structured user questions.
 
 ### "Key Principles" section
 
