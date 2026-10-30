@@ -2,7 +2,7 @@
 
 ## What is document in WorkflowDoc format
 
-A WorkflowDoc is a step-by-step procedure document that instructs AI agents to complete specific multi-step tasks. It guides sequential execution through clearly defined phases while balancing structured coordination with investigative freedom. Each step represents a distinct action with clear completion criteria, and verification checkpoints ensure execution quality.
+A WorkflowDoc is a step-by-step procedure that instructs AI agents to complete a task while balancing structured coordination with investigative freedom.
 
 ## MUST read before planning WorkflowDoc document
 
@@ -13,15 +13,9 @@ A WorkflowDoc is a step-by-step procedure document that instructs AI agents to c
 
 ## MAY read for additional context before planning WorkflowDoc document
 
-- [Plan-Execute pattern](Theory/PlanExecutePattern.md) - Read when using Plan-Execute Pattern
 - [Command workflow patterns](Theory/CommandWorkflow.md) - Read when workflow is an AI agent command/skill
 
-Plan-Execute Pattern blocks (read the [Plan-Execute pattern](Theory/PlanExecutePattern.md) first):
-- [Read necessary files step](Blocks/ReadNecessaryFilesStep.md) - Read when defining the context phase and its reading dependencies
-- [Todo creation step](Blocks/CreateTodoStep.md) - Read when turning a plan into tasks with verification checks
-- [Execute plan step](Blocks/ExecutePlanStep.md) - Read when defining execution of the prepared todo list
-
-Other workflow blocks:
+Optional workflow blocks:
 - [User approval step](Blocks/UserApprovalStep.md) - Read when workflow needs user approval before proceeding
 - [Subagent delegation step](Blocks/CallSubagentStep.md) - Read when workflow delegates work to subagents
 
@@ -72,7 +66,7 @@ Rarely needed. When present, preserve without modification unless explicitly ask
 
 ### Workflow Steps section
 
-Number steps sequentially. Each step title MUST start with active verb describing the action.
+Number steps sequentially. Each step title MUST start with an active verb describing the action.
 
 ### "Key Principles" section
 

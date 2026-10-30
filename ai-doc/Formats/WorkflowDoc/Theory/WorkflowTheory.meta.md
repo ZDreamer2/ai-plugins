@@ -5,7 +5,7 @@ Specification for editing [workflow design theory](WorkflowTheory.md). Defines p
 ## WorkflowTheory.md goals and principles
 
 - Provides theoretical foundation explaining design decisions in WorkflowDoc.format.md
-- Explains WHY WorkflowDoc.format.md structures workflows certain way
+- Explains how ordering and intermediate results shape workflow steps
 - Contains theoretical principles behind workflow design patterns
 - MUST NOT be used during workflow execution - only loaded when editing WorkflowDoc.format.md
 
@@ -34,6 +34,6 @@ Specification for editing [workflow design theory](WorkflowTheory.md). Defines p
 ### Role WorkflowTheory.md serves during use
 
 - Explains rationale behind workflow structure patterns
-- Clarifies why certain steps are separated (planning vs todo creation vs execution)
+- Clarifies when actions should be separated into steps or kept together
 - Provides theoretical foundation for balancing structure with flexibility
 - Connects high-level principles (GuideVsGiveFreedom.md) to concrete workflow patterns

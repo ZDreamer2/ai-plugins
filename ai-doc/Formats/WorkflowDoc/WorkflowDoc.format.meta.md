@@ -6,7 +6,7 @@ Specification for editing [WorkflowDoc format](WorkflowDoc.format.md). Defines p
 
 - Defines primary AiDocFormat for step-by-step workflow AiDocs that instruct AI agents to complete specific multi-step tasks
 - Provides format standards for workflow documents typically found in /Workflows/ directories
-- Emphasizes clarity in some steps while trusting AI investigation capabilities in other steps
+- Lets each procedure's task determine its steps while preserving necessary coordination and verification
 
 ## AiDocFormat
 
@@ -15,8 +15,7 @@ Specification for editing [WorkflowDoc format](WorkflowDoc.format.md). Defines p
 ## MUST read before editing WorkflowDoc.format.md
 
 - [Workflow design theory](Theory/WorkflowTheory.md)
-  - Use its design principles to preserve the rationale for workflow structure
-  - Essential for understanding WHY workflows are structured with separated planning, todo creation, and execution steps
+  - Use its design principles to preserve the rationale for separating or combining workflow steps
 - [AiDocMetaDoc creation workflow](../../workflows/meta/do.md)
   - Study its context gathering and validation as an example for workflow authors
   - WorkflowDoc.format.md MUST encourage to consider it as example when creating workflows

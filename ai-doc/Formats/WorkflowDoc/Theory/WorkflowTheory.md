@@ -4,13 +4,9 @@
 
 Some workflows may have an "Important Definitions" section at the very beginning, added by users to define key terms specific to that workflow. When present, this section should be preserved without modification unless explicitly asked otherwise - the definitions are carefully chosen for the workflow's specific context and domain.
 
-## Plan-Execute Pattern
+## Step boundaries
 
-Some workflows benefit from separated planning and execution phases, particularly those involving creative/analytical work where users may want to review and iterate on plans before execution.
-
-This 4-step pattern (context -> plan -> todo -> execute) is documented in the [Plan-Execute pattern](PlanExecutePattern.md).
-
-Not all workflows need this structure. Procedural workflows with deterministic steps (like moving files) can use simpler sequential structures.
+Separate actions into distinct steps when their order matters or a later action depends on an earlier result. Otherwise, keep related work together.
 
 ## Content principle: reference rather than duplicate
 
