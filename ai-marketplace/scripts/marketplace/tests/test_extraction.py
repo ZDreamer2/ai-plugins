@@ -51,7 +51,7 @@ class ExtractionTests(unittest.TestCase):
             "ai-marketplace/codebase/on-plan.meta.md",
             "ai-marketplace/codebase/on-build.meta.md",
             "ai-doc/Theory/docs-usefulness.meta.md",
-            "ai-doc/Formats/WorkflowDoc/Blocks/CallSubagentStep.meta.md",
+            "ai-doc/Formats/WorkflowDoc/SubagentDelegation.meta.md",
         ):
             self.assertNotIn("dev/forge/", (ROOT / relative).read_text(encoding="utf-8"))
 

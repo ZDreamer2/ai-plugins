@@ -13,7 +13,7 @@ A WorkflowDoc is a step-by-step procedure that instructs AI agents to complete a
 
 ## MAY read for additional context before planning WorkflowDoc document
 
-- [Subagent delegation step](Blocks/CallSubagentStep.md) - Read when workflow delegates work to subagents
+- [Subagent delegation](SubagentDelegation.md) - Read when a workflow should preserve a reusable subagent prompt
 
 ## WorkflowDoc template
 
