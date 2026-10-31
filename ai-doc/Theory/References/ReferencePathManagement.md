@@ -41,9 +41,6 @@ Use `[label](destination)` for references to Markdown documents and backticks fo
 - Choose a concise label that identifies the target's subject or role in the current context. Use wording that helps the reader understand what the reference contributes. A document title is often sufficient; use a filename when the file's identity matters. Apply this guidance when revising existing Markdown links too.
 - Keep Markdown link destinations out of backticks. Use backticks for literal filenames, paths, commands, and syntax examples, including Markdown filenames being discussed rather than referenced for reading.
 - Apply these syntax rules in required and optional reading sections, including `## AiDocFormat` and all meta files.
-- Existing backticked navigation references to Markdown documents and nonfunctional `@` references are legacy. Convert them as their documents are edited; a full migration is a separate task.
-
-For example: `Follow the [reference conversion workflow](ConvertFiles.md).`
 
 ## Reading obligations
 
