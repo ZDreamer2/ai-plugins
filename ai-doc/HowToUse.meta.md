@@ -29,6 +29,7 @@ The guide has two types of content:
 ## MAY read for additional context before editing HowToUse.md
 
 - [Documentation refinement workflow](workflows/refine/do.md) - Read when explaining refinement of user edits, its inputs, clarification points, and outputs
+- [AiDoc compaction workflow](workflows/compact/do.md) - Read when explaining whole-document reading-cost improvements and satellite extraction
 - [AiDoc stress-test workflow](workflows/stress-test/do.md) - Read when explaining review of uncommitted changes and how it differs from refinement
 - [AiDocMetaDoc format](Formats/MetaDoc/AiDocMetaDoc.format.md) - When explaining AiDocMetaDoc creation in more detail
 - [HubDoc meta-document guidance](Formats/MetaDoc/HubDocMeta.md) - When explaining specialized document patterns (HubDoc/ChildDoc)

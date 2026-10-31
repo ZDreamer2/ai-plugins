@@ -8,7 +8,7 @@ The framework uses three document layers:
 
 **AiDocFormatDoc** (`.format.md`) — Format blueprints. Defines HOW to write a type of document: template, structure rules, validation. Formats already exist for common types — you rarely need to create new ones.
 
-**AiDocMetaDoc** (`.meta.md`) — Additional authoring context: purpose, constraints, required reading, and usage patterns.
+**AiDocMetaDoc** (`.meta.md`) — Additional authoring context: purpose, constraints, required reading, and usage patterns. Optional when the format and task provide enough context.
 
 **AiDoc** (`.md`) — The actual document AI agents read during tasks. Concise, actionable, optimized for the chosen format.
 
@@ -18,13 +18,13 @@ Without it, you either re-explain a document's purpose every editing session, or
 
 ### Available Formats
 
-**BaseDoc** — General documentation with clear structure. The default format — used when nothing else fits better. You don't need to specify it.
+**BaseDoc** — General documentation with clear structure.
 
 **CodeDoc** — Code patterns with comprehensive examples and inline comments. Use when the document is primarily about how to write code.
 
-**WorkflowDoc** — Multi-step procedures with context gathering and verification. Auto-detected for docs in `/Workflows/`, so you don't need to specify it.
+**WorkflowDoc** — Multi-step procedures with context gathering and verification.
 
-**SkillDoc** — Agent skill definitions (SKILL.md files). Auto-detected for files named `SKILL.md`. Skills that define multi-step procedures are recommended to also follow WorkflowDoc format.
+**SkillDoc** — Agent skill definitions (SKILL.md files). Skills containing a procedure also use WorkflowDoc.
 
 **FormatDoc** — Format specifications that define AiDocFormat structure and rules. You'll rarely need this unless creating a new document format.
 
@@ -36,18 +36,18 @@ Without it, you either re-explain a document's purpose every editing session, or
 
 A typical documentation workflow:
 
-1. **Define** → `${AGENT_SKILL(ai-doc)} meta` creates an AiDocMetaDoc specification
-2. **Build** → `${AGENT_SKILL(ai-doc)} build` creates the AiDoc following that specification
+1. **Define** → `${AGENT_SKILL(ai-doc)} meta` captures additional authoring context when useful
+2. **Build** → `${AGENT_SKILL(ai-doc)} build` creates or improves the AiDoc using its format and any meta
 3. **Test** → `${AGENT_SKILL(ai-doc)} debug` reflects on documentation quality after real use
 4. **Iterate** → `${AGENT_SKILL(ai-doc)} build` again to improve based on findings
 
-Everything runs through `${AGENT_SKILL(ai-doc)}`, followed by what you want: `meta`, `build`, `refine`, `stress-test`, `debug`, or `move`. Use a **fresh agent conversation** for each step.
+Everything runs through `${AGENT_SKILL(ai-doc)}`, followed by what you want: `meta`, `build`, `refine`, `compact`, `stress-test`, `debug`, or `move`.
 
 ---
 
 ## 📋 `${AGENT_SKILL(ai-doc)} meta` — Define What You Want
 
-Creates an **AiDocMetaDoc** — a specification that captures your document's purpose, constraints, required reading, and usage patterns.
+Creates or improves an **AiDocMetaDoc** — additional context that helps future authors preserve your document's purpose and important boundaries.
 
 **When to use:**
 - Creating document-specific editing context before building an AiDoc
@@ -81,12 +81,12 @@ Your considerations directly shape every section of the generated meta file. Her
 - Indirectly: "Called from BuildMcp workflow step 2, not used directly"
 - This shapes the "typical use context" section, which helps future editing sessions understand how the doc is actually consumed.
 
-**Format** — Only specify when not auto-detected. BaseDoc (default), WorkflowDoc (auto-detected from `/Workflows/` path), and SkillDoc (auto-detected for `SKILL.md` files) don't need mentioning. Explicitly state CodeDoc, FormatDoc, or HumanDoc.
+**Format** — Specify it when you want a particular format, especially HumanDoc or a custom project format. Otherwise, the meta workflow retains the existing format or selects one based on the document's role.
 
 **Special terms** — Mention any of these named terms to trigger specialized reading by the meta-building skill:
 - HubDoc — loads [HubDoc meta-document guidance](Formats/MetaDoc/HubDocMeta.md), adds structural guidance for entry-point/routing docs
 - ChildDoc — loads [ChildDoc meta-document guidance](Formats/MetaDoc/ChildDocMeta.md), adds guidance for docs extending another doc
-- HubSkill — loads the [HubSkill format](Formats/SkillDoc/Types/HubSkill.format.md), adds guidance for SKILL.md that serves as a single entry point dispatching to multiple handlers
+- HubSkill — loads the [HubSkill format](Formats/SkillDoc/Types/HubSkill.format.md) alongside SKILL for a skill that dispatches to multiple handlers
 - StartSimple — loads the [StartSimple methodology](Theory/StartSimple.md), adds the methodology of minimal initial content expanded only when real usage reveals gaps
 - WriteFinal — loads [WriteFinal principles](Theory/WriteFinal.md), guides referencing during ecosystem build-out: treat planned stubs as if they exist, skip transitional docs that will be absorbed
 
@@ -110,11 +110,7 @@ Creates or improves an AiDoc using its AiDocFormatDoc and, when present, its AiD
 - After AiDocMetaDoc exists and you're ready to write the AiDoc
 - When an existing AiDoc needs improvements
 
-**How it works:**
-1. AI reads the AiDocMetaDoc if present
-2. AI reads the AiDocFormatDoc and required sources listed in either document
-3. AI plans, then creates or improves the AiDoc
-4. AI verifies format compliance and, when present, the meta's goals
+AI uses the document's available editing context and your request. If neither specifies a format, it asks you to choose one.
 
 **Example prompts:**
 
@@ -138,14 +134,7 @@ ${AGENT_SKILL(ai-doc)} build Create docs/Code/McpTests.md without a meta
 - Describe the MCP test patterns in tests/Services/Ai/Mcp/
 ```
 
-AI records the format in the document's frontmatter.
-
-**Important:** Always run `${AGENT_SKILL(ai-doc)} build` in a **fresh agent conversation**. Context from `${AGENT_SKILL(ai-doc)} meta` or previous sessions adds noise that reduces quality.
-
-```
-${AGENT_SKILL(ai-doc)} build Let's improve docs/Feature/MyFeature.md
-- Please think how to reorganize it so templates come first, then scenarios
-```
+Without a companion or referenced meta, AI records the format in the document's `edit-only-context` frontmatter.
 
 ---
 
@@ -173,6 +162,24 @@ Use the edited document's path. This works in a fresh session: AI reads the docu
 3. You receive the revised files and a brief report of meaningful interpretations and concerns beyond refinement, such as a proposed structural change.
 
 Review the reported calls to check that AI understood your intent. This is the first version of the workflow; feedback from actual use will shape it.
+
+---
+
+## 📉 `${AGENT_SKILL(ai-doc)} compact` — Reduce Reading Effort
+
+Improves an entire document's usefulness and reading cost while preserving what its intended reader needs. Unlike `refine`, it can reconsider organization and move detail into satellites when that improves combined reading and navigation effort.
+
+**When to use:**
+
+- A document has become repetitive or costly to read
+- Specialized detail obscures the main guidance
+
+**Example prompt:**
+
+```text
+${AGENT_SKILL(ai-doc)} compact docs/Feature/MyFeature.md
+- Keep the common case self-contained
+```
 
 ---
 
@@ -277,7 +284,7 @@ See the [available short-name references](skills/ref/help.md).
 
 **Context:** You need to document MCP test patterns.
 
-**Step 1: Create AiDocMetaDoc** (fresh dialogue)
+**Step 1: Create AiDocMetaDoc**
 ```
 ${AGENT_SKILL(ai-doc)} meta Create meta for docs/Code/Core/Ai/Mcp/McpTests.md with these considerations:
 - Describes proper MCP test class patterns
@@ -287,7 +294,7 @@ ${AGENT_SKILL(ai-doc)} meta Create meta for docs/Code/Core/Ai/Mcp/McpTests.md wi
 
 Review the generated `.meta.md` — check that goals, required reading, and format look right.
 
-**Step 2: Create AiDoc** (fresh dialogue)
+**Step 2: Create AiDoc**
 ```
 ${AGENT_SKILL(ai-doc)} build Create docs/Code/Core/Ai/Mcp/McpTests.md
 - Use docs/Code/Core/Ai/Mcp/McpCode.md as main source of knowledge
@@ -299,7 +306,7 @@ The AI reads your AiDocMetaDoc, loads all required context, and builds the docum
 
 **Context:** A workflow document needs restructuring after a process change.
 
-**Single step** (fresh dialogue):
+**Single step:**
 ```
 ${AGENT_SKILL(ai-doc)} build Improve docs/code/on-build.md
 - Clarify which verification the workspace check already performs

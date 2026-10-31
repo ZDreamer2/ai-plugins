@@ -31,7 +31,7 @@ User asks to create/edit a HowToUse document -> BuildDoc workflow loads the docu
 
 #### Direct reference when planning HowToUse document structure
 
-`/doc:buildMeta Create meta for docs/NewSystem/HowToUse.md - follow HowToUseDoc patterns`
+`${AGENT_SKILL(ai-doc)} meta Create meta for docs/NewSystem/HowToUse.md - follow HowToUseDoc patterns`
 
 ### Role HowToUseDoc.md serves during use
 
