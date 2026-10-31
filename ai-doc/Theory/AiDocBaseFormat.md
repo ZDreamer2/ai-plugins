@@ -4,27 +4,9 @@
 
 Foundation for writing AiDocs optimized for AI processing and task execution rather than visual aesthetics or casual reading.
 
-## How You Process Documentation
-
-### Sequential Processing
-
-You read token by token, from start to finish. No skimming or visual scanning occurs.
-
-### Perfect Recall
-
-You maintain complete access to all content in your context window. Information doesn't need repetition for retention or summaries for recall.
-
-### Attention Weighting
-
-Nearby and semantically-related tokens receive higher attention weight during processing. Position and proximity affect how strongly different parts of context influence your decisions, even with perfect recall.
-
-### Token-Level Processing
-
-Text is processed as discrete tokens. ASCII text tokenizes more consistently than Unicode symbols. Distinctive token patterns may receive different attention treatment than common patterns.
-
 ## Core Philosophy
 
-Minimal documentation is correct, not incomplete. You excel at investigation, pattern recognition, and leveraging full context visibility - comprehensive upfront guidance often constrains these capabilities while addressing problems that don't exist in practice.
+Minimal documentation is correct, not incomplete. Trust the agent to investigate and apply its available context; document the requirements and knowledge the task needs.
 
 Write only what is clearly understood and proven necessary right now. When genuine gaps surface through actual usage, the user will explicitly request additions. Until then, the current version is sufficient. Respond to evidence-based feedback, not theoretical completeness.
 
@@ -71,7 +53,7 @@ Instead use: Whitespace, lists, or sentence restructuring.
 
 ### ASCII Over Unicode
 
-Text indicators tokenize more consistently than symbols. Use "Warning:" not ⚠️, "CORRECT/INCORRECT" not ✓/✗, "->" not "→".
+Use plain-text indicators: "Warning:", "CORRECT/INCORRECT", and "->".
 
 ### Lists vs Prose
 
