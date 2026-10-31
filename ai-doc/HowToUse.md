@@ -268,13 +268,13 @@ ${AGENT_SKILL(ai-doc)} move docs/Old/FeatureFolder to docs/New/FeatureFolder
 
 ---
 
-## 🔗 `${AGENT_SKILL(ai-doc:ref)}` — Reference Plugin Content from External Docs
+## 🔗 `${AGENT_SKILL(ai-doc:ai-doc-ref)}` — Reference Plugin Content from External Docs
 
 Agent-facing skill that prints ai-doc plugin documents by short name. Used in external project files (workflows, commands, format specs) without knowing the installed plugin path.
 
-**Example usage in an external doc:** `- Call '${AGENT_SKILL(ai-doc:ref)} HumanDoc' skill - format for human-facing documentation`
+**Example usage in an external doc:** `- Call '${AGENT_SKILL(ai-doc:ai-doc-ref)} HumanDoc' skill - format for human-facing documentation`
 
-See the [available short-name references](skills/ref/help.md).
+See the [available short-name references](skills/ai-doc-ref/help.md).
 
 ---
 

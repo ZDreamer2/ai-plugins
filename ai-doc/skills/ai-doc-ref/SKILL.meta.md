@@ -1,6 +1,6 @@
 # SKILL.meta.md
 
-Specification for editing [ref skill](SKILL.md). Defines purpose, usage patterns, and constraints.
+Specification for editing [ai-doc-ref skill](SKILL.md). Defines purpose, usage patterns, and constraints.
 
 ## SKILL.md goals and principles
 
@@ -18,7 +18,7 @@ Specification for editing [ref skill](SKILL.md). Defines purpose, usage patterns
 
 - [SKILL format](../../Formats/SkillDoc/SKILL.format.md) - Follow SKILL format for frontmatter and body structure
 - [reference registry](help.md) - Understand the argument registry this skill exposes
-- `ai-doc/skills/ref/Tools/print-ai-doc-by-ref.py` - The python script that does the actual work; SKILL.md delegates to it
+- `ai-doc/skills/ai-doc-ref/Tools/print-ai-doc-by-ref.py` - The python script that does the actual work; SKILL.md delegates to it
 
 ## MAY read for additional context before editing SKILL.md
 
@@ -31,11 +31,11 @@ Specification for editing [ref skill](SKILL.md). Defines purpose, usage patterns
 
 #### External doc references ai-doc content by short name
 
-`${AGENT_SKILL(ai-doc:ref)} StartSimple` — agent reads the output to get content of [StartSimple methodology](../../Theory/StartSimple.md)
+`${AGENT_SKILL(ai-doc:ai-doc-ref)} StartSimple` — agent reads the output to get content of [StartSimple methodology](../../Theory/StartSimple.md)
 
 #### External doc discovers available references
 
-`${AGENT_SKILL(ai-doc:ref)}` or `${AGENT_SKILL(ai-doc:ref)} help` — agent gets the list of available short names and what they point to
+`${AGENT_SKILL(ai-doc:ai-doc-ref)}` or `${AGENT_SKILL(ai-doc:ai-doc-ref)} help` — agent gets the list of available short names and what they point to
 
 ### Role SKILL.md serves during use
 

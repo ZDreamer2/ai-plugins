@@ -20,7 +20,7 @@ path = REFS.get(arg)
 if path:
 	target = os.path.join(PLUGIN_ROOT, path)
 else:
-	target = os.path.join(PLUGIN_ROOT, "skills", "ref", "help.md")
+	target = os.path.join(SCRIPT_DIR, "..", "help.md")
 
 with open(target, "r") as f:
 	print(f.read())
