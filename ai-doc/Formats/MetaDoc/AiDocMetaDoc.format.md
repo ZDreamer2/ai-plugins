@@ -60,11 +60,14 @@ Describe the target's purpose and responsibilities, with the target as the subje
 
 The test is whether this context helps an editor recognize what a plausible rewrite could lose that matters. Current wording, steps or file layout are not enduring goals merely because they already exist.
 
+### "AiDocFormat" section
+
+Link to the applicable format specifications. These are required reading during creation and editing; the section carries that obligation without duplicating the links in the reading list.
+
 ### "MUST read before editing [AiDocName].md" section
 
 - Documents required during creation and every editing session — without them, edits risk being incorrect
 - List only AiDoc-specific context documents
-- Format specification from AiDocFormat section is already required
 - Descriptions explain the source's contribution to editing this target and why it matters, beyond repeating its title
 - The source owns the knowledge; its description explains the relevance rather than copying that knowledge or assigning generic editing actions
 - New AiDocMetaDocs MUST link to the [StartSimple methodology](../../Theory/StartSimple.md) in this section. Outside ai-doc, use `[StartSimple methodology](AI_DOC_PLUGIN/Theory/StartSimple.md)`; inside ai-doc, use a document-relative destination, following the path rules below

@@ -2,6 +2,8 @@
 
 When writing a AiDocMetaDoc for ChildDoc document, use the standard template from [AiDocMetaDoc format](AiDocMetaDoc.format.md) with the modifications below.
 
+A ChildDoc assumes its HubDoc's context and is read alongside it. A document that stands on its own is an independent AiDoc, not a ChildDoc.
+
 ## Required Template Modifications
 
 ### Goals and Principles Section
