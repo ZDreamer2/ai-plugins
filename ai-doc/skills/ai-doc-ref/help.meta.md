@@ -14,7 +14,7 @@ Specification for editing [reference lookup help](help.md). Defines purpose, usa
 
 ## MUST read before editing help.md
 
-- `ai-doc/skills/ref/Tools/print-ai-doc-by-ref.py` - Understand how help.md is printed and what arguments the script already handles
+- `ai-doc/skills/ai-doc-ref/Tools/print-ai-doc-by-ref.py` - Understand how help.md is printed and what arguments the script already handles
 - [Reference lookup skill](SKILL.md) - Understand how the skill invokes the script
 
 ## help.md typical use context
@@ -23,7 +23,7 @@ Specification for editing [reference lookup help](help.md). Defines purpose, usa
 
 #### Printed as fallback by print-ai-doc-by-ref.py
 
-Agent calls `${AGENT_SKILL(ai-doc:ref)} UnknownName` — script does not recognize the argument, prints help.md content instead
+Agent calls `${AGENT_SKILL(ai-doc:ai-doc-ref)} UnknownName` — script does not recognize the argument, prints help.md content instead
 
 ### Role help.md serves during use
 

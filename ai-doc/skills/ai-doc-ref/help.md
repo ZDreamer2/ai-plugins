@@ -1,10 +1,10 @@
-# ai-doc:ref
+# ai-doc-ref
 
 Prints ai-doc plugin documents by short name.
 
 ## Usage
 
-`${AGENT_SKILL(ai-doc:ref)} <name>`
+`${AGENT_SKILL(ai-doc:ai-doc-ref)} <name>`
 
 ## Available references
 

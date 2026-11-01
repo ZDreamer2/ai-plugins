@@ -15,12 +15,12 @@ Specification for creating and editing [AiDocMetaDoc format](AiDocMetaDoc.format
 
 ## MUST read before editing AiDocMetaDoc.format.md
 
-- [AiDocMetaDoc theory](../../Theory/AiDocMetaDoc.md) - Explains the protective and explanatory roles of metas and the AiDocUse/AiDocEdit distinction
 - [AiDocMetaDoc creation workflow](../../workflows/meta/do.md) - Shows how the format enters meta authorship and where its criteria are applied
 - [StartSimple methodology](../../Theory/StartSimple.md) - Supplies the evidence-based scope principle for format requirements
 
 ## MAY read for additional context before editing AiDocMetaDoc.format.md
 
+- [AiDocMetaDoc theory](../../Theory/AiDocMetaDoc.md) - Read when evaluating why editing context is separate from practical guidance and how metas protect intent without freezing content.
 - [Reference path management](../../Theory/References/ReferencePathManagement.md) - Defines conventions relevant to changes in reference syntax
 - [CodeDoc format editing context](../CodeDoc/CodeDoc.format.meta.md) - Provides a format-specification case when evaluating the standard
 - [Meta workflow editing context](../../workflows/meta/do.meta.md) - Provides a workflow case when evaluating the standard

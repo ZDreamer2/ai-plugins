@@ -4,10 +4,9 @@ Specification for editing [AiDocMetaDoc theory](AiDocMetaDoc.md). Defines purpos
 
 ## AiDocMetaDoc.md goals and principles
 
-- Explains the concept, purpose, and value of AiDocMetaDocs within the AiDoc system
-- Purely theoretical document - provides conceptual understanding, not practical editing instructions
-- Used only when modifying foundational AiDoc system documents or creating new format specifications
-- MUST align with established AiDoc terminology and avoid contradicting the [AiDocMetaDoc format](../Formats/MetaDoc/AiDocMetaDoc.format.md)
+- Explains why AiDoc separates practical guidance, editing context and format specifications, giving authors a coherent mental model of the system.
+- Preserves the rationale for protecting a document's intent across editing sessions without freezing its current content.
+- Complements the format's requirements with conceptual explanation; format-selection mechanics and HubDoc/ChildDoc instructions remain with their owners.
 
 ## AiDocFormat
 
@@ -15,24 +14,23 @@ Specification for editing [AiDocMetaDoc theory](AiDocMetaDoc.md). Defines purpos
 
 ## MUST read before editing AiDocMetaDoc.md
 
-- [AiDocMetaDoc format](../Formats/MetaDoc/AiDocMetaDoc.format.md) - MUST comply with this format specification
-- [AiDoc terminology](AiDocTerminology.md) - Apply its terminology consistently throughout the document
+- [AiDocMetaDoc format](../Formats/MetaDoc/AiDocMetaDoc.format.md) - Owns the content boundary the theory explains; the rationale and standard need to agree.
+- [AiDoc terminology](AiDocTerminology.md) - Defines the document layers whose distinct responsibilities the theory connects.
+- [StartSimple methodology](StartSimple.md) - Keeps the conceptual foundation focused rather than accumulating repeated benefits or operational guidance.
 
 ## MAY read for additional context before editing AiDocMetaDoc.md
 
-- [AiDocMetaDoc format](../Formats/MetaDoc/AiDocMetaDoc.format.md) - Read when checking how theory translates into requirements for writing meta documents
-- [HubDoc meta-document guidance](../Formats/MetaDoc/HubDocMeta.md) - Read when editing the theory of entry-point documents and routing to specializations
-- [ChildDoc meta-document guidance](../Formats/MetaDoc/ChildDocMeta.md) - Read when editing the theory of parent-child context and specialization boundaries
-- [AiDocMetaDoc creation workflow](../workflows/meta/do.md) - Read when checking how editing workflows apply the theory in practice
+- [AiDoc documentation guide](../HowToUse.md) - Read when checking how the introductory explanation leads humans into practical use.
+- [AiDocMetaDoc creation workflow](../workflows/meta/do.md) - Read when checking how the conceptual distinction informs authorship.
 
 ## AiDocMetaDoc.md typical use context
 
 ### 💡 Distinct usage patterns for AiDocMetaDoc.md
 
-#### Loaded when modifying foundational AiDoc system documents
+#### Loaded when evaluating the meta format's design
+
+The [meta format's editing context](../Formats/MetaDoc/AiDocMetaDoc.format.meta.md) offers this theory when an author needs the rationale behind editing-only context and the separation of responsibilities.
 
 ### Role AiDocMetaDoc.md serves during use
 
-- Provides theoretical foundation for understanding why AiDocMetaDocs exist and what problems they solve
-- Explains the conceptual relationship between AiDocs, AiDocMetaDocs, and AiDocFormats
-- Contextualizes the role of AiDocMetaDocs in the broader AiDoc documentation system
+- Conceptual foundation for understanding and evolving the meta-document system.

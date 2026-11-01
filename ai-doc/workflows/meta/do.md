@@ -41,6 +41,7 @@ Read specialized guidance only IF the user mentions the corresponding term:
 
 - HubDoc: [HubDoc guidance](../../Formats/MetaDoc/HubDocMeta.md).
 - ChildDoc: [ChildDoc guidance](../../Formats/MetaDoc/ChildDocMeta.md).
+- HubSkill: [HubSkill format](../../Formats/SkillDoc/Types/HubSkill.format.md).
 - StartSimple: [StartSimple methodology](../../Theory/StartSimple.md).
 - WriteFinal: [WriteFinal principles](../../Theory/WriteFinal.md).
 

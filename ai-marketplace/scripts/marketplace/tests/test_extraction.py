@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 
+from marketplace import parse_yaml
 from marketplace.build import build
 from marketplace.build.rendering import render_file
 from marketplace.source import discover_source
@@ -99,10 +100,34 @@ class ExtractionTests(unittest.TestCase):
                     "ai-doc/scripts/find-doc.py",
                     "ai-doc/scripts/move-doc.py",
                     "ai-doc/scripts/diff_doc/__main__.py",
-                    "ai-doc/skills/ref/Tools/print-ai-doc-by-ref.py",
+                    "ai-doc/skills/ai-doc-ref/Tools/print-ai-doc-by-ref.py",
                 ):
                     self.assertEqual((tree / relative).stat().st_mode & 0o777,
                                      (ROOT / relative).stat().st_mode & 0o777)
+                reference_skill = tree / "ai-doc/skills/ai-doc-ref"
+                self.assertFalse((tree / "ai-doc/skills/ref").exists())
+                skill = (reference_skill / "SKILL.md").read_text()
+                metadata = parse_yaml(skill.split("---", 2)[1])
+                expected_name, invocation = {
+                    "claude": ("ai-doc-ref", "/ai-doc:ai-doc-ref"),
+                    "codex": ("ai-doc-ref", "$ai-doc:ai-doc-ref"),
+                    "pi": ("ai-doc-ai-doc-ref", "/skill:ai-doc-ai-doc-ref"),
+                }[host]
+                self.assertEqual(metadata["name"], expected_name)
+                self.assertIn(invocation, (tree / "ai-doc/HowToUse.md").read_text())
+                reference_helper = reference_skill / "Tools/print-ai-doc-by-ref.py"
+                for arguments, document in (
+                    ([], reference_skill / "help.md"),
+                    (["unknown"], reference_skill / "help.md"),
+                    (["HumanDoc"], tree / "ai-doc/Formats/HumanDoc/HumanDoc.format.md"),
+                ):
+                    with self.subTest(host=host, reference=arguments):
+                        process = subprocess.run(
+                            [sys.executable, "-B", "-S", str(reference_helper), *arguments],
+                            cwd=temporary, capture_output=True, text=True,
+                        )
+                        self.assertEqual(process.returncode, 0, process.stderr)
+                        self.assertEqual(process.stdout, document.read_text() + "\n")
                 helper = tree / "ai-doc/scripts/diff_doc/__main__.py"
                 process = subprocess.run(
                     [sys.executable, "-B", "-S", str(helper), "--help"],
