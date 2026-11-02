@@ -1,6 +1,6 @@
 # AI Plugins
 
-Plugins for creating reliable AI guidance and developing cross-client AI plugin marketplaces.
+Create and maintain documentation for AI agents, or build plugins for Claude Code, Codex and Pi.
 
 ## Plugins
 
@@ -45,22 +45,8 @@ Choose your host's distribution. Each installation page includes the commands fo
 
 Install either plugin or both. Review their instructions and bundled scripts before use because the workflows can edit files and execute commands.
 
-## First use
-
-After installation, start a new host session in the project you want to work on and invoke the relevant skill with your request:
-
-| Host | Documentation | Marketplace development |
-|------|---------------|-------------------------|
-| Claude Code | `/ai-doc:ai-doc` | `/ai-marketplace:ai-marketplace` |
-| Codex | `$ai-doc:ai-doc` | `$ai-marketplace:ai-marketplace` |
-| Pi | `/skill:ai-doc` | `/skill:ai-marketplace` |
-
 ## Development and feedback
 
 This is the source repository. The three host repositories are generated distributions; propose changes and report issues here.
 
-See the [maintainer guide](docs/Maintaining.md) for local development and publishing.
-
-## License
-
-Licensed under [0BSD](LICENSE).
+See the [maintainer guide](@common/docs/Maintaining.md) for local development and publishing.

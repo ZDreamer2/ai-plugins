@@ -15,7 +15,7 @@ Specification for the [maintainer guide](Maintaining.md).
 ## MUST read before editing Maintaining.md
 
 - [StartSimple methodology](AI_DOC_PLUGIN/Theory/StartSimple.md) - Keeps operations focused on established deployment needs.
-- [Host rendering](../ai-marketplace/docs/HostRendering.md) - Defines the distribution contract exercised by verification.
+- [Host rendering](../../ai-marketplace/docs/HostRendering.md) - Defines the distribution contract exercised by verification.
 
 ## Maintaining.md typical use context
 

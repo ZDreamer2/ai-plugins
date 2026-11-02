@@ -46,8 +46,8 @@ class ExtractionTests(unittest.TestCase):
     def test_moved_authoring_context_has_no_shared_lifecycle_dependency(self) -> None:
         for name in ("AuthoringSyntax.meta.md", "HostRendering.meta.md"):
             text = (ROOT / "ai-marketplace/docs" / name).read_text(encoding="utf-8")
-            self.assertNotIn("@common/docs/", text)
-            self.assertIn("../../docs/Maintaining.md", text)
+            self.assertNotIn("@common/docs/forge/", text)
+            self.assertIn("../../@common/docs/Maintaining.md", text)
         for relative in (
             "ai-marketplace/codebase/on-plan.meta.md",
             "ai-marketplace/codebase/on-build.meta.md",
@@ -85,6 +85,8 @@ class ExtractionTests(unittest.TestCase):
                 self.assertIn("## Install", readme)
                 self.assertNotIn("## GitLab publication", readme)
                 self.assertFalse((tree / ".marketplace").exists())
+                self.assertFalse((tree / "docs").exists())
+                self.assertFalse((tree / "@common/docs/Maintaining.md").exists())
                 for path in tree.rglob("*"):
                     self.assertFalse(path.is_symlink(), str(path))
                     self.assertNotIn(path.name, {"@common", "@setup", "@setup-sources"})

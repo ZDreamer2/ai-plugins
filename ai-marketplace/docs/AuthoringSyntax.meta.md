@@ -32,7 +32,7 @@ The following marketplace-root implementation paths support maintenance of the s
 
 - [Reference path management](AI_DOC_PLUGIN/Theory/References/ReferencePathManagement.md) - When touching the reference rules: apply its document-relative paths, link syntax, reading obligations and prohibition on context injection
 - [Host rendering](HostRendering.md) - When deciding whether a statement is a shared rule (here) or an output explanation (there)
-- [Maintainer guide](../../docs/Maintaining.md) - When deciding whether a statement belongs to syntax or local marketplace operations
+- [Maintainer guide](../../@common/docs/Maintaining.md) - When deciding whether a statement belongs to syntax or local marketplace operations
 - `ai-marketplace/scripts/marketplace/build/rendering/tests/` - When verifying a rule, use the focused rendering fixtures for Claude, Codex and Pi
 
 ## AuthoringSyntax.md typical use context

@@ -1,6 +1,6 @@
 # Maintaining AI Plugins
 
-This guide is for maintainers working from the source checkout. For installation and plugin usage, see the [public overview](../README.md).
+This guide is for maintainers working from the source checkout. For installation and plugin usage, see the [public overview](../../README.md).
 
 Extracted from bc-plugins commit `0a09ad40c6e8e2964cee4603c67f22aef0b3689e`, preserving tracked payloads and executable modes, without history, shared `@common` resources or installer payloads. The original plugins and their consumers are unchanged.
 
@@ -18,13 +18,13 @@ rm -rf -- "$out"
 
 Source-root `.marketplace/identity.json` supplies `name`, `owner`, `description`, `display_name` and `pi_package_prefix`. When absent, the builder and independent Pi validator use the same zd-plugins defaults. When present, all five fields are required; unknown/duplicate keys, empty/padded/control-containing strings, invalid catalog names and invalid lowercase npm prefixes fail before output mutation, including dry runs and installer-only builds. Catalog names use lowercase letters, digits and single hyphens; Pi prefixes are optionally scoped lowercase npm names ending in `-`. `.marketplace/` remains source-only.
 
-The checked-in identity gives Claude and Codex catalogs `zd-plugins` with ZDreamer2 identity; Pi packages are `@zdreamer2/pi-plugin-ai-doc` and `@zdreamer2/pi-plugin-ai-marketplace`. Each distribution contains exactly these two plugins. Reports identify literal host constructs, not host acceptance failures. See [host rendering](../ai-marketplace/docs/HostRendering.md) and [authoring syntax](../ai-marketplace/docs/AuthoringSyntax.md).
+The checked-in identity gives Claude and Codex catalogs `zd-plugins` with ZDreamer2 identity; Pi packages are `@zdreamer2/pi-plugin-ai-doc` and `@zdreamer2/pi-plugin-ai-marketplace`. Each distribution contains exactly these two plugins. Reports identify literal host constructs, not host acceptance failures. See [host rendering](../../ai-marketplace/docs/HostRendering.md) and [authoring syntax](../../ai-marketplace/docs/AuthoringSyntax.md).
 
 ## README sources
 
-The root [README](../README.md) owns the public overview and usage examples. GitLab synchronizes it to the GitHub source repository unchanged.
+The root [README](../../README.md) owns the public overview and usage examples. GitLab synchronizes it to the GitHub source repository unchanged.
 
-For distribution landing pages, the builder reads `.marketplace/readme.json` from the source root. It requires nonempty `marketplace` and `source_url` strings and an `installation` object containing nonempty Markdown strings for `claude`, `codex` and `pi`. The [shared template](../ai-marketplace/scripts/marketplace/build/templates/README.md) supplies the common structure; configuration supplies instance-specific installation and update instructions. These landing pages link back to the source overview instead of duplicating plugin documentation.
+For distribution landing pages, the builder reads `.marketplace/readme.json` from the source root. It requires nonempty `marketplace` and `source_url` strings and an `installation` object containing nonempty Markdown strings for `claude`, `codex` and `pi`. The [shared template](../../ai-marketplace/scripts/marketplace/build/templates/README.md) supplies the common structure; configuration supplies instance-specific installation and update instructions. These landing pages link back to the source overview instead of duplicating plugin documentation.
 
 The builder validates configuration before replacing output, including in dry runs. `.marketplace/` is source-only and excluded from all distributions. Without the configuration file, other marketplaces retain the existing root README copy behavior. Edit these sources rather than published repositories; publication replaces generated files.
 
@@ -80,4 +80,4 @@ Installed-host acceptance and consumer migration have not been performed. Local 
 
 ## License
 
-Project code is available under the BSD Zero Clause license (`LICENSE`, SPDX `0BSD`). The vendored parser retains its separate [PyYAML provenance](../ai-marketplace/scripts/marketplace/_vendor/PyYAML.provenance.md) and `PyYAML.LICENSE`; its license obligations still apply.
+Project code is available under the BSD Zero Clause license (`LICENSE`, SPDX `0BSD`). The vendored parser retains its separate [PyYAML provenance](../../ai-marketplace/scripts/marketplace/_vendor/PyYAML.provenance.md) and `PyYAML.LICENSE`; its license obligations still apply.
