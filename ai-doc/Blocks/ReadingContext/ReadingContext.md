@@ -1,10 +1,16 @@
 # Reading Context Block for Format Documents
 
-Guides adding file reference sections to AiDocFormatDoc documents. Used in two scenarios:
-- MUST read sections - required references, always needed when document is loaded
-- MAY read sections - optional references, useful for some tasks but not all
+## Why Reading Context
+
+A format's references are useful only when future authors know whether to read them, for which tasks, and what context each contributes. Bare references leave readers choosing between missing necessary context and loading unrelated material.
+
+This block embeds reading obligations and description frames directly in the format. Document authors can then gather the intended context from the format alone, without loading this block or its meta.
 
 ## Context
+
+Use this block for two kinds of file reference sections in AiDocFormatDoc documents:
+- MUST read sections - required references, always needed when document is loaded
+- MAY read sections - optional references, useful for some tasks but not all
 
 User provides ReadingSectionName and ReadingSectionFrame for the new section.
 

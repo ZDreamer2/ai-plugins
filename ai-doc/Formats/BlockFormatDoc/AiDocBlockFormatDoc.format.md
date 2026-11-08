@@ -23,6 +23,10 @@ It defines:
 ```markdown
 # [AiDocBlockFormat] Block Format
 
+## Why [AiDocBlockFormat]
+
+[Block rationale]
+
 ## [AiDocBlockFormat] template
 
 [DocTemplate.md: [AiDocBlockFormat] template structure]
@@ -37,6 +41,12 @@ It defines:
 ```
 
 ## Template Notes
+
+### "Why [AiDocBlockFormat]" section
+
+Explain why this reusable block exists and what future agents gain from it. Describe the knowledge or coordination gap left without the block before introducing its structure.
+
+Keep the rationale concise and at the goal level. Leave placement and inclusion conditions to composing document formats, and structural details to the template.
 
 ### "[AiDocBlockFormat] template" section
 
@@ -62,6 +72,7 @@ Examples of actual block types:
 - MUST follow template structure from template section
 - MUST comply with [AiDoc writing principles](../../Theory/AiDocBaseFormat.md)
 - MUST focus strictly on block format definition (WHAT block specifications are, HOW to write them)
+- MUST include a Why section that explains the block's purpose and the value of preserving this knowledge or coordination
 - MUST NOT include workflow/usage guidance (WHEN to use block format, HOW to gather content)
 - MUST apply [StartSimple methodology](../../Theory/StartSimple.md) - start minimal, expand based on evidence
 - MUST include template, example, and Validation Rules sections
