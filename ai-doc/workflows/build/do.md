@@ -11,6 +11,15 @@ Create or improve an AiDoc using its authoring context and format requirements.
 ### Output
 - New or improved AiDoc that complies with its format and any AiDocMetaDoc context
 
+## Observed Execution Patterns
+## Observed Execution Patterns
+
+Builds tend to carry too much gathered context into the first draft. Individually correct caveats, generic good practice and exhaustive detail accumulate, making the draft appear complete and defensible. Format, meta and reference checks can miss the weak fit for the intended reader.
+
+The final review can then be glossed over: the agent loads [on-build-done.md](workflows/on-build-done.md) but finishes without applying its criteria to concrete passages, leaving the draft substantively unchanged.
+
+Treat the first draft as provisional. Reconsider its overall usefulness to the intended reader, and execute the final review against the actual document rather than merely loading or reading its criteria.
+
 ## Workflow
 
 ### Step 1: Gather context
@@ -67,14 +76,19 @@ Ensure all context from Step 1 is gathered BEFORE this step — incomplete conte
 - For a target without a companion or referenced meta, record its format in `edit-only-context`, preserving other frontmatter fields
 - Write document references as Markdown links following [reference path rules](../../Theory/References/ReferencePathManagement.md); required reading is carried by the section or sentence
 
-### Step 4: Validate
+### Step 4: Review and revise
+
+Reread the complete target from the intended reader's perspective.
+
+When a meta exists, assess whether the target achieves its goals and principles, rather than merely avoiding their violation. Follow the [final documentation review](workflows/on-build-done.md), applying relevant considerations to concrete passages. Apply justified improvements and reread revised passages.
+
+### Step 5: Validate the final result
 
 Run each check sequentially in a separate inference:
 
 - Verify against the selected AiDocFormat using its Validation Rules section
-- When a meta exists, verify its goals and principles are met and evaluate whether its editing context needs updating
+- Verify the final target against its AiDocMetaDoc and evaluate whether its editing context needs updating
 - Verify document references resolve
-- Follow the [final documentation review](workflows/on-build-done.md) and apply any relevant considerations
 
 ## Key Principles
 

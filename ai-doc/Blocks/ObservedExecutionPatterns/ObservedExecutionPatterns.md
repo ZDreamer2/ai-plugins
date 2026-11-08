@@ -20,16 +20,18 @@ This block transfers decision-relevant experience between executions. It helps f
 
 Convey recurring behavior, effective adaptations, failure patterns or other observations when they would improve future decisions. Choose prose, bullets or named subsections suited to the owning workflow, and record reusable experience rather than incident chronology. The section has no required entry anatomy.
 
+Use present tense for recurring patterns as current execution tendencies, and imperative or present tense for the response. Reserve past tense for historical conditions; "Observed" already establishes that the pattern comes from actual use.
+
 ## Observed Execution Patterns example
 
 ```markdown
 ## Observed Execution Patterns
 
-### Draft preservation
+AiDoc builds tend to carry too much gathered context into the first draft. Individually correct caveats, generic good practice and exhaustive detail accumulate, making the draft appear complete and defensible. Format, meta and reference checks can miss the weak fit for the intended reader.
 
-Initial AiDoc builds have carried too much gathered context into the first draft. Individually correct caveats, generic good practice and exhaustive detail accumulated, making the draft appear complete and defensible. Format and reference checks then reinforced acceptance instead of prompting reconsideration.
+The final review can then be glossed over: the agent loads [on-build-done.md](workflows/on-build-done.md) but finishes without applying its criteria to concrete passages, leaving the draft substantively unchanged.
 
-Reconsider the draft's overall usefulness to the intended reader before treating mechanical validation as completion.
+Treat the first draft as provisional. Reconsider its overall usefulness to the intended reader, and execute the final review against the actual document rather than merely loading or reading its criteria.
 ```
 
 ## Validation Rules
