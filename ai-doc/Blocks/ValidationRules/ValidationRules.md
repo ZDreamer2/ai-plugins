@@ -1,5 +1,11 @@
 # Validation Rules Section Format Specification
 
+## Why Validation Rules
+
+Document creation and editing involve many considerations, but treating all of them as equally critical during final validation dilutes the requirements that prevent significant correctness problems.
+
+This block identifies the small set of requirements that warrant a final verification checkpoint. It deliberately reinforces selected requirements from earlier sections rather than introducing new information or reproducing the complete specification.
+
 ## Validation Rules template
 
 ```markdown
@@ -9,10 +15,6 @@
 ```
 
 ## Template Notes
-
-Validation Rules section serves as a validation checkpoint after document creation or editing. Unlike sections that introduce new information, this section highlights the most critical points that warrant verification.
-
-The section conveys "among all considerations, THESE are critical" rather than "everything is critical." Duplicating content from earlier sections is natural and expected when those points warrant reinforcement during validation.
 
 ### [MUST/SHOULD/MAY requirement]
 

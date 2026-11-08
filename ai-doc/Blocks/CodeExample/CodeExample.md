@@ -1,5 +1,11 @@
 # Code Example Block Format
 
+## Why Code Example
+
+Code examples in AiDocs teach agents how to apply project conventions in concrete situations. They show how related decisions fit together before the agent writes or modifies code, without requiring it to reconstruct those conventions from a complete implementation.
+
+This block keeps examples focused on that teaching role. It prevents both context-free fragments that cannot be applied reliably and exhaustive listings whose incidental detail obscures the intended lessons.
+
 ## Basic Example
 
 ```php

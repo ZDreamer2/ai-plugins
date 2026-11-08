@@ -35,6 +35,10 @@ A WorkflowDoc is a step-by-step procedure that instructs AI agents to complete a
 ### Output (optional)
 - [What the workflow produces or accomplishes]
 
+## Observed Execution Patterns (optional)
+
+[ObservedExecutionPatterns.md: decision-relevant experience from actual use]
+
 ## Workflow
 
 ### Step 1: [Active Verb + Clear Action]
@@ -57,6 +61,10 @@ A WorkflowDoc is a step-by-step procedure that instructs AI agents to complete a
 ### "Important Definitions" section
 
 Include only when the workflow requires domain-specific terminology that its reader may not know.
+
+### "Observed Execution Patterns" section
+
+MUST NOT add this section during initial workflow creation. When the user requests it for an existing workflow, follow the [Observed execution patterns block](../../Blocks/ObservedExecutionPatterns/ObservedExecutionPatterns.md).
 
 ### Workflow Steps section
 

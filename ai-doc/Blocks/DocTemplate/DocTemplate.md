@@ -1,6 +1,12 @@
 # Document Template Block Format
 
-## Basic Template
+## Why Document Template
+
+Document formats need to communicate recurring structure without confusing fixed sections with variable content. This block provides shared template, placeholder and modifier conventions so agents can read and write format specifications consistently.
+
+Without those conventions, each format invents its own notation, making templates harder to interpret and increasing the chance that optional, repeated or variable elements are misunderstood.
+
+## Document Template template
 
 ```markdown
 ## Basic Template
@@ -54,7 +60,7 @@ Subsection header conventions:
 - For placeholders: `### [Placeholder name]`
 - For sections: `### "Section name" section`
 
-## Basic Example
+## Document Template example
 
 ```markdown
 # Some Doc Specification
@@ -80,7 +86,7 @@ Subsection header conventions:
 [ValidationRules.md: validation rules]
 ```
 
-## Rules
+## Validation Rules
 
 - MUST use markdown code blocks with `markdown` language identifier for templates
 - MUST use placeholders in square brackets for variable content
