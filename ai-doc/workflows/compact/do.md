@@ -46,21 +46,26 @@ Resolve material uncertainty about intent with the user before making dependent 
 
 Revise the target and directly affected documentation according to the assessment, preserving the intended purpose and essential meaning. Leave content unchanged where editing would not improve usefulness.
 
-When satellite extraction is justified:
+When satellite extraction is justified, treat the main document, satellites and
+metas as one editing family:
 
 - Create each satellite's meta through the [meta creation workflow](../meta/do.md), unless the user requests satellites without metas.
-- Create the satellite through the [AiDoc creation workflow](../build/do.md).
+- Then create the satellites through the [AiDoc creation workflow](../build/do.md).
 - Transfer the detail and adjust the main document's explanation and links. Retain the compact local explanation its reader needs; useful overlap with fuller satellite detail is acceptable.
 
-Align directly affected metas and references with the resulting documentation.
+Nested workflows reuse shared context and gather only what is missing. When
+invoking builds, defer their [final documentation review](../build/workflows/on-build-done.md)
+to this workflow's family-wide editorial review; retain target-specific purpose,
+meta and format checks. Align directly affected metas and references with the
+resulting documentation.
 
 ### Step 4: Validate and report
 
-Reread the resulting main document, satellites and affected metas. Check that:
+Reread the resulting main document, satellites and affected metas. Check:
 
-- The target's purpose and essential meaning survive, and the main document remains useful at its intended altitude.
-- Changes improve combined reading and navigation effort under the usefulness guidance.
-- Documents comply with their formats, metas remain appropriate authoring context and references resolve.
+- Individual validity: each document satisfies its purpose and format, plus its meta when present; its essential meaning survives.
+- Family usefulness: the main document remains useful at its intended altitude, summaries and details agree, and changes improve combined reading and navigation effort under the usefulness guidance.
+- Reference integrity: references across the main document, satellites and metas resolve.
 
 Apply the [shared editorial criteria](../build/workflows/on-build-done.md), then resolve findings and reread revised passages.
 

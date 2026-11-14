@@ -12,7 +12,6 @@ Create or improve an AiDoc using its authoring context and format requirements.
 - New or improved AiDoc that complies with its format and any AiDocMetaDoc context
 
 ## Observed Execution Patterns
-## Observed Execution Patterns
 
 Builds tend to carry too much gathered context into the first draft. Individually correct caveats, generic good practice and exhaustive detail accumulate, making the draft appear complete and defensible. Format, meta and reference checks can miss the weak fit for the intended reader.
 
@@ -24,13 +23,13 @@ Treat the first draft as provisional. Reconsider its overall usefulness to the i
 
 ### Step 1: Gather context
 
-Review foundational documents:
+Reuse sufficient, current context throughout; read what is missing:
 - [AiDoc terminology](../../Theory/AiDocTerminology.md) - Use its definitions and meta-document naming convention
 - [AiDoc writing principles](../../Theory/AiDocBaseFormat.md) - Apply its directive language, formatting, and conciseness rules
 
 Substeps MUST be executed sequentially due to path dependencies.
 
-Read files in this specific order to build context from general to specific:
+Gather missing context in this specific order, from general to specific:
 
 #### 1.1: Determine editing context
 
