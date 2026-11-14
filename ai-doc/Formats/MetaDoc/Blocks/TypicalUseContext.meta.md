@@ -8,6 +8,7 @@ Specification for editing [Typical use context block](TypicalUseContext.md). Def
 - Focus on UNIQUE patterns only, rejecting redundant variations
 - Provide clear template for structuring usage pattern documentation
 - Demonstrate distinction between genuinely different patterns vs superficial variations
+- Distinguishes observed usage, known loading relationships and unobserved usage so speculative prompts do not become apparent usage evidence
 
 ## AiDocFormat
 
