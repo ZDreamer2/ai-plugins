@@ -27,6 +27,7 @@ Specification for creating and editing the [AiDoc compaction workflow](do.md). D
 - [Refinement workflow](../refine/do.md) - Relevant when adjusting compact's authority relative to preserving user edits.
 - [Shared editorial criteria](../build/workflows/on-build-done.md) - Relevant when shaping final validation; owns the general editorial failure patterns rather than a compact-specific checklist.
 - `../../scripts/diff_doc/` - Relevant when changing how the workflow obtains the target and meta's Git changes. The helper chooses the nearest repository and reports new files without printing their contents; current documents provide that content.
+- `../../scripts/check_doc/` - Relevant when changing mechanical family validation; owns the explicit-input CLI and supported checks.
 
 ## do.md typical use context
 

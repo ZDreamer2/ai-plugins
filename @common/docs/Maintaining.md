@@ -41,6 +41,7 @@ for suite in marketplace/tests marketplace/source/tests marketplace/validation/t
 done
 python3 -B -S -m unittest discover -s @common/docs/forge/tests -v
 python3 -B -S -m unittest discover -s ai-doc/scripts/diff_doc/tests -t ai-doc/scripts -v
+python3 -B -S -m unittest discover -s ai-doc/scripts/check_doc/tests -t ai-doc/scripts -v
 python3 -B -S -m unittest discover -s .gitlab/tests -v
 ```
 

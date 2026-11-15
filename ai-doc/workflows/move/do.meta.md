@@ -18,6 +18,10 @@ Specification for editing [documentation relocation workflow](do.md). Defines pu
 
 - [AiDoc terminology](../../Theory/AiDocTerminology.md) - Apply its AiDocMetaDoc naming convention when maintaining document pairs
 
+## MAY read for additional context before editing do.md
+
+- `../../scripts/check_doc/` - Read when changing final mechanical validation; owns the explicit-input CLI and supported checks.
+
 ## do.md typical use context
 
 ### 💡 Distinct usage patterns for do.md

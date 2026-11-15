@@ -67,7 +67,9 @@ When adding a meta to a format-only target, record its format in the meta and re
 
 Reread the resulting meta after writing it. For an existing target, consider the two documents together; for a new target, assess whether the meta orients its author while leaving document-level decisions open to authorship.
 
-- Check the [format's validation rules](../../Formats/MetaDoc/AiDocMetaDoc.format.md#validation-rules) and resolve the references. The planned target may not exist yet; required source references should resolve to available context.
+Run `python3 "<this-workflow-dir>/../../scripts/check_doc" <meta-doc-path>` from the task's working directory. Review findings for relevance to the current edit.
+
+- Check the [format's validation rules](../../Formats/MetaDoc/AiDocMetaDoc.format.md#validation-rules) and resolve any references outside the helper's inline-link scope. Required source references should resolve to available context.
 - Assess the result against the [goals and principles criterion](../../Formats/MetaDoc/AiDocMetaDoc.format.md#aidocnamemd-goals-and-principles-section): what useful editing context does each passage add beyond the target and required sources? An absent target is not a reason to store its prospective contents in the meta.
 - Remove passages whose only purpose is to retain document-level decisions. Keep limited overlap when it improves explanation, and check that recorded constraints agree with the referenced contracts.
 - Apply the [shared editorial criteria](../build/workflows/on-build-done.md). Reread any revised passages before finishing.

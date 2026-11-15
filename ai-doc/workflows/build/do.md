@@ -87,7 +87,8 @@ Run each check sequentially in a separate inference:
 
 - Verify against the selected AiDocFormat using its Validation Rules section
 - Verify the final target against its AiDocMetaDoc and evaluate whether its editing context needs updating
-- Verify document references resolve
+- Run `python3 "<this-workflow-dir>/../../scripts/check_doc" <target-doc-path>` from the task's working directory
+- Review helper findings for relevance to the current edit, and verify any document references its inline-link scope does not cover
 
 ## Key Principles
 

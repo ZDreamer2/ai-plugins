@@ -61,7 +61,11 @@ resulting documentation.
 
 ### Step 4: Validate and report
 
-Reread the resulting main document, satellites and affected metas. Check:
+Reread the resulting main document, satellites and affected metas.
+
+Run `python3 "<this-workflow-dir>/../../scripts/check_doc" <main-doc> [<satellite> ...] [<meta> ...]` from the task's working directory, explicitly listing each edited Markdown document for full validation. Review findings for relevance rather than treating unrelated pre-existing issues as required compaction work.
+
+Check:
 
 - Individual validity: each document satisfies its purpose and format, plus its meta when present; its essential meaning survives.
 - Family usefulness: the main document remains useful at its intended altitude, summaries and details agree, and changes improve combined reading and navigation effort under the usefulness guidance.

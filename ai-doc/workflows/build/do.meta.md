@@ -26,6 +26,7 @@ Specification for editing [AiDoc creation workflow](do.md). Defines purpose, usa
 - [HubDoc meta-document guidance](../../Formats/MetaDoc/HubDocMeta.md) - Read when editing support for hub-document specifications
 - [ChildDoc meta-document guidance](../../Formats/MetaDoc/ChildDocMeta.md) - Read when editing support for child-document specifications
 - [CodeDoc format](../../Formats/CodeDoc/CodeDoc.format.md) - Read when checking how the workflow applies specialized format requirements
+- `../../scripts/check_doc/` - Read when changing mechanical reference, fence or meta/target validation; owns the helper's actual CLI and supported inline-link scope
 
 ## do.md typical use context
 

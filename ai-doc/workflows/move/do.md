@@ -59,6 +59,8 @@ Update all found references in source files:
 
 Re-run the Step 2 search. What remains MUST be only the records deliberately left as written.
 
+Run `python3 "<this-workflow-dir>/../../scripts/check_doc" <moved-or-edited-doc> [<moved-or-edited-doc> ...]` from the task's working directory for moved documents and edited Markdown referrers. Review findings for references broken by the move; unrelated pre-existing findings do not require changes in this workflow.
+
 ## Key Principles
 
 - .meta.md files MUST move together with their main AiDocs

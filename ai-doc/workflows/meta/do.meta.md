@@ -22,6 +22,7 @@ Specification for creating and editing [AiDocMetaDoc creation workflow](do.md). 
 ## MAY read for additional context before editing do.md
 
 - [Reference path rules](../../Theory/References/ReferencePathManagement.md) - Defines resolution conventions relevant to reference-handling changes.
+- `../../scripts/check_doc/` - Read when changing mechanical validation, especially its inline-link scope and silent handling of an absent planned target.
 - [AiDoc creation workflow](../build/do.md) - Shows how the resulting meta is consumed during target authorship.
 - [HubDoc guidance](../../Formats/MetaDoc/HubDocMeta.md) and [ChildDoc guidance](../../Formats/MetaDoc/ChildDocMeta.md) - Defines specialized context relationships relevant to selection changes.
 
