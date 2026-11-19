@@ -22,7 +22,7 @@ Specification for creating and editing [host rendering reference](HostRendering.
 
 ## MAY read for additional context before editing HostRendering.md
 
-- `ai-marketplace/scripts/marketplace/build/rendering/_placeholders.py` and `ai-marketplace/scripts/marketplace/build/rendering/_includes.py` - When changing marker vocabulary, include behavior or diagnostics
+- `ai-marketplace/scripts/marketplace/build/rendering/_placeholders.py` and `ai-marketplace/scripts/marketplace/build/rendering/_templates.py` - When changing marker vocabulary, include behavior or diagnostics
 - `ai-marketplace/scripts/marketplace/build/rendering/_links.py` - When changing included link rebasing or literal-code boundaries
 - `ai-marketplace/scripts/marketplace/build/rendering/_claude.py`, `ai-marketplace/scripts/marketplace/build/rendering/_codex.py` and `ai-marketplace/scripts/marketplace/build/rendering/_pi.py` - When changing host metadata or skill adaptation
 - `ai-marketplace/scripts/marketplace/source/_inventory.py` - When changing skill identity or Pi naming claims

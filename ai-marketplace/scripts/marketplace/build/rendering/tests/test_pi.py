@@ -23,7 +23,8 @@ from marketplace.source import discover_source, pi_skill_name
 from .test_claude import snapshot
 
 
-def skill(name: str = "sample", description: str = "Description", body: str = "Body") -> str:
+def skill(name: str = "sample", description: str = "Description", body: str = "Body", *,
+          jinja: bool = False) -> str:
     return f"---\nname: {name}\ndescription: {description}\n---\n{body}"
 
 
@@ -212,8 +213,11 @@ class PiTests(unittest.TestCase):
         self.write("folder/docs/other.md", "Other-host text ${AGENT_SKILL(absent)}\n")
         content = ("---\nname: sample\ndescription: ${AGENT_SUBAGENT_TOOL}\n"
                    "model: AskUserQuestion\nallowed-tools: spawn_agent\n---\n"
-                   "${AGENT_INCLUDE_DOC_FOR(codex, ../../docs/other.md)}\n"
-                   "${AGENT_INCLUDE_DOC_FOR(pi, ../../docs/pi.md)}\n")
+                   "{% if build.host == 'codex' %}\n"
+                   "{% include '../../docs/other.md' %}\n"
+                   "{% elif build.host == 'pi' %}\n"
+                   "{% include '../../docs/pi.md' %}\n"
+                   "{% endif %}\n")
         self.write(self.path, content)
         self.write("output/pi/sentinel", "Keep")
         (self.root / self.path).chmod(0o751)
@@ -222,7 +226,7 @@ class PiTests(unittest.TestCase):
         with patch("subprocess.run", side_effect=AssertionError("Git")):
             preflight_pi(self.source)
         result = self.render(content)
-        self.assertEqual(result.content, "---\nname: manifest-sample\ndescription: subagent\nallowed-tools: spawn_agent\n---\nBody /skill:manifest-sample $ARGUMENTS\r\n")
+        self.assertEqual(result.content, "---\nname: manifest-sample\ndescription: subagent\nallowed-tools: spawn_agent\n---\nBody /skill:manifest-sample $ARGUMENTS\n")
         self.assertEqual([(f.category, f.line, f.text) for f in result.findings], [
             (PiConstruct.HOST_TOOL, 4, "spawn_agent"), (PiConstruct.HOST_VARIABLE, 6, "$ARGUMENTS")])
         self.assertEqual(result.extra_files, {})
@@ -280,7 +284,11 @@ class PiTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "inventoried directory names it 'sample'"):
             preflight_pi(source)
         self.write("folder/docs/parent.md", "${AGENT_SKILL(manifest:sample)} $CODEX_HOME\n")
-        content = skill(body="${AGENT_INCLUDE_DOC_FOR(pi, ../../docs/parent.md)}\n")
+        content = skill(body=(
+            "{% if build.host == 'pi' %}\n"
+            "{% include '../../docs/parent.md' %}\n"
+            "{% endif %}\n"
+        ))
         self.write(self.path, content)
         before = snapshot(self.root)
         preflight_pi(source)

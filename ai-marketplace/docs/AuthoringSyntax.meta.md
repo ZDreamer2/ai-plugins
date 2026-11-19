@@ -25,7 +25,7 @@ IMPORTANT: AuthoringSyntax.md is authored as the final reader-facing text, with 
 The following marketplace-root implementation paths support maintenance of the shared contract, not ordinary use of the guide.
 
 - `ai-marketplace/scripts/marketplace/build/rendering/_placeholders.py` - When changing marker rules, verify vocabulary, argument syntax, host values, escaping and diagnostics
-- `ai-marketplace/scripts/marketplace/build/rendering/_includes.py` - When changing include rules, verify placement, target validation, nesting and host selection
+- `ai-marketplace/scripts/marketplace/build/rendering/_templates.py` - When changing include rules, verify placement, target validation, nesting and host selection
 - `ai-marketplace/scripts/marketplace/build/rendering/_links.py` - When changing included link semantics, verify logical source bases, Markdown destination parsing and literal-code preservation
 - `ai-marketplace/scripts/marketplace/build/rendering/_codex.py` and `ai-marketplace/scripts/marketplace/build/rendering/_pi.py` - When changing skill rules, verify host frontmatter adaptation, namespacing and validation
 - `ai-marketplace/scripts/marketplace/build/rendering/_constructs.py` - When changing report coverage, verify which constructs remain literal

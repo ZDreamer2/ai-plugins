@@ -126,15 +126,16 @@ def build(
     codex_manifests = [
         codex_plugin_metadata(plugin) for plugin in inventory.plugins
     ]
-    preflight_pi(inventory)
+    entries, excluded_inputs = (
+        source_entries(source, output) if inventory.plugins else ((), ())
+    )
+    published = frozenset(entry.relative for entry in entries if not entry.directory)
+    preflight_pi(inventory, published=published)
     pi_manifests = [
         pi_package_metadata(plugin, identity) for plugin in inventory.plugins
     ]
     readmes = distribution_readmes(source)
     results: list[TreeResult] = []
-    entries, excluded_inputs = (
-        source_entries(source, output) if inventory.plugins else ((), ())
-    )
     # Read-only inputs excluded from copying still need protection from writes.
     inputs = [entry.path for entry in entries] + list(excluded_inputs)
     if readmes:

@@ -1,3 +1,6 @@
+---
+build-template: false
+---
 # Blade Templates - Laravel Templating for BicoTender
 
 ## Comprehensive Example

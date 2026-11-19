@@ -89,7 +89,7 @@ class EditingContextTests(unittest.TestCase):
         content = (
             "---\nedit-only-context: |\n"
             "  ${AGENT_UNKNOWN}\n"
-            "  ${AGENT_INCLUDE_DOC(missing.md)}\n---\nBody\n"
+            "  {% include 'missing.md' %}\n---\nBody\n"
         )
         for host in ("claude", "codex", "pi"):
             with self.subTest(host=host):
@@ -101,35 +101,18 @@ class EditingContextTests(unittest.TestCase):
     def test_included_metadata_is_removed_before_validation_and_rebasing(self) -> None:
         self.write("main/docs/part.md", (
             "---\nedit-only-context: |\n"
-            "  ${AGENT_INCLUDE_DOC(missing.md)}\n"
+            "  {% include 'missing.md' %}\n"
             "  ${AGENT_UNKNOWN}\n---\n[Guide](guide.md)\n"
         ))
         for host in ("claude", "codex", "pi"):
-            for marker in (
-                "${AGENT_INCLUDE_DOC(docs/part.md)}",
-                f"${{AGENT_INCLUDE_DOC_FOR({host}, docs/part.md)}}",
-                "${AGENT_INCLUDE_DOC_FOR(claude, docs/part.md)}",
-            ):
-                with self.subTest(host=host, marker=marker):
-                    expected = (
-                        "" if "FOR(claude" in marker and host != "claude"
-                        else "[Guide](docs/guide.md)\n"
-                    )
-                    self.assertEqual(render_markdown(
-                        marker + "\n", "main/README.md", host,
-                        discover_source(self.root),
-                    ), expected)
-
-    def test_runtime_nested_includes_still_fail(self) -> None:
-        self.write("main/docs/part.md", (
-            "---\nedit-only-context: Context.meta.md\n---\n"
-            "${AGENT_INCLUDE_DOC(other.md)}\n"
-        ))
-        with self.assertRaisesRegex(ValueError, "includes another document"):
-            render_markdown(
-                "${AGENT_INCLUDE_DOC(docs/part.md)}\n",
-                "main/README.md", "claude", discover_source(self.root),
-            )
+            with self.subTest(host=host):
+                self.assertEqual(render_markdown(
+                    ""
+                    "{% if build.host != 'pi' %}\n"
+                    "{% include 'docs/part.md' %}\n"
+                    "{% endif %}\n",
+                    "main/README.md", host, discover_source(self.root),
+                ), "" if host == "pi" else "[Guide](docs/guide.md)\n")
 
     def test_skill_host_adaptation_sees_only_runtime_fields(self) -> None:
         content = (

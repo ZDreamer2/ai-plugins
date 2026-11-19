@@ -11,15 +11,12 @@ _MARKER_SYNTAX = re.compile(
     r"\$\{AGENT_(?P<name>[A-Z_]+)(?:\((?P<argument>[^()]*)\))?\}"
 )
 _ARGUMENT_SYNTAX = re.compile(r"[A-Za-z0-9_-]+(?::[A-Za-z0-9_-]+)?")
-_PHP_TRIM = " \t\n\r\x00\x0b"
 _ARGUMENT_NAMES = {
     "SUBAGENT_TOOL": None,
     "FORK": None,
     "SUBAGENT_FOLLOWUP_TOOL": None,
     "QUESTION_TOOL": None,
     "SKILL": "skill name",
-    "INCLUDE_DOC_FOR": "agent tree and document path",
-    "INCLUDE_DOC": "document path",
 }
 _VALUES = {
     "SUBAGENT_TOOL": {
@@ -65,10 +62,7 @@ def parse(marker: str, logical_path: str) -> tuple[str, str | None]:
     if name not in _ARGUMENT_NAMES:
         fail(marker, logical_path, "names no placeholder of the vocabulary")
     given = parts["argument"] or ""
-    recognized = (
-        bool(given.strip(_PHP_TRIM)) if name in ("INCLUDE_DOC_FOR", "INCLUDE_DOC")
-        else _ARGUMENT_SYNTAX.fullmatch(given) is not None
-    )
+    recognized = _ARGUMENT_SYNTAX.fullmatch(given) is not None
     argument = given if recognized else None
     argument_name = _ARGUMENT_NAMES[name]
     # PHP treats a malformed value argument as absent, even for no-arg cases.
@@ -81,6 +75,13 @@ def parse(marker: str, logical_path: str) -> tuple[str, str | None]:
         )
         fail(marker, logical_path, rule)
     return name, argument
+
+
+def reject_legacy_includes(content: str, logical_path: str) -> None:
+    """Reject live old includes without interpreting escaped examples."""
+    for match in MARKER_PATTERN.finditer(content):
+        if not match['escaped'] and re.match(r"\$\{AGENT_INCLUDE_DOC(?:_FOR)?\b", match[0]):
+            fail(match[0], logical_path, 'is retired; use a Jinja include')
 
 
 def substitute(

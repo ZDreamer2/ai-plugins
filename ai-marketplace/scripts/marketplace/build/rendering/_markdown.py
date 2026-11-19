@@ -4,9 +4,8 @@ from marketplace.source import SourceInventory, plugin_root_of
 
 from ._codex import render_codex_skill
 from ._constructs import scan_codex, scan_pi
-from ._editing_context import strip_editing_context
-from ._includes import splice
-from ._placeholders import substitute
+from ._editing_context import source_frontmatter
+from ._placeholders import reject_legacy_includes, substitute
 from ._pi import render_pi_skill
 from ._result import FileRendering
 
@@ -20,22 +19,23 @@ def render_file(
 
 def render_file_result(
     content: str, logical_path: str, host: str, inventory: SourceInventory,
+    *, published: frozenset[str] | None = None,
 ) -> FileRendering:
     """Render a file with unwritten companions and report-only findings."""
     if not logical_path.endswith(".md"):
         return FileRendering(content)
     return _render_owned_file_result(
         content, logical_path, host, inventory,
-        plugin_root_of(inventory, logical_path),
+        plugin_root_of(inventory, logical_path), published,
     )
 
 
 def _render_owned_file_result(
     content: str, logical_path: str, host: str, inventory: SourceInventory,
-    root: str | None,
+    root: str | None, published: frozenset[str] | None = None,
 ) -> FileRendering:
     """Retain explicit consuming ownership through the complete pipeline."""
-    shared = _render_markdown(content, logical_path, host, inventory, root)
+    shared = _render_markdown(content, logical_path, host, inventory, root, published)
     result = FileRendering(shared)
     if host == "codex":
         relative = (
@@ -68,12 +68,15 @@ def render_markdown(
 
 def _render_markdown(
     content: str, logical_path: str, host: str, inventory: SourceInventory,
-    root: str | None,
+    root: str | None, published: frozenset[str] | None = None,
 ) -> str:
     if host not in ("claude", "codex", "pi"):
         raise ValueError(f"Unknown agent tree '{host}'.")
-    content = strip_editing_context(content)
-    return substitute(
-        splice(content, logical_path, host, inventory, root),
-        logical_path, host, inventory,
-    )
+    header, body, templated = source_frontmatter(content, logical_path)
+    reject_legacy_includes(header + body, logical_path)
+    # With no Jinja delimiters, skip parsing to preserve literal Markdown bytes.
+    if templated and any(opener in body for opener in ('{{', '{%', '{#')):
+        from ._templates import compose
+
+        body = compose(body, logical_path, host, inventory, root, published)
+    return substitute(header + body, logical_path, host, inventory)

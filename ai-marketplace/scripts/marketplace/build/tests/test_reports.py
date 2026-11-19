@@ -145,7 +145,10 @@ class ReportTests(unittest.TestCase):
             shared = root / "@common/docs"
             shared.mkdir(parents=True)
             (shared / "Shared.md").write_text(
-                "Before\n${AGENT_INCLUDE_DOC_FOR(codex, Selected.md)}\nAfter\n",
+                "Before\n"
+                "{% if build.host == 'codex' %}\n"
+                "{% include 'Selected.md' %}\n"
+                "{% endif %}\nAfter\n",
                 encoding="utf-8",
             )
             (shared / "Selected.md").write_text(
@@ -290,7 +293,10 @@ class PiReportTests(unittest.TestCase):
             shared = root / "@common/docs"
             shared.mkdir(parents=True)
             (shared / "Shared.md").write_text(
-                "Before\n${AGENT_INCLUDE_DOC_FOR(pi, Selected.md)}\nAfter\n",
+                "Before\n"
+                "{% if build.host == 'pi' %}\n"
+                "{% include 'Selected.md' %}\n"
+                "{% endif %}\nAfter\n",
                 encoding="utf-8",
             )
             (shared / "Selected.md").write_text(

@@ -1,3 +1,6 @@
+---
+build-template: false
+---
 # Marketplace Markdown authoring syntax
 
 Write plugin Markdown once using the shared syntax below. The build adapts it for supported agents. Choose an agent only when an instruction genuinely needs an agent-specific include or feature; [host rendering](HostRendering.md) explains the rendered outputs.
@@ -61,26 +64,18 @@ Use these markers for agent operations and skill invocations in shared Markdown.
 - To show a marker as written, escape it with a second `$`: `$$${AGENT_SKILL(example)}` renders as `$${AGENT_SKILL(example)}` in every tree
 - Adding a placeholder requires a corresponding renderer change
 
-## Agent includes
+## Markdown templates
 
-The build replaces an include's line with a document's lines. Include shared instructions in every supported tree:
+The builder renders Markdown bodies with Jinja by default. Set `build-template: false` in source frontmatter for a document that contains literal Jinja syntax or placeholders owned by another tool. The builder strips that field from its output. Keep runtime frontmatter static. Declare template variables in the body with Jinja's `set` or `with`.
 
-```markdown
-$${AGENT_INCLUDE_DOC(../../docs/includes/example.md)}
+```jinja
+{% include "../../docs/includes/example.md" %}
+{% if build.host == "codex" %}
+{% include "../../docs/includes/codex.md" %}
+{% endif %}
 ```
 
-For instructions specific to one agent, name its tree; the build removes the marker line from other trees:
-
-```markdown
-$${AGENT_INCLUDE_DOC_FOR(codex, ../../docs/includes/example.md)}
-```
-
-- The document path names a `.md` file relative to the including document and stays inside the marketplace source root supplied to the build. It may reach canonical sources outside the consuming plugin; build from the marketplace root when using these includes. Host-specific includes take an agent tree, `claude`, `codex` or `pi`, followed by that path
-- The marker stands alone on its line, apart from surrounding whitespace
-- For host-specific includes, leave no blank line before the marker and keep the usual one after it: the tree that drops the marker then has the spacing the file would have without the include
-- The included text becomes part of the including document; its placeholders resolve normally. Write Markdown link and image destinations relative to the included file: the build rebases them, including reference definitions, for the including document. For a source outside the consuming plugin, relative link/image targets MUST be existing files inside that plugin's logical tree; expose runtime dependencies there rather than linking to unbundled marketplace sources. Link syntax inside code stays literal
-- Literal paths and agent-executed commands in included text use the including document as their base. Name that base in the included text where needed
-- The build fails on a marker sharing its line with other text, an unknown tree, a path that is not a readable `.md` file inside the marketplace source, an external include with a relative link/image target outside the plugin or missing there, a marker inside the leading YAML frontmatter, and an include inside an included document
-- A second `$` escapes an include as it does any other marker
-- Including a document does not add it to the plugin's published files. Plugin-local documents are still published normally; marketplace-only INCLUDE sources need no plugin-local copy or symlink
-- Include text the agent needs before it can be told to read anything, such as how to run a skill's commands; elsewhere a link serves. A difference inside a sentence is a placeholder's job
+- Includes name literal relative `.md` paths and resolve from the document declaring them. Nested includes inherit the current scope; a fragment's `{% set %}` affects that fragment and its descendants, not its caller. `build.host` is set by the builder (`claude`, `codex`, or `pi`).
+- Include paths MUST stay within the marketplace source root. Missing includes and cycles fail the build, including in inactive branches. Use `raw` blocks for literal Jinja syntax mixed with active directives. A fragment with `build-template: false` is included without evaluating its Jinja syntax.
+- Write static Markdown links and image paths relative to the file containing them. The build rebases them to the final output; external fragments MUST link to resources shipped by the consuming plugin. Paths inside code remain literal; agent-executed commands use the final output document as their base.
+- Include text needed inline; use a Markdown link for additional context the agent can read separately.

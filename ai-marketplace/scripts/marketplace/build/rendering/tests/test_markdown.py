@@ -185,7 +185,7 @@ class MarkdownTests(unittest.TestCase):
             "needs the skill name: write it as ${AGENT_SKILL(<skill name>)}.")
 
     def test_non_markdown_bypasses_markers_and_shared_stage_is_reusable(self) -> None:
-        text = "${AGENT_TYPO} ${AGENT_INCLUDE_DOC_FOR(pi, /missing.md)}"
+        text = "${AGENT_TYPO} {% include '/missing.md' %}"
         for path in ("hooks.json", "README.MD", "scripts/run", "data.md.txt"):
             self.assertEqual(render_file(text, path, "pi", self.source), text)
         self.assertEqual(render_markdown(

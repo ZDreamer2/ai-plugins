@@ -74,13 +74,13 @@ The fork marker also renders a gloss explaining inherited parent context. It own
 
 The vocabulary covers only constructs with deliberate supported renderings. `TaskCreate`, model aliases and fixed-kind workers such as `subagent_type: claude` remain literal. A fixed-kind worker is not a context-inheriting fork.
 
-Adding a placeholder or include marker is a build change: maintain the Python renderers at `ai-marketplace/scripts/marketplace/build/rendering/_placeholders.py` and `_includes.py` in the marketplace checkout. Update this reference and [authoring syntax](AuthoringSyntax.md), and check affected renderings for every host, including Claude.
+Agent placeholders are resolved after Markdown composition, including in text inserted by templates. The builder then adapts skill frontmatter and produces the host's companions and reports.
 
-## Agent includes
+## Markdown composition
 
-`$${AGENT_INCLUDE_DOC(../../docs/includes/example.md)}` splices a document into every supported tree. `$${AGENT_INCLUDE_DOC_FOR(codex, ../../docs/includes/example.md)}` splices it only into the named tree and removes the marker line from the others. Includes embed short instructions needed at entry without a separate read; ordinary linked context avoids loading larger or task-specific documents in every invocation.
+Markdown uses native Jinja includes and conditionals by default. The build strips build-only frontmatter and renders the body for the selected host. `build-template: false` leaves the document's Jinja syntax literal; it does not disable agent placeholders or host conversion. See the [authoring syntax](AuthoringSyntax.md#markdown-templates) for source rules.
 
-Includes are one level deep and may read canonical files anywhere within the marketplace source root. Their text is embedded without adding those files to the consuming plugin's distribution; plugin-local source files are still published normally. Placeholders resolve normally. Relative Markdown links and images, including reference definitions, are rebased from the included file's logical source location. When that source is outside the plugin, relative targets are checked against existing plugin-local files so the rendered text does not depend on unbundled marketplace paths. Code examples and literal paths remain unchanged; agent-executed commands use the including document as their base. Files without includes pass through this stage byte-for-byte. The placement and validation rules are in [authoring syntax](AuthoringSyntax.md#agent-includes).
+The loader resolves an include relative to the file declaring it and rebases static Markdown links from each fragment directly to the final output. Including a file does not add it to the distribution. An external fragment's relative targets are checked against the files the consuming plugin publishes.
 
 ## Runtime and host-specific behavior
 

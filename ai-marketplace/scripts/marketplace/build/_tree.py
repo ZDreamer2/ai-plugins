@@ -115,6 +115,7 @@ def render_tree(
         replace_tree(tree)
     count = 0
     generated: list[str] = []
+    published = frozenset(entry.relative for entry in entries if not entry.directory)
     for entry in entries:
         if readme is not None and entry.relative == "README.md":
             continue
@@ -126,7 +127,7 @@ def render_tree(
         count += 1
         if entry.relative.endswith(".md"):
             text = entry.path.read_bytes().decode("utf-8", "surrogateescape")
-            result = render_file_result(text, entry.relative, host, inventory)
+            result = render_file_result(text, entry.relative, host, inventory, published=published)
             owner = plugin_root_of(inventory, str(Path(entry.relative).parent))
             if report is not None:
                 report.add(entry.relative, owner, result.findings)

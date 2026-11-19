@@ -89,7 +89,7 @@ class BuildTests(unittest.TestCase):
         self.plugin()
         self.write("@common/Entity.md", "---\nedit-only-context: Missing.meta.md\n---\n# Entity\n")
         self.write("main/skills/run/SKILL.md", skill(body=(
-            "${AGENT_INCLUDE_DOC(../../../@common/Entity.md)}\n"
+            "{% include '../../../@common/Entity.md' %}\n"
             "[Prompt](prompts/lite.md)\n"
         )))
         self.write("main/skills/run/prompts/lite.md", "Analyze.\n")
@@ -100,13 +100,35 @@ class BuildTests(unittest.TestCase):
             plugin = output / host / "main"
             text = (plugin / "skills/run/SKILL.md").read_text()
             self.assertIn("# Entity\n[Prompt](prompts/lite.md)\n", text)
-            self.assertNotIn("AGENT_INCLUDE_DOC", text)
+            self.assertNotIn("{% include", text)
+            self.assertNotIn("build-template", text)
             self.assertNotIn("edit-only-context", text)
             self.assertFalse((plugin / "@common").exists())
             self.assertFalse(list(plugin.rglob("Entity.md")))
             self.assertEqual((plugin / "skills/run/prompts/lite.md").read_text(), "Analyze.\n")
         self.assertEqual(snapshot(self.source), before)
         self.assertEqual(validate_pi_distribution(self.source, output / "pi", output), 1)
+
+    def test_external_fragment_cannot_link_to_an_existing_unpublished_plugin_file(self) -> None:
+        self.plugin()
+        self.write("main/README.md", "{% include '../@common/part.md' %}\n")
+        self.write("main/docs/.git/hidden.md", "Present in source only.\n")
+        self.write("@common/part.md", "[Hidden](../main/docs/.git/hidden.md)\n")
+        before = snapshot(self.source)
+        with self.assertRaisesRegex(ValueError,
+                "@common/part.md: link target 'main/docs/.git/hidden.md' is not published in plugin 'main'"):
+            build(self.source, dry_run=True, now=NOW)
+        self.assertEqual(snapshot(self.source), before)
+
+        self.write("main/docs/visible.md", "Published.\n")
+        self.write("@common/part.md", "[Visible](../main/docs/visible.md)\n")
+        result = build(self.source, now=NOW)
+        for host in HOSTS:
+            plugin = result.output_dir / host / "main"
+            with self.subTest(host=host):
+                self.assertEqual((plugin / "README.md").read_text(), "[Visible](docs/visible.md)\n")
+                self.assertTrue((plugin / "docs/visible.md").is_file())
+                self.assertFalse((plugin / "docs/.git").exists())
 
     def test_root_ci_is_source_only_but_plugin_resources_are_retained(self) -> None:
         self.plugin()
@@ -244,9 +266,7 @@ class BuildTests(unittest.TestCase):
             "---\nname: run\ndescription: Useful work.\nargument-hint: <request>\n"
             "disable-model-invocation: true\nuser-invocable: true\n---\n"
             "Run ${AGENT_SKILL(actual:run)} via ${AGENT_SUBAGENT_TOOL}.\n"
-            "${AGENT_INCLUDE_DOC_FOR(claude, ../../docs/note.md)}\n"
-            "${AGENT_INCLUDE_DOC_FOR(codex, ../../docs/note.md)}\n"
-            "${AGENT_INCLUDE_DOC_FOR(pi, ../../docs/note.md)}\n"
+            "{% include '../../docs/note.md' %}\n"
         )
         authored = {
             "README.md": b"Root ${AGENT_SUBAGENT_TOOL}.\n$ARGUMENTS\n",
@@ -319,7 +339,10 @@ class BuildTests(unittest.TestCase):
                 }[host]
                 body = f"Run {invocation} via {tool}.\nSelected {tool}.\n"
                 frontmatter = {
-                    "claude": raw_skill[:raw_skill.index("Run ")],
+                    "claude": (
+                        "---\nname: run\ndescription: Useful work.\nargument-hint: <request>\n"
+                        "disable-model-invocation: true\nuser-invocable: true\n---\n"
+                    ),
                     "codex": (
                         "---\nname: run\n"
                         "description: 'Useful work. Usage: $folder:run <request>.'\n---\n"
@@ -678,7 +701,11 @@ class BuildTests(unittest.TestCase):
                 "1024",
             ),
             "empty-body": ("name: later\ndescription: Later.\n", skill(body=" \t\n"), "instructions"),
-            "include": ("name: later\ndescription: Later.\n", skill(body="${AGENT_INCLUDE_DOC_FOR(codex, missing.md)}\n"), "missing.md"),
+            "include": (
+                "name: later\ndescription: Later.\n",
+                skill(body="{% if build.host == 'codex' %}{% include 'missing.md' %}{% endif %}\n"),
+                "missing.md",
+            ),
             "placeholder": ("name: later\ndescription: Later.\n", skill(body="${AGENT_TYPO}\n"), "AGENT_TYPO"),
         }
         for label, (manifest, content, message) in failures.items():
@@ -722,7 +749,8 @@ class BuildTests(unittest.TestCase):
         self.plugin()
         for bad, message in (
             ("${AGENT_TYPO}\n", "AGENT_TYPO"),
-            ("${AGENT_INCLUDE_DOC_FOR(pi, missing.md)}\n", "missing.md"),
+            ("{% if build.host == 'pi' %}{% include 'missing.md' %}{% endif %}\n",
+             "missing.md"),
         ):
             with self.subTest(message=message):
                 self.write("main/README.md", bad)
@@ -772,8 +800,10 @@ class BuildTests(unittest.TestCase):
         self.plugin("a-first", "name: first\ndescription: First.\n")
         self.plugin("z-last", "name: last\ndescription: Last.\n")
         shared = (
-            "${AGENT_INCLUDE_DOC_FOR(codex, ../../docs/Selected.md)}\n"
-            "${AGENT_INCLUDE_DOC_FOR(pi, ../../docs/Selected.md)}\n"
+            ""
+            "{% if build.host in ['codex', 'pi'] %}\n"
+            "{% include '../../docs/Selected.md' %}\n"
+            "{% endif %}\n"
         )
         self.write("@common/a/docs/Shared.md", shared)
         self.write("@common/z/docs/Shared.md", shared)

@@ -105,7 +105,9 @@ def render_pi_skill(
     )
 
 
-def preflight_pi(inventory: SourceInventory) -> None:
+def preflight_pi(
+    inventory: SourceInventory, *, published: frozenset[str] | None = None,
+) -> None:
     """Validate all names before reading and fully rendering skills in order."""
     seen: dict[str, str] = {}
     for plugin in inventory.plugins:
@@ -140,4 +142,4 @@ def preflight_pi(inventory: SourceInventory) -> None:
             content = (plugin.directory / relative).read_bytes().decode(
                 "utf-8", "surrogateescape",
             )
-            _render_owned_file_result(content, path, "pi", inventory, plugin.root)
+            _render_owned_file_result(content, path, "pi", inventory, plugin.root, published)

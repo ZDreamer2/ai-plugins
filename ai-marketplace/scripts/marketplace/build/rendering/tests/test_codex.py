@@ -166,7 +166,9 @@ class CodexTests(unittest.TestCase):
         self.write("group/folder/docs/note.md", "AskUserQuestion ${AGENT_SUBAGENT_TOOL}\n")
         result = self.render(
             "---\ndescription: ${AGENT_SUBAGENT_TOOL}\nmodel: sonnet\n---\n"
-            "${AGENT_INCLUDE_DOC_FOR(codex, ../../docs/note.md)}\n"
+            "{% if build.host == 'codex' %}\n"
+            "{% include '../../docs/note.md' %}\n"
+            "{% endif %}\n"
         )
         self.assertEqual(result.content,
                          "---\ndescription: spawn_agent\n---\nAskUserQuestion spawn_agent\n")

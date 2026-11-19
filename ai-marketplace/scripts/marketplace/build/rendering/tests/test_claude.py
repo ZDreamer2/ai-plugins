@@ -211,7 +211,9 @@ class StandaloneRenderingTests(unittest.TestCase):
                 ))
                 outputs = {}
                 for host in ('claude', 'codex', 'pi'):
-                    content = ('${AGENT_INCLUDE_DOC_FOR(claude, included.md)}\\n'
+                    content = (                               "{% if build.host == 'claude' %}\\n"
+                               "{% include 'included.md' %}\\n"
+                               '{% endif %}\\n'
                                '${AGENT_SKILL(ai-marketplace)}')
                     outputs[host] = render_file(
                         content, 'docs/document.md', host, inventory,
@@ -235,7 +237,7 @@ class StandaloneRenderingTests(unittest.TestCase):
                 stderr=subprocess.PIPE, text=True, check=True,
             )
             self.assertEqual(json.loads(result.stdout), {
-                "claude": b"\xff AskUserQuestion\r\n/ai-marketplace".hex(),
+                "claude": b"\xff AskUserQuestion\n/ai-marketplace".hex(),
                 "codex": b"$ai-marketplace:ai-marketplace".hex(),
                 "pi": b"/skill:ai-marketplace".hex(),
                 "markdown": "Agent", "resource": "${AGENT_BAD(%)}",
