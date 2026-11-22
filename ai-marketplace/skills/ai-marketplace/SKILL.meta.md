@@ -4,9 +4,9 @@ Specification for creating and editing the [ai-marketplace entry skill](SKILL.md
 
 ## SKILL.md goals and principles
 
-- Provides a valid, discoverable entry point for marketplace development, repository configuration and source collaboration.
+- Provides a valid, discoverable entry point for marketplace development, local compilation, repository configuration and source collaboration.
 - Classifies each request and routes it to focused guidance instead of carrying procedures in the hub.
-- Routes planning and implementation to the existing codebase guidance instead of duplicating marketplace conventions.
+- Routes planning and implementation to the existing codebase guidance and local compilation through the shared builder.
 - Makes source synchronization discoverable for both developers and domain experts without turning the hub into a general Git skill.
 - Keeps host-specific build and Markdown rules in their owning guidance so the entry remains stable as distributions evolve.
 
@@ -17,13 +17,14 @@ Specification for creating and editing the [ai-marketplace entry skill](SKILL.md
 
 ## MUST read before editing SKILL.md
 
-- [StartSimple methodology](AI_DOC_PLUGIN/Theory/StartSimple.md) - Keeps this entry limited to the established development, configuration and synchronization routes.
+- [StartSimple methodology](AI_DOC_PLUGIN/Theory/StartSimple.md) - Keeps this entry limited to the established build, compilation, configuration and synchronization routes.
 - [Marketplace planning guidance](../../codebase/on-plan.md) - Defines the organization and ownership model this skill exposes.
 - [Marketplace build guidance](../../codebase/on-build.md) - Defines implementation, documentation, and verification rules this skill routes to.
 
 ## MAY read for additional context before editing SKILL.md
 
 - [Markdown authoring syntax](../../docs/AuthoringSyntax.md) - Read when changing frontmatter, invocation placeholders or document references.
+- [Marketplace local compilation](workflows/compile/do.md) - Read when changing the Compile route or its description.
 - [Marketplace repository configuration](workflows/sys/configure/do.md) - Read when changing the Configure route or its description.
 - [Marketplace source synchronization](workflows/sync/do.md) - Read when changing the Sync route or its description.
 
@@ -31,9 +32,9 @@ Specification for creating and editing the [ai-marketplace entry skill](SKILL.md
 
 ### 💡 Distinct usage patterns for SKILL.md
 
-#### Selected for marketplace development or configuration
+#### Selected for marketplace development, compilation or configuration
 
-User asks to plan, implement or configure an AI plugin marketplace -> the agent selects this skill -> SKILL.md routes to the relevant codebase guidance or configuration workflow.
+User asks to develop a marketplace, compile its current working tree or configure its delivery -> the agent selects this skill -> SKILL.md routes to the relevant guidance or workflow.
 
 #### Selected for source synchronization
 
@@ -42,4 +43,4 @@ Developer or domain expert asks to inspect, integrate, save or share marketplace
 ### Role SKILL.md serves during use
 
 - Discovery surface for marketplace developers and source maintainers.
-- Intent router to development guidance, repository configuration and source synchronization.
+- Intent router to development guidance, local compilation, repository configuration and source synchronization.
