@@ -1,13 +1,14 @@
 # do.meta.md
 
-Authoring context for [marketplace repository configuration](do.md).
+Authoring context for [central marketplace repository configuration](do.md).
 
 ## do.md goals and principles
 
-- Enables an agent to perform repository configuration, not merely assess its principles. Combines the intended working state with concrete use of the bundled Python builder and validator, and a practical setup path through hosting, CI and publication. Exact API calls remain platform- and access-dependent.
+- Enables an agent to perform central repository configuration, not merely assess its principles. Combines the intended working state with concrete use of the bundled Python builder and validator, and a practical setup path through hosting, CI and publication. Exact API calls remain platform- and access-dependent.
 - Covers GitLab and GitHub configuration while keeping hosting topology specific to the marketplace. Source ownership, source synchronization and publication of host-specific builds are distinct responsibilities; mirroring source and mirroring a built distribution achieve different outcomes.
 - Connects repository configuration to usable distributions for the marketplace's supported agent hosts. Verification concerns what consumers receive, not merely whether repositories exist or CI accepts its configuration.
 - Keeps access and activation boundaries explicit: preparing configuration differs from enabling automatic publication. Missing permissions and unresolved operator choices remain visible rather than being replaced with assumed credentials or destinations.
+- Owns source hosting, CI and generated-distribution publication; local workstation setup belongs to the local configuration workflow.
 - Remains reusable outside zd-plugins and Bico. Concrete repository names, runner assignments, credentials and deployment status belong to the configured marketplace; examples illustrate the model without establishing universal requirements.
 
 ## AiDocFormat
@@ -21,6 +22,7 @@ Authoring context for [marketplace repository configuration](do.md).
 
 ## MAY read for additional context before editing do.md
 
+- [Local editing configuration](../local/do.md) - When changing the boundary between central delivery and workstation setup.
 - [Marketplace organization](../../../../../codebase/on-plan.md) - When describing source, plugin and distribution boundaries.
 - [Host rendering](../../../../../docs/HostRendering.md) - When describing the generated outputs and the distinction between successful rendering and host acceptance.
 - [zd-plugins operations](../../../../../../@common/docs/Maintaining.md) - Concrete GitLab and GitHub publication example; its current topology is not the generic configuration contract.
@@ -34,7 +36,7 @@ Authoring context for [marketplace repository configuration](do.md).
 
 #### Direct configuration request
 
-`Configure this marketplace repository for GitLab and GitHub using this guidance.`
+`Configure this marketplace's central repositories for GitLab and GitHub using this guidance.`
 
 ### Role do.md serves during use
 
