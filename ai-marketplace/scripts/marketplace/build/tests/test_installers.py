@@ -3,7 +3,7 @@
 import stat
 import tempfile
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from marketplace.build import build
@@ -14,7 +14,6 @@ _BEGIN = b"# === BUNDLE_REPLACE_BEGIN ==="
 _END = b"# === BUNDLE_REPLACE_END ==="
 _VERSION = b"__INSTALLER_VERSION__"
 _NOW = datetime(2026, 9, 30, 22, 34, 59, tzinfo=timezone.utc)
-_STAMP = b"26.10.010134"
 _STATUS_ASSIGNMENT = b'STATUS_LINE_B64 = "__STATUS_LINE_PLACEHOLDER__"'
 _SETTINGS_ASSIGNMENT = b'SETTINGS_B64 = "__SETTINGS_PLACEHOLDER__"'
 _SETUP = (
@@ -41,7 +40,7 @@ _BUNDLED_PYTHON = (
     b"# __STATUS_LINE_PLACEHOLDER__ __SETTINGS_PLACEHOLDER__\r\n"
 )
 _EXPECTED_SH = (
-    b"#!/bin/sh\r\nversion=26.10.010134\r\n"
+    b"#!/bin/sh\r\nversion=26.09.302234\r\n"
     b"_py_tmpfile=$(mktemp /tmp/bc_setup_XXXXXX.py)\n"
     b"cat > \"$_py_tmpfile\" << '__BUNDLED_PY_END__'\n"
     + _BUNDLED_PYTHON
@@ -50,10 +49,10 @@ _EXPECTED_SH = (
     b'[ "$AUTO_YES" = "true" ] && PY_ARGS+=("-y")\n'
     b'python3 "$_py_tmpfile" "${PY_ARGS[@]}"\n'
     b'rm -f "$_py_tmpfile"\r\n'
-    + _SECOND_BLOCK + b"\r\nlast=26.10.010134\r\n"
+    + _SECOND_BLOCK + b"\r\nlast=26.09.302234\r\n"
 )
 _EXPECTED_PS = (
-    _BOM + b"# \xc3\xa9\r\nversion=26.10.010134\r\n"
+    _BOM + b"# \xc3\xa9\r\nversion=26.09.302234\r\n"
     b"$pyCode = @'\n"
     + _BUNDLED_PYTHON
     + b"\n'@\n\n"
@@ -66,7 +65,7 @@ _EXPECTED_PS = (
     b"} finally {\n"
     b"\tRemove-Item $tempFile -ErrorAction SilentlyContinue\n"
     b"}\r\n"
-    + _SECOND_BLOCK + b"\r\nlast=26.10.010134\r\n"
+    + _SECOND_BLOCK + b"\r\nlast=26.09.302234\r\n"
 )
 
 
@@ -237,23 +236,23 @@ class InstallersTest(unittest.TestCase):
                 self.write_sources({"setup.py": _SETUP + unsafe + b"\r\n"})
                 self.assert_bundle_failure(message)
 
-    def test_naive_clock_is_interpreted_in_moscow(self) -> None:
+    def test_naive_clock_is_interpreted_in_utc(self) -> None:
         self.write_sources()
-        build(self.source, self.output, now=datetime(2026, 10, 1, 1, 34, 1))
+        build(self.source, self.output, now=_NOW.replace(tzinfo=None))
         self.assertEqual(
             (self.output / "claude" / "@setup" / "install.sh").read_bytes(),
             _EXPECTED_SH,
         )
 
-    def test_aware_clock_uses_moscow_historical_offset(self) -> None:
+    def test_aware_clock_is_converted_to_utc(self) -> None:
         self.write_sources()
         build(
             self.source, self.output,
-            now=datetime(2012, 9, 30, 22, 34, tzinfo=timezone.utc),
+            now=datetime(2026, 10, 1, 1, 34, tzinfo=timezone(timedelta(hours=3))),
         )
         self.assertEqual(
             (self.output / "claude" / "@setup" / "install.sh").read_bytes(),
-            _EXPECTED_SH.replace(_STAMP, b"12.10.010234"),
+            _EXPECTED_SH,
         )
 
     def test_repeated_tree_replacement_produces_fresh_installers(self) -> None:

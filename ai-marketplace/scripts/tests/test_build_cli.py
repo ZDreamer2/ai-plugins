@@ -43,6 +43,8 @@ class BuildCliTests(unittest.TestCase):
         environment = os.environ.copy()
         environment.pop("PYTHONPATH", None)
         environment.pop("PYTHONDONTWRITEBYTECODE", None)
+        # With -S this models a Python installation without timezone data.
+        environment["PYTHONTZPATH"] = ""
         return subprocess.run(prefix + list(args), cwd=self.cwd, env=environment,
                               capture_output=True, text=True, timeout=30)
 
@@ -127,7 +129,8 @@ class BuildCliTests(unittest.TestCase):
         self.assertIn("description", invalid.stderr)
         self.assertFalse((self.source / "@build").exists())
 
-    def test_installers_are_claude_only_and_narrated(self) -> None:
+    def test_auto_version_and_claude_installers_without_timezone_data(self) -> None:
+        self.write("group/demo/ai-plugin.yml", b"description: Demo\nversion: AUTO_VERSION\n")
         self.write_installer_sources()
         preview = self.run_cli("--dir", str(self.source), "--dry-run")
         self.assertEqual(0, preview.returncode, preview.stderr)
@@ -136,6 +139,7 @@ class BuildCliTests(unittest.TestCase):
         result = self.run_cli("--dir", str(self.source))
         self.assertEqual(0, result.returncode, result.stderr)
         self.assertIn("byte(s)", result.stdout)
+        self.assertRegex(result.stdout, r"pi/group/demo/package\.json: \d+\.\d+\.\d+")
         self.assert_installer_output(self.source / "@build")
 
     def write_installer_sources(self) -> None:

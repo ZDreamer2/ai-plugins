@@ -25,7 +25,7 @@ Resolve these paths from this document to absolute paths:
 - `../../../../scripts/build.py` -> `BUILD_SCRIPT`
 - `../../../../scripts/validate_pi.py` -> `PI_VALIDATOR`
 
-Use these bundled shared tools rather than a marketplace's historical builder snapshot. Compilation requires Python 3.10+, Git and `Europe/Moscow` timezone data; the Python dependencies are bundled.
+Use these bundled shared tools rather than a marketplace's historical builder snapshot. Compilation requires Python 3.10+ and Git; the Python dependencies are bundled.
 
 ### Step 2: Compile and validate the working tree
 

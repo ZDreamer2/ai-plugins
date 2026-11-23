@@ -62,7 +62,7 @@ class MarketplaceIdentityTests(unittest.TestCase):
                 for relative in ("claude/example/.claude-plugin/plugin.json",
                                  "codex/example/.codex-plugin/plugin.json",
                                  "pi/example/package.json", "pi/example/.pi-plugin/plugin.json"):
-                    self.assertEqual(self.metadata(relative)["version"], "26.2.3030405")
+                    self.assertEqual(self.metadata(relative)["version"], "26.2.3000405")
                 self.assertEqual(validate_pi_distribution(
                     self.root, self.output / "pi", self.output), 1)
                 for host in ("claude", "codex", "pi"):

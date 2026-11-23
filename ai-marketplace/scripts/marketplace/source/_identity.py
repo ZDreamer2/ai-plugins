@@ -2,9 +2,9 @@
 
 from dataclasses import replace
 from datetime import datetime, tzinfo
+from datetime import timezone as datetime_timezone
 from pathlib import Path
 import subprocess
-from zoneinfo import ZoneInfo
 
 from ._inventory import SourceInventory, SourcePlugin, plugin_name
 
@@ -30,7 +30,7 @@ def resolve_identity(
     `now` supplies the no-history clock; naive datetimes use `timezone`.
     Explicit versions still permit automatic author resolution.
     """
-    timezone = timezone if timezone is not None else ZoneInfo("Europe/Moscow")
+    timezone = timezone if timezone is not None else datetime_timezone.utc
     resolved: list[SourcePlugin] = []
     for plugin in inventory.plugins:
         data = plugin.manifest.copy()

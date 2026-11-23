@@ -11,10 +11,10 @@ Source roots and entry points use logical relative POSIX paths. Discovery
 requires no Git history. Identity resolution returns copied manifests with
 extra fields retained for host rendering. Python 3.10+ uses the library's
 bundled YAML parser; neither pip nor the shared Bico SDK is required.
-Default identity formatting uses Europe/Moscow from the system timezone
-database; callers may supply an explicit tzinfo. Discovery needs no timezone
-database. Automatic versions normalize each complete YY.MM.DDHHMMSS component
-to a decimal integer string. Explicit versions are retained unchanged.
+Default identity formatting uses UTC without a timezone database; callers may
+supply an explicit tzinfo. Automatic versions normalize each complete
+YY.MM.DDHHMMSS component to a decimal integer string. Explicit versions are
+retained unchanged.
 read_marketplace_identity(source_dir) loads optional .marketplace/identity.json;
 missing configuration uses MarketplaceIdentity defaults. Present configuration
 requires exactly name, owner, description, display_name and pi_package_prefix.

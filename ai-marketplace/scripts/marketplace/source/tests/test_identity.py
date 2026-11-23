@@ -1,7 +1,7 @@
 """Publishing identity uses real Git history and an explicit clock."""
 
 import copy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import os
 from pathlib import Path
 import subprocess
@@ -65,14 +65,14 @@ class IdentityTests(unittest.TestCase):
         self.write("other/ai-plugin.yml")
         self.commit("other", "2026-09-29T12:00:01+0000", "Other Author")
         data = self.identities()
-        self.assertEqual(data["dev/one"]["version"], "26.9.29025958")
+        self.assertEqual(data["dev/one"]["version"], "26.9.28235958")
         self.assertEqual(data["dev/one"]["author"], {"name": "First Author"})
-        self.assertEqual(data["other"]["version"], "26.9.29150001")
+        self.assertEqual(data["other"]["version"], "26.9.29120001")
         self.write("@common/docs/shared.md", "shared")
         self.commit("@common", "2026-09-30T01:02:03+0000", "Shared Author")
         data = self.identities()
         for manifest in data.values():
-            self.assertEqual(manifest["version"], "26.9.30040203")
+            self.assertEqual(manifest["version"], "26.9.30010203")
             self.assertEqual(manifest["author"], {"name": "Shared Author"})
         self.write("README.md", "unrelated root content")
         self.commit("README.md", "2026-09-30T11:00:00+0000", "Root Author")
@@ -100,7 +100,7 @@ class IdentityTests(unittest.TestCase):
         self.assertIsNot(resolved, inventory)
         data = {p.root: p.manifest for p in resolved.plugins}
         self.assertEqual(data["dev/folder"], {
-            "name": "folder", "version": "26.9.30040203",
+            "name": "folder", "version": "26.9.30010203",
             "author": {"name": "History Author"},
             "extra": {"values": ["a", "b"]},
         })
@@ -112,7 +112,7 @@ class IdentityTests(unittest.TestCase):
         self.assertEqual(
             data["version-only"]["author"], {"name": "History Author"},
         )
-        self.assertEqual(data["auto"]["version"], "26.9.30040203")
+        self.assertEqual(data["auto"]["version"], "26.9.30010203")
         raw = next(
             p.manifest for p in inventory.plugins if p.root == "dev/folder"
         )
@@ -128,23 +128,23 @@ class IdentityTests(unittest.TestCase):
                 self.init_git()
             with self.subTest(repository=init):
                 data = self.identities()
-                self.assertEqual(data["missing"]["version"], "26.10.1000203")
+                self.assertEqual(data["missing"]["version"], "26.9.30210203")
                 self.assertNotIn("author", data["missing"])
                 self.assertIsNone(data["null"]["author"])
         self.write("other/ai-plugin.yml")
         self.commit("other", "2026-09-28T00:00:00+0000")
         data = self.identities()
-        self.assertEqual(data["missing"]["version"], "26.10.1000203")
+        self.assertEqual(data["missing"]["version"], "26.9.30210203")
         self.assertNotIn("author", data["missing"])
 
     def test_custom_timezone_and_naive_clock_are_explicit(self) -> None:
         self.write("plugin/ai-plugin.yml")
         inventory = discover_source(self.root)
         resolved = resolve_identity(
-            inventory, now=self.now, timezone=timezone.utc,
+            inventory, now=self.now, timezone=timezone(timedelta(hours=3)),
         )
         self.assertEqual(
-            resolved.plugins[0].manifest["version"], "26.9.30210203",
+            resolved.plugins[0].manifest["version"], "26.10.1000203",
         )
         resolved = resolve_identity(
             inventory, now=self.now.replace(tzinfo=None),
@@ -175,10 +175,10 @@ class IdentityTests(unittest.TestCase):
                 versions.append(tuple(map(int, actual.split("."))))
         self.assertEqual(versions, sorted(versions))
 
-    def test_moscow_commit_year_rollover(self) -> None:
+    def test_git_commit_year_rollover_in_utc(self) -> None:
         self.init_git()
         self.write("plugin/ai-plugin.yml")
-        self.commit("plugin", "2026-12-31T21:00:05+0000")
+        self.commit("plugin", "2026-12-31T21:00:05-0300")
         self.assertEqual(self.identities()["plugin"]["version"], "27.1.1000005")
 
     def test_explicit_non_semver_version_is_unchanged(self) -> None:

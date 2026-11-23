@@ -3,9 +3,8 @@
 import base64
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
-from zoneinfo import ZoneInfo
 
 
 _SOURCE_NAMES = (
@@ -96,11 +95,10 @@ def _bundle(sources: dict[str, bytes], now: datetime | None) -> dict[str, bytes]
     if re.search(rb"^'@", python, re.MULTILINE):
         raise ValueError("setup.py contains a line starting with '@")
 
-    moscow = ZoneInfo("Europe/Moscow")
-    clock = now if now is not None else datetime.now(moscow)
+    clock = now if now is not None else datetime.now(timezone.utc)
     if clock.tzinfo is None:
-        clock = clock.replace(tzinfo=moscow)
-    version = clock.astimezone(moscow).strftime("%y.%m.%d%H%M").encode("ascii")
+        clock = clock.replace(tzinfo=timezone.utc)
+    version = clock.astimezone(timezone.utc).strftime("%y.%m.%d%H%M").encode("ascii")
     built = {}
     for name, replacement in (
         ("install.sh", _sh_replacement(python)),

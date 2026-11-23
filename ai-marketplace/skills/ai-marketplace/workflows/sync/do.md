@@ -2,7 +2,7 @@
 
 ## Overview
 
-Synchronize one authoritative marketplace source checkout while preserving local and incoming work.
+Invoking Sync authorizes committing the intended changes and pushing them to the established upstream. Honor any limits the user sets; otherwise proceed without another confirmation or routine joint review.
 
 ### Input
 
@@ -22,7 +22,7 @@ Select exactly one authoritative source checkout. Confirm that it is a source re
 
 Read applicable source-repository instructions. Follow their explicit commit-message and integration conventions and any boundaries around protected files; those conventions do not override work preservation.
 
-Apply the user's requested stopping point throughout the workflow. Do not extend a content edit into CI, credentials, builder snapshots or generated-distribution publication.
+Honor explicit approval requirements for protected changes. Keep CI, credentials, builder snapshots and generated-distribution publication outside a content sync.
 
 ### Step 2: Inspect local and incoming work
 
@@ -59,18 +59,13 @@ When integration conflicts, inspect the common ancestor and both contributors' v
 
 If the intended content is ambiguous, explain the alternatives in plain language and ask the content owner. Preserve both versions and the repository's conflicted state while waiting. Do not choose an entire side merely because it is easier, and do not discard changes to obtain a clean status.
 
-### Step 6: Review the combined result
+### Step 6: Verify what will be pushed
 
-Inspect the resulting status, commits and diffs. Confirm that:
+Check that the outgoing commits contain only the intended changes and preserve incoming work. Inspect any conflict resolutions not already verified.
 
-- The intended local work and inspected incoming work are both present.
-- Conflict resolutions preserve the agreed content.
-- Unrelated changes remain untouched and no protected or generated files entered the commit unintentionally.
-- Existing local commits selected for publication belong to the requested outcome.
+Run checks required by the repository or requested by the user. Compilation and generated-distribution publication are separate from Sync.
 
-Run source checks appropriate to the changed content and repository instructions. Keep generated-distribution publication separate from synchronization.
-
-If the user did not request a push, report the verified local result and stop.
+If the user limited Sync to a local result, report it and stop.
 
 ### Step 7: Push and report the outcome
 

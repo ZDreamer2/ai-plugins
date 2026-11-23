@@ -48,7 +48,7 @@ The converter discovers `ai-plugin.yml` manifests and produces:
 
 Reports beside those trees are build evidence, not distribution payload. Check plugin inventory and generated identities before wiring publication. Marketplace/package names come from the renderer and validator, not automatically from the repository name; the CLI has no identity-override flags. Adapt those implementations together if the target marketplace needs different identities. See [host rendering](../../../../../docs/HostRendering.md) for metadata and host behavior.
 
-The toolchain needs Python 3.10+, Git for commit-derived versions, and `Europe/Moscow` timezone data. PyYAML is bundled. CI needs the complete converter `scripts/` directory, not just its entry-point files: retain it in source or obtain a pinned builder checkout. Resolve script paths in that CI environment rather than copying local installed-plugin paths.
+The toolchain needs Python 3.10+ and Git for commit-derived versions. PyYAML is bundled. CI needs the complete converter `scripts/` directory, not just its entry-point files: retain it in source or obtain a pinned builder checkout. Resolve script paths in that CI environment rather than copying local installed-plugin paths.
 
 Use a clean source checkout. `.gitignore` does not filter the build payload. Root `.gitlab-ci.yml`, `.gitlab/` and `.github/` are excluded, but local caches and other unrelated files can still be copied.
 
@@ -58,7 +58,7 @@ If GitLab builds or publishes distributions:
 
 - Create or reuse the source project and requested distribution repositories. Set their visibility and default branches, and establish branch protection before supplying publication credentials.
 - Add source-project `.gitlab-ci.yml` with a build job running the converter and validator commands above. Pass the actual source root and make all three generated trees available as job artifacts.
-- Select an eligible runner with Python, Git, Bash, rsync and timezone data if using Git/rsync publication. Its tags and protected-ref access MUST match the jobs. Confirm authorization before sharing another project's runner account.
+- Select an eligible runner with Python, Git, Bash and rsync if using Git/rsync publication. Its tags and protected-ref access MUST match the jobs. Confirm authorization before sharing another project's runner account.
 - Configure publication jobs to consume that build job's artifacts. Map each host tree to its intended destination and branch; publish the tree contents, not the enclosing `@build` directory or source checkout.
 - Supply destination-scoped write credentials through masked/protected CI variables, with roles compatible with destination branch protection. Do not put credentials in source or reuse unrelated project secrets.
 - Restrict publication to the agreed refs. Record source and builder revisions with the artifact and destination commit; serialize writes per destination and reject obsolete jobs. Preserve executable modes, remove stale destination files, and skip commits for unchanged trees.
