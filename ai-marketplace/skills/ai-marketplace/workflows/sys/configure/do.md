@@ -1,8 +1,8 @@
-# Configure a marketplace repository
+# Configure a central marketplace repository
 
 ## Overview
 
-Set up source hosting, automated builds and publication using the Python converter bundled with ai-marketplace.
+Set up central source hosting, automated builds and publication using the Python converter bundled with ai-marketplace.
 
 ### Input
 

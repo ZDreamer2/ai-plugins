@@ -1,9 +1,9 @@
 ---
 name: ai-marketplace
-description: Guides AI plugin marketplace development, local compilation, repository configuration and source collaboration. Use for marketplace sources, plugins, local distributions, delivery configuration, or source synchronization.
+description: Guides AI plugin marketplace development, local compilation, system configuration and source collaboration. Use for marketplace sources, plugins, local distributions, delivery or workstation setup, or source synchronization.
 user-invocable: true
 disable-model-invocation: false
-argument-hint: build|compile|configure|sync <request>
+argument-hint: build|compile|sys|sync <request>
 ---
 
 # AI plugin marketplace
@@ -16,7 +16,8 @@ Classify the user's intent and dispatch to the right handler.
 
 - `${AGENT_SKILL(ai-marketplace)} build <request>` - Dispatch to `Build`
 - `${AGENT_SKILL(ai-marketplace)} compile <request>` - Dispatch to `Compile`
-- `${AGENT_SKILL(ai-marketplace)} configure <request>` - Dispatch to `Configure`
+- `${AGENT_SKILL(ai-marketplace)} sys configure-central <request>` - Dispatch to `Sys`
+- `${AGENT_SKILL(ai-marketplace)} sys configure-local <request>` - Dispatch to `Sys`
 - `${AGENT_SKILL(ai-marketplace)} sync <request>` - Dispatch to `Sync`
 
 ## Workflows
@@ -33,11 +34,11 @@ Compile Claude, Codex and Pi distributions from the current source working tree 
 
 Follow the [marketplace local compilation workflow](workflows/compile/do.md).
 
-### Configure
+### Sys
 
-Set up source hosting, automated builds and generated-distribution publication.
+Set up central source hosting and distribution delivery, or prepare a local workstation for source editing.
 
-Follow the [marketplace repository configuration workflow](workflows/sys/configure/do.md).
+Follow the [marketplace system configuration workflow](workflows/sys/do.md).
 
 ### Sync
 

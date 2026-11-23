@@ -4,7 +4,7 @@ Specification for creating and editing the [ai-marketplace entry skill](SKILL.md
 
 ## SKILL.md goals and principles
 
-- Provides a valid, discoverable entry point for marketplace development, local compilation, repository configuration and source collaboration.
+- Provides a valid, discoverable entry point for marketplace development, local compilation, central and local configuration, and source collaboration.
 - Classifies each request and routes it to focused guidance instead of carrying procedures in the hub.
 - Routes planning and implementation to the existing codebase guidance and local compilation through the shared builder.
 - Makes source synchronization discoverable for both developers and domain experts without turning the hub into a general Git skill.
@@ -25,7 +25,7 @@ Specification for creating and editing the [ai-marketplace entry skill](SKILL.md
 
 - [Markdown authoring syntax](../../docs/AuthoringSyntax.md) - Read when changing frontmatter, invocation placeholders or document references.
 - [Marketplace local compilation](workflows/compile/do.md) - Read when changing the Compile route or its description.
-- [Marketplace repository configuration](workflows/sys/configure/do.md) - Read when changing the Configure route or its description.
+- [Marketplace system configuration](workflows/sys/do.md) - Read when changing the Sys route or its description.
 - [Marketplace source synchronization](workflows/sync/do.md) - Read when changing the Sync route or its description.
 
 ## SKILL.md typical use context
@@ -34,7 +34,7 @@ Specification for creating and editing the [ai-marketplace entry skill](SKILL.md
 
 #### Selected for marketplace development, compilation or configuration
 
-User asks to develop a marketplace, compile its current working tree or configure its delivery -> the agent selects this skill -> SKILL.md routes to the relevant guidance or workflow.
+User asks to develop a marketplace, compile its current working tree, configure its delivery or prepare a local editing workstation -> the agent selects this skill -> SKILL.md routes to the relevant guidance or workflow.
 
 #### Selected for source synchronization
 
@@ -43,4 +43,4 @@ Developer or domain expert asks to inspect, integrate, save or share marketplace
 ### Role SKILL.md serves during use
 
 - Discovery surface for marketplace developers and source maintainers.
-- Intent router to development guidance, local compilation, repository configuration and source synchronization.
+- Intent router to development guidance, local compilation, central and local configuration, and source synchronization.
