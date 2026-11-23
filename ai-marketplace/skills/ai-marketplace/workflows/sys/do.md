@@ -12,10 +12,10 @@ Use the request and conversation to establish the marketplace context. Clarify o
 
 `sys configure-central` sets up source hosting, automated builds and generated-distribution publication.
 
-Follow [Central repository configuration](configure/do.md).
+Follow [Central repository configuration](configure-central/do.md).
 
 ### Local editing
 
 `sys configure-local` prepares a workstation and one authoritative source checkout for marketplace editing with agent help.
 
-Follow [Local editing configuration](local/do.md).
+Follow [Local editing configuration](configure-local/do.md).

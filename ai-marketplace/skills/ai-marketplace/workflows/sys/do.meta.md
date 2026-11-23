@@ -16,7 +16,7 @@ Specification for creating and editing the [marketplace system configuration wor
 
 - [StartSimple methodology](AI_DOC_PLUGIN/Theory/StartSimple.md) - Keeps the dispatcher limited to established configuration targets.
 - [ai-marketplace hub](../../SKILL.md) - Defines the `sys` invocation boundary this workflow receives.
-- [Central repository configuration](configure/do.md) and [local editing configuration](local/do.md) - Own the scenarios and boundaries that the dispatcher must preserve.
+- [Central repository configuration](configure-central/do.md) and [local editing configuration](configure-local/do.md) - Own the scenarios and boundaries that the dispatcher must preserve.
 
 ## do.md typical use context
 

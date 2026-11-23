@@ -22,7 +22,7 @@ Specification for creating and editing the [marketplace local compilation workfl
 
 ## MAY read for additional context before editing do.md
 
-- [Marketplace repository configuration](../sys/configure/do.md) - Read when changing the boundary between local compilation, CI and publication.
+- [Marketplace repository configuration](../sys/configure-central/do.md) - Read when changing the boundary between local compilation, CI and publication.
 - [Marketplace source synchronization](../sync/do.md) - Read when changing the boundary between compiling a working tree and sharing source changes.
 - `ai-marketplace/scripts/build.py` and `ai-marketplace/scripts/validate_pi.py` - Own the bundled tools' actual command-line contracts.
 

@@ -22,7 +22,7 @@ Authoring context for [central marketplace repository configuration](do.md).
 
 ## MAY read for additional context before editing do.md
 
-- [Local editing configuration](../local/do.md) - When changing the boundary between central delivery and workstation setup.
+- [Local editing configuration](../configure-local/do.md) - When changing the boundary between central delivery and workstation setup.
 - [Marketplace organization](../../../../../codebase/on-plan.md) - When describing source, plugin and distribution boundaries.
 - [Host rendering](../../../../../docs/HostRendering.md) - When describing the generated outputs and the distinction between successful rendering and host acceptance.
 - [zd-plugins operations](../../../../../../@common/docs/Maintaining.md) - Concrete GitLab and GitHub publication example; its current topology is not the generic configuration contract.

@@ -24,7 +24,7 @@ Specification for creating and editing the [marketplace source synchronization w
 
 ## MAY read for additional context before editing do.md
 
-- [Marketplace repository configuration](../sys/configure/do.md) - Read when changing the boundary between source synchronization and repository hosting, CI or generated-distribution publication.
+- [Marketplace repository configuration](../sys/configure-central/do.md) - Read when changing the boundary between source synchronization and repository hosting, CI or generated-distribution publication.
 
 ## do.md typical use context
 
